@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hej hej igen");
-            Console.WriteLine("E");
+            Console.WriteLine("Emnina");
 
             //Console.WriteLine("Hej jesper, robin här!");
 
