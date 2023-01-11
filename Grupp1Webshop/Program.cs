@@ -6,6 +6,7 @@
         {
             Console.WriteLine("Hej hej igen");
             Console.WriteLine("Emnina");
+            Console.WriteLine("hemlig");
 
             //Console.WriteLine("Hej jesper, robin här!");
 
