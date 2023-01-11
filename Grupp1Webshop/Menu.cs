@@ -16,7 +16,7 @@ namespace Grupp1Webshop
             bool running = true;
             while (running)
             {
-                Menu();
+                MenuText();
                 Console.WriteLine("");
                 int userInput = GetIntFromUser("What would you like to do?");
                 Choice choice = (Choice)userInput;
@@ -34,7 +34,7 @@ namespace Grupp1Webshop
                 }
             }
         }
-        public static void Menu()
+        public static void MenuText()
         {
             Console.WriteLine($"{(int)Choice.Customer}: Login as customer");
             Console.WriteLine($"{(int)Choice.Admin}: Login as admin");
