@@ -15,7 +15,7 @@
             //hejJesper += Input.GetStringInput();
             //Console.WriteLine(hejJesper);
 
-            jesper.MainMenu();
+            Menu.MainMenu();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grupp1Webshop
 {
-    internal class jesper
+    internal class Menu
     {
         enum Choice { Customer = 1, Admin = 2, Quit = 3 }
         Choice choice;
