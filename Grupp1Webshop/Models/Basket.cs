@@ -8,5 +8,6 @@ namespace Grupp1Webshop.Models
 {
     internal class Basket
     {
+
     }
 }
