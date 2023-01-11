@@ -4,16 +4,18 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hej hej igen");
+            //Console.WriteLine("Hej hej igen");
 
-            Console.WriteLine("Hej jesper, robin här!");
+            //Console.WriteLine("Hej jesper, robin här!");
 
-            string hejJesper = "";
+            //string hejJesper = "";
 
-            hejJesper = Input.GetStringInput();
-            hejJesper += " ";
-            hejJesper += Input.GetStringInput();
-            Console.WriteLine(hejJesper);
+            //hejJesper = Input.GetStringInput();
+            //hejJesper += " ";
+            //hejJesper += Input.GetStringInput();
+            //Console.WriteLine(hejJesper);
+
+            jesper.MainMenu();
         }
     }
 }
