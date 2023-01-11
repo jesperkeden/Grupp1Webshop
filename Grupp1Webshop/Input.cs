@@ -8,7 +8,7 @@ namespace Grupp1Webshop
 {
     internal class Input
     {
-        static string GetStringInput()
+        public static string GetStringInput()
         {
             string input = Console.ReadLine();
             //string result = new String(phrase.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
@@ -17,7 +17,7 @@ namespace Grupp1Webshop
             return result;
         }
 
-        static int GetDigitInput(int lowerValue, int higherValue)
+        public static int GetDigitInput(int lowerValue, int higherValue)
         {
             int digit = 0;
             bool chooseNumber = true;

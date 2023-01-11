@@ -7,6 +7,13 @@
             Console.WriteLine("Hej hej igen");
 
             Console.WriteLine("Hej jesper, robin här!");
+
+            string hejJesper = "";
+
+            hejJesper = Input.GetStringInput();
+            hejJesper += " ";
+            hejJesper += Input.GetStringInput();
+            Console.WriteLine(hejJesper);
         }
     }
 }
