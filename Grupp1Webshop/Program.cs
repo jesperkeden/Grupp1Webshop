@@ -2,10 +2,10 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hej hej igen");
-            Console.WriteLine("Emina");
+            //Console.WriteLine("Hej hej igen");
+            //Console.WriteLine("Emina");
 
             //Console.WriteLine("Hej jesper, robin här!");
 

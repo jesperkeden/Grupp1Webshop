@@ -8,7 +8,11 @@ namespace Grupp1Webshop
 {
     internal class Menu
     {
-        enum Choice { Customer = 1, Admin = 2, Quit = 3 }
+        enum Choice { 
+            Customer = 1, 
+            Admin = 2, 
+            Quit = 3 
+        }
         Choice choice;
 
         internal static void MainMenu()
@@ -16,9 +20,9 @@ namespace Grupp1Webshop
             bool running = true;
             while (running)
             {
-                MenuText();
-                Console.WriteLine("");
-                int userInput = GetIntFromUser("What would you like to do?");
+                MainMenuText();
+                //Console.WriteLine("");
+                int userInput = Input.GetIntFromUser("What would you like to do?");
                 Choice choice = (Choice)userInput;
                 switch (choice)
                 {
@@ -34,23 +38,13 @@ namespace Grupp1Webshop
                 }
             }
         }
-        public static void MenuText()
+        public static void MainMenuText()
         {
-            Console.WriteLine($"{(int)Choice.Customer}: Login as customer");
-            Console.WriteLine($"{(int)Choice.Admin}: Login as admin");
-            Console.WriteLine($"{(int)Choice.Quit}: Quit");
-        }
-
-        public static int GetIntFromUser(string prompt)
-        {
-            Console.WriteLine(prompt);
-
-            int number = 0;
-            while (int.TryParse(Console.ReadLine(), out number) is false)
-            {
-                Console.WriteLine("Wrong input, try again!");
-            }
-            return number;
+            List<string> mainMenuText = new List<string>();
+            mainMenuText.Add($"{(int)Choice.Customer}: Login as customer");
+            mainMenuText.Add($"{(int)Choice.Admin}: Login as admin");
+            mainMenuText.Add($"{(int)Choice.Quit}: Quit");
+            GUI.PrintMenuText(mainMenuText);
         }
     }
 }

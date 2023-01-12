@@ -31,5 +31,16 @@ namespace Grupp1Webshop
             }
             return digit;
         }
+        public static int GetIntFromUser(string prompt)
+        {
+            Console.WriteLine(prompt);
+
+            int number = 0;
+            while (int.TryParse(Console.ReadLine(), out number) is false)
+            {
+                Console.WriteLine("Wrong input, try again!");
+            }
+            return number;
+        }
     }
 }
