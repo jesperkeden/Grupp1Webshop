@@ -15,5 +15,6 @@ namespace Grupp1Webshop.Models
         public int Shipping { get; set; }
         public int TotalCost { get; set; }
         public string PlannedDelivery { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

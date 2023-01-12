@@ -17,7 +17,8 @@ namespace Grupp1Webshop.Models
         public int CategoryId { get; set; }
         public int SupplierId { get; set; }
         public string Size { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
-        
+
     }
 }
