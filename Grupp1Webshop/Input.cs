@@ -31,6 +31,7 @@ namespace Grupp1Webshop
             }
             return digit;
         }
+
         public static int GetIntFromUser(string prompt)
         {
             Console.WriteLine(prompt);
@@ -41,6 +42,21 @@ namespace Grupp1Webshop
                 Console.WriteLine("Wrong input, try again!");
             }
             return number;
+        }
+
+        public static string GetPhonenumberInput()
+        {
+            while (true)
+            {
+                string input = "07";
+                Console.Write(input);
+                input += Console.ReadLine();
+                string digit = string.Concat(input.Where(char.IsNumber));
+                if (digit.Length == 10)
+                {
+                    return digit;
+                }
+            }
         }
     }
 }
