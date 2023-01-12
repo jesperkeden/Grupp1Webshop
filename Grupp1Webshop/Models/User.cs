@@ -13,11 +13,13 @@ namespace Grupp1Webshop.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public int CityId { get; set; }
         public bool Admin { get; set; }
+
+        public City City { get; set; } 
     }
 
     //internal static void CreateUser()
@@ -30,14 +32,14 @@ namespace Grupp1Webshop.Models
     //    string email = Console.ReadLine();
     //    Console.WriteLine("Input age: ");
     //    int age = Input.GetDigitInput(18, 100); // Gör en ny metod
-    //    Console.WriteLine("Input phonenumber: ");
-    //    string phoneNumber = Console.ReadLine(); // Gör en ny metod
+        //Console.WriteLine("Input phonenumber: ");
+        //string phoneNumber = Input.GetPhonenumberInput(); // Gör en ny metod
     //    Console.WriteLine("Input streetadress: ");
     //    string streetAdress = Console.ReadLine();
     //    Console.WriteLine("Input zipcode: "); // Gör en ny metod
     //    string zipCode = Console.ReadLine();
     //    Console.WriteLine("Input city: ");
-    //    string cityId = Console.ReadLine();
+    //    string city = Console.ReadLine();
     //    Console.WriteLine("Admin? true/false");
     //    string admin = Console.ReadLine(); //kolla efteråt ifall det är true/false och uppdatera boolen. 
 
@@ -60,5 +62,5 @@ namespace Grupp1Webshop.Models
     //        context.SaveChanges();
     //    }
 
-    }
+    //}
 }
