@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grupp1Webshop.Models;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Grupp1Webshop
 {
@@ -22,7 +23,7 @@ namespace Grupp1Webshop
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\something; Database=something; Trusted_connection=True;");
+            optionsBuilder.UseSqlServer(@"Server = tcp:myserverjesper.database.windows.net, 1433; Initial Catalog = grupp1webshop; Persist Security Info = False; User ID = jesperadmin; Password = !jespersystem22; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
         }
     }
 

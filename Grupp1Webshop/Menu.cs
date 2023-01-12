@@ -26,7 +26,7 @@ namespace Grupp1Webshop
                 switch (choice)
                 {
                     case Choice.Customer:
-                        //customer menu
+                        cMainMenu();
                         break;
                     case Choice.Admin:
                         // admin menu
@@ -45,6 +45,46 @@ namespace Grupp1Webshop
             mainMenuText.Add($"{(int)Choice.Admin}: Login as admin");
             mainMenuText.Add($"{(int)Choice.Quit}: Quit");
             GUI.PrintMenuText(mainMenuText);
+        }
+
+        enum cChoice
+        {
+            Customer = 1,
+            Admin = 2,
+            Quit = 3
+        }
+        cChoice cchoice;
+
+        internal static void cMainMenu()
+        {
+            bool running = true;
+            while (running)
+            {
+                cMainMenuText();
+                int userInput = Input.GetIntFromUser("What would you like to do?");
+                Choice choice = (Choice)userInput;
+                switch (choice)
+                {
+                    case Choice.Customer:
+                        //browse
+                        break;
+                    case Choice.Admin:
+                        // admin menu
+                        break;
+                    case Choice.Quit:
+                        running = false;
+                        return;
+                }
+            }
+        }
+
+        public static void cMainMenuText()
+        {
+            List<string> cmainMenuText = new List<string>();
+            cmainMenuText.Add($"{(int)cChoice.Customer}: Login as customer");
+            cmainMenuText.Add($"{(int)cChoice.Admin}: Login as admin");
+            cmainMenuText.Add($"{(int)cChoice.Quit}: Quit");
+            GUI.PrintMenuText(cmainMenuText);
         }
     }
 }
