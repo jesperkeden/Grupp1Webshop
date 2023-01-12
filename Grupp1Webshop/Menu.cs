@@ -21,7 +21,6 @@ namespace Grupp1Webshop
             while (running)
             {
                 MainMenuText();
-                //Console.WriteLine("");
                 int userInput = Input.GetIntFromUser("What would you like to do?");
                 Choice choice = (Choice)userInput;
                 switch (choice)
@@ -38,6 +37,7 @@ namespace Grupp1Webshop
                 }
             }
         }
+
         public static void MainMenuText()
         {
             List<string> mainMenuText = new List<string>();

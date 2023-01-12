@@ -11,9 +11,7 @@ namespace Grupp1Webshop
         public static void PrintMenuText(List<string> text)
         {
             foreach (string line in text)
-            {
                 Console.WriteLine(line);
-            }
         }
     }
 }
