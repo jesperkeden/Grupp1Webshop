@@ -31,5 +31,17 @@ namespace Grupp1Webshop
                 Console.ResetColor();
             }
         }
+
+        internal static void PrintMenuWithNumbers(string header, int positionX, int PositionY, int index, List<string> text)
+        {
+            for (int i = 0; i < text.Count; i++)
+            {
+                Console.SetCursorPosition(positionX, PositionY + i);
+                if (i == index)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(i + 1 + " " + text[i]);
+                Console.ResetColor();
+            }
+        }
     }
 }

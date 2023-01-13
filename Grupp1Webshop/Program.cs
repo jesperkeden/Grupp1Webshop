@@ -7,7 +7,7 @@ namespace Grupp1Webshop
     {
         static void Main()
         {
-            Menu.cMainMenu();
+            Menu.MainMenu();
 
             //User.CreateUser();
 
