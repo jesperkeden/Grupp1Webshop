@@ -5,11 +5,13 @@ namespace Grupp1Webshop
 {
     internal class Program
     {
-        static void Main()
+        internal static void Main()
         {
-            Menu.cMainMenu();
 
-            //User.CreateUser();
+
+            //Menu.MainMenu();
+
+            User.CreateUser();
 
             //string hej = Input.GetStringLowerInput();
             //Console.WriteLine(hej);
@@ -49,6 +51,7 @@ namespace Grupp1Webshop
             //Menu.EditMenu(user, userEdit);
             //Menu.MainMenu();
         }
+
 
         internal static List<string> GetPropList(User getPropFrom)
         {

@@ -19,11 +19,11 @@ namespace Grupp1Webshop
         {
             int digit = 0;
             bool chooseNumber = true;
+            Console.Write("Input a value between " + lowerValue + " and " + higherValue + ": ");
             while (chooseNumber)
             {
-                Console.Write("Mata in ett värde mellan " + lowerValue + " och " + higherValue + ": ");
-                if (!int.TryParse(Console.ReadLine(), out digit) || digit < lowerValue || digit > higherValue)
-                    Console.WriteLine("Error,Du har matat in fel värden");
+                if (!int.TryParse(Console.ReadLine(), out digit) || digit < lowerValue || digit > higherValue) ;
+                //Console.WriteLine("Error,Du har matat in fel värden");
                 else
                     chooseNumber = false;
             }
@@ -57,11 +57,14 @@ namespace Grupp1Webshop
             }
         }
 
-        internal static void getBoolAsString()
+        internal static string getBoolAsString()
         {
-            string[] validString = { "true", "false"};
-            string getBool = GetStringLowerInput();
-
+            string getBool = "";
+            while(getBool != "True" && getBool != "False")
+            {
+                getBool = GetStringFirstUpperInput();
+            }
+            return getBool;
         }
 
         internal static string GetStringLowerInput()
@@ -72,9 +75,9 @@ namespace Grupp1Webshop
             return phrase;
         }
 
-        internal static void GetIntAsStringInput()
+        internal static string GetIntAsStringInput(int lowerValue, int higherValue)
         {
-            throw new NotImplementedException();
+            return GetDigitInput(lowerValue, higherValue).ToString();
         }
     }
 }

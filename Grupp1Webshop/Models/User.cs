@@ -27,8 +27,6 @@ namespace Grupp1Webshop.Models
         internal static void CreateUser()
         {
             var newUser = new User();
-            var newCity = new City();
-            newCity.Name = "Nyköping";
             newUser.FirstName = "Robin";
             newUser.Age = 30;
             newUser.Admin = true;
@@ -39,94 +37,103 @@ namespace Grupp1Webshop.Models
             newUser.Email = "Emailadress";
             newUser.Id = 1;
 
-            List<string> newUserPropNamesList = Program.GetPropList(newUser);
+            EditUser(newUser);
+        }
 
-            PropertyInfo[] properties = newUser.GetType().GetProperties();
+        internal static void EditUser(User user)
+        {
+            List<string> firstCollumn = Program.GetPropList(user);
+            List<string> secondCollumn = new List<string>();
+            PropertyInfo[] properties = user.GetType().GetProperties();
 
-            List<string> newUserPropValuesList = new List<string>();
-
-
-
-            for (int i = 1; i < (newUserPropNamesList.Count + 1); i++)
+            for (int i = 1; i < (firstCollumn.Count + 1); i++)
             {
                 try
                 {
-                    newUserPropValuesList.Add(properties[i].GetValue(newUser).ToString());
+                    secondCollumn.Add(properties[i].GetValue(user).ToString());
                 }
-                catch 
+                catch
                 {
-                    newUserPropValuesList.Add("Empty");
+                    secondCollumn.Add("Empty");
                 }
             }
+            firstCollumn.Insert(0, "Save All");
+            firstCollumn.Add("Cancel");
+            secondCollumn.Insert(0, "");
+
             while (true)
             {
-                EditMenu(newUserPropNamesList, newUserPropValuesList);
+                int index = Menu.EditMenu(firstCollumn, secondCollumn);
+
+                if (index == 0) saveUser(secondCollumn, user);
+                else if (index == 10) break;
+
+                Console.SetCursorPosition(16, (2 + index));
+                Console.Write(new string(' ', secondCollumn[index].Length));
+                Console.SetCursorPosition(16, (2 + index));
+                secondCollumn[index] = EditUserChoices(index);
+                Console.Clear();
             }
-
-            //Console.WriteLine(newUserPropValuesList[index]);
-            
-
         }
 
-        internal static void EditMenu(List<string> firstCollumn, List<string> secondCollumn)
+        private static void saveUser(List<string> userTemp, User user)
         {
-            string longestString = firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur);
-            int firstColumnPositionX = 3;
-            int secondColumnPositionX = (longestString.Length + firstColumnPositionX + 1);
-            int index = 0;
-            int positionY = 2;
+            user.Admin = Convert.ToBoolean(userTemp[1]);
+            user.FirstName = userTemp[2];
+            user.LastName = userTemp[3];
+            user.Email = userTemp[4];
+            user.Age = Convert.ToInt32(userTemp[5]);
+            user.PhoneNumber = userTemp[6];
+            user.StreetAdress = userTemp[7];
+            user.ZipCode = Convert.ToInt32(userTemp[8]);
+            //user.City = userTemp[9];
 
-            Console.CursorVisible = false;
-            ConsoleKeyInfo keyPressed;
-            do
-            {
-                GUI.PrintMenu("header", firstColumnPositionX, positionY, index, firstCollumn);
-                GUI.PrintMenu("header", secondColumnPositionX, positionY, index, secondCollumn);
+            //saveToDbFunciton("StringToSaveDbText");
 
-                keyPressed = Console.ReadKey();
-                if
-                    (keyPressed.Key == ConsoleKey.DownArrow && index != firstCollumn.Count - 1) index++;
-                else if
-                    (keyPressed.Key == ConsoleKey.UpArrow && index >= 1) index--;
-            } while (keyPressed.Key != ConsoleKey.Enter);
-            Console.CursorVisible = true;
+            //{ New Generic method
+            //    try
+            //    {
+            //        //saveToDbFunction
+            //    }
+            //    catch
+            //    {
+            //        Console.WriteLine("Could not save data to database!");
+            //        Console.ReadLine();
+            //    }
+            //    return;
+            //}
 
-            secondCollumn[index] = "";
-            Console.Clear();
-
-            GUI.PrintMenu("header", firstColumnPositionX, positionY, index, firstCollumn);
-            GUI.PrintMenu("header", secondColumnPositionX, positionY, index, secondCollumn);
-
-            Console.SetCursorPosition((secondColumnPositionX), (positionY + index));
-            //secondCollumn[index] = Input.GetStringInput();
-            
             return;
         }
-        internal static void userEditChoices(int edit)
+
+        internal static string EditUserChoices(int edit)
         {
+            string value = "";
             switch (edit)
             {
-                case 0:
-                    Input.getBoolAsString();
-                    break;
                 case 1:
-                case 2:
-                case 6:
-                case 8:
-                    Input.GetStringFirstUpperInput();
+                    value = Input.getBoolAsString();
                     break;
+                case 2:
                 case 3:
-                    Input.GetStringLowerInput();
+                case 7:
+                case 9:
+                    value = Input.GetStringFirstUpperInput();
                     break;
                 case 4:
-                case 7:
-                    Input.GetIntAsStringInput();
+                    value = Input.GetStringLowerInput();
                     break;
                 case 5:
-                    Input.GetPhonenumberInput();
+                    value = Input.GetIntAsStringInput(18, 120);
                     break;
-                   
+                case 8:
+                    value = Input.GetIntAsStringInput(10000, 99999);
+                    break;
+                case 6:
+                    value = Input.GetPhonenumberInput();
+                    break;
             }
+            return value;
         }
     }
 

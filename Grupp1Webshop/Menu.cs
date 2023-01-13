@@ -10,7 +10,7 @@ namespace Grupp1Webshop
     internal class Menu
     {
         enum Choice { 
-            Customer = 1, 
+            CustomerPankaka = 1, 
             Admin = 2, 
             Quit = 3 
         }
@@ -18,6 +18,8 @@ namespace Grupp1Webshop
 
         internal static void MainMenu()
         {
+            
+
             bool running = true;
             while (running)
             {
@@ -26,7 +28,7 @@ namespace Grupp1Webshop
                 Choice choice = (Choice)userInput;
                 switch (choice)
                 {
-                    case Choice.Customer:
+                    case Choice.CustomerPankaka:
                         cMainMenu();
                         break;
                     case Choice.Admin:
@@ -42,7 +44,8 @@ namespace Grupp1Webshop
         public static void MainMenuText()
         {
             List<string> mainMenuText = new List<string>();
-            mainMenuText.Add($"{(int)Choice.Customer}: Login as customer");
+            string newString = Menu.getSpaces(Choice.CustomerPankaka.ToString());
+            mainMenuText.Add($"Login as {newString}");
             mainMenuText.Add($"{(int)Choice.Admin}: Login as admin");
             mainMenuText.Add($"{(int)Choice.Quit}: Quit");
             GUI.PrintMenuText(mainMenuText);
@@ -50,9 +53,9 @@ namespace Grupp1Webshop
 
         enum cChoice
         {
-            Customer = 1,
-            Admin = 2,
-            Quit = 3
+            Customer,
+            Admin,
+            Quit
         }
         cChoice cchoice;
 
@@ -61,14 +64,11 @@ namespace Grupp1Webshop
             bool running = true;
             while (running)
             {
-                int choice2 = cMainMenuText();
-                //int userInput = Input.GetIntFromUser("What would you like to do?");
-                Choice choice = (Choice)choice2;
-                Console.WriteLine(choice2);
-                Console.ReadLine();
+
+                Choice choice = (Choice)cMainMenuText();
                 switch (choice)
                 {
-                    case Choice.Customer:
+                    case Choice.CustomerPankaka:
                         //browse
                         break;
                     case Choice.Admin:
@@ -81,10 +81,15 @@ namespace Grupp1Webshop
             }
         }
 
+        public static string getSpaces(string str)
+        {
+            return string.Concat(str.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        }
+
         public static int cMainMenuText()
         {
             List<string> cmainMenuText = new List<string>();
-            cmainMenuText.Add($"{(int)cChoice.Customer}: Login as customer");
+            cmainMenuText.Add($"Login as {cChoice.Customer}");
             cmainMenuText.Add($"{(int)cChoice.Admin}: Login as admin");
             cmainMenuText.Add($"{(int)cChoice.Quit}: Quit");
             int choice = Menu.EditMenu(cmainMenuText);
