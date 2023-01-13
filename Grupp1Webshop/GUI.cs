@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,23 @@ namespace Grupp1Webshop
         {
             foreach (string line in text)
                 Console.WriteLine(line);
+        }
+
+        internal static void PrintCreateMenu()
+        {
+
+        }
+
+        internal static void PrintMenu(string header, int positionX, int PositionY, int index, List<string> text)
+        {
+            for (int i = 0; i < text.Count; i++)
+            {
+                Console.SetCursorPosition(positionX, PositionY + i);
+                if (i == index)
+                    Console.ForegroundColor= ConsoleColor.Green;
+                Console.WriteLine(text[i]);
+                Console.ResetColor();
+            }
         }
     }
 }
