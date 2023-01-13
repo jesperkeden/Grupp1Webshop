@@ -7,7 +7,16 @@ namespace Grupp1Webshop
     {
         static void Main()
         {
-            User.CreateUser();
+            Menu.cMainMenu();
+
+            //User.CreateUser();
+
+            //string hej = Input.GetStringLowerInput();
+            //Console.WriteLine(hej);
+            //hej = Input.GetStringFirstUpperInput();
+            //Console.WriteLine(hej);
+
+
 
 
             //List<string> user = new List<string>();

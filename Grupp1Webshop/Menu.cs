@@ -61,9 +61,11 @@ namespace Grupp1Webshop
             bool running = true;
             while (running)
             {
-                cMainMenuText();
-                int userInput = Input.GetIntFromUser("What would you like to do?");
-                Choice choice = (Choice)userInput;
+                int choice2 = cMainMenuText();
+                //int userInput = Input.GetIntFromUser("What would you like to do?");
+                Choice choice = (Choice)choice2;
+                Console.WriteLine(choice2);
+                Console.ReadLine();
                 switch (choice)
                 {
                     case Choice.Customer:
@@ -79,13 +81,14 @@ namespace Grupp1Webshop
             }
         }
 
-        public static void cMainMenuText()
+        public static int cMainMenuText()
         {
             List<string> cmainMenuText = new List<string>();
             cmainMenuText.Add($"{(int)cChoice.Customer}: Login as customer");
             cmainMenuText.Add($"{(int)cChoice.Admin}: Login as admin");
             cmainMenuText.Add($"{(int)cChoice.Quit}: Quit");
-            GUI.PrintMenuText(cmainMenuText);
+            int choice = Menu.EditMenu(cmainMenuText);
+            return choice;
         }
 
         internal static int EditMenu(List<string> firstCollumn)

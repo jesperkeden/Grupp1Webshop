@@ -58,10 +58,75 @@ namespace Grupp1Webshop.Models
                     newUserPropValuesList.Add("Empty");
                 }
             }
+            while (true)
+            {
+                EditMenu(newUserPropNamesList, newUserPropValuesList);
+            }
 
-            Menu.EditMenu(newUserPropNamesList, newUserPropValuesList);
+            //Console.WriteLine(newUserPropValuesList[index]);
+            
 
+        }
 
+        internal static void EditMenu(List<string> firstCollumn, List<string> secondCollumn)
+        {
+            string longestString = firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur);
+            int firstColumnPositionX = 3;
+            int secondColumnPositionX = (longestString.Length + firstColumnPositionX + 1);
+            int index = 0;
+            int positionY = 2;
+
+            Console.CursorVisible = false;
+            ConsoleKeyInfo keyPressed;
+            do
+            {
+                GUI.PrintMenu("header", firstColumnPositionX, positionY, index, firstCollumn);
+                GUI.PrintMenu("header", secondColumnPositionX, positionY, index, secondCollumn);
+
+                keyPressed = Console.ReadKey();
+                if
+                    (keyPressed.Key == ConsoleKey.DownArrow && index != firstCollumn.Count - 1) index++;
+                else if
+                    (keyPressed.Key == ConsoleKey.UpArrow && index >= 1) index--;
+            } while (keyPressed.Key != ConsoleKey.Enter);
+            Console.CursorVisible = true;
+
+            secondCollumn[index] = "";
+            Console.Clear();
+
+            GUI.PrintMenu("header", firstColumnPositionX, positionY, index, firstCollumn);
+            GUI.PrintMenu("header", secondColumnPositionX, positionY, index, secondCollumn);
+
+            Console.SetCursorPosition((secondColumnPositionX), (positionY + index));
+            //secondCollumn[index] = Input.GetStringInput();
+            
+            return;
+        }
+        internal static void userEditChoices(int edit)
+        {
+            switch (edit)
+            {
+                case 0:
+                    Input.getBoolAsString();
+                    break;
+                case 1:
+                case 2:
+                case 6:
+                case 8:
+                    Input.GetStringFirstUpperInput();
+                    break;
+                case 3:
+                    Input.GetStringLowerInput();
+                    break;
+                case 4:
+                case 7:
+                    Input.GetIntAsStringInput();
+                    break;
+                case 5:
+                    Input.GetPhonenumberInput();
+                    break;
+                   
+            }
         }
     }
 

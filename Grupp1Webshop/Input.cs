@@ -8,12 +8,10 @@ namespace Grupp1Webshop
 {
     internal class Input
     {
-        public static string GetStringInput()
+        public static string GetStringFirstUpperInput()
         {
-            string input = Console.ReadLine();
-            //string result = new String(phrase.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
-            string phrase = string.Concat(input.Where(char.IsLetter));
-            string result = char.ToUpper(phrase.First()) + phrase.Substring(1).ToLower();
+            string phrase = GetStringLowerInput();
+            string result = char.ToUpper(phrase.First()) + phrase.Substring(1);
             return result;
         }
 
@@ -51,12 +49,32 @@ namespace Grupp1Webshop
                 string input = "07";
                 Console.Write(input);
                 input += Console.ReadLine();
-                string digit = string.Concat(input.Where(char.IsNumber));
-                if (digit.Length == 10)
+                string number = string.Concat(input.Where(char.IsNumber));
+                if (number.Length == 10)
                 {
-                    return digit;
+                    return number;
                 }
             }
+        }
+
+        internal static void getBoolAsString()
+        {
+            string[] validString = { "true", "false"};
+            string getBool = GetStringLowerInput();
+
+        }
+
+        internal static string GetStringLowerInput()
+        {
+            string input = Console.ReadLine();
+            //string result = new String(phrase.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
+            string phrase = string.Concat(input.Where(char.IsLetter)).ToLower();
+            return phrase;
+        }
+
+        internal static void GetIntAsStringInput()
+        {
+            throw new NotImplementedException();
         }
     }
 }
