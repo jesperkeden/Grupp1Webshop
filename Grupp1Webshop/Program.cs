@@ -7,6 +7,7 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
+            Menu.MainMenu();
 
 
             //Menu.MainMenu();
