@@ -56,23 +56,23 @@ namespace Grupp1Webshop
         }
 
 
-        public static void ToDoUpdate()
-        {
-            using (var database = new Context())
-            {
-                int chosenId = CaptureId();
+        //public static void ToDoUpdate()
+        //{
+        //    using (var database = new Context())
+        //    {
+        //        int chosenId = CaptureId();
 
-                var updatePost = (from t in database.ToDoS
-                                  where t.Id == chosenId
-                                  select t).SingleOrDefault();
-                if (updatePost.Fixat != null)
-                {
-                    updatePost.Fixat = true;
-                    database.SaveChanges();
-                    Console.Clear();
-                }
-            }
-        }
+        //        var updatePost = (from t in database.ToDoS
+        //                          where t.Id == chosenId
+        //                          select t).SingleOrDefault();
+        //        if (updatePost.Fixat != null)
+        //        {
+        //            updatePost.Fixat = true;
+        //            database.SaveChanges();
+        //            Console.Clear();
+        //        }
+        //    }
+        //}
 
 
 

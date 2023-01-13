@@ -165,5 +165,6 @@ namespace Grupp1Webshop
             Console.CursorVisible = true;
 
             return index;
+        }
     }
 }
