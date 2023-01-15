@@ -323,13 +323,10 @@ namespace Grupp1Webshop
             Console.Clear();
             return index;
         }
-        internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn)
+        internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY)
         {
-            string longestString = firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur);
-            int firstColumnPositionX = 3;
-            int secondColumnPositionX = (longestString.Length + firstColumnPositionX + 1);
+            Console.Clear();
             int index = 0;
-            int positionY = 2;
 
             Console.CursorVisible = false;
             ConsoleKeyInfo keyPressed;
@@ -346,7 +343,6 @@ namespace Grupp1Webshop
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
-            Console.Clear();
             return index;
         }
         internal static int ProductMenu(List<string> list)

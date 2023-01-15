@@ -14,5 +14,9 @@ namespace Grupp1Webshop
             return string.Concat(str.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
         }
 
+        internal static int GetSecondCollumnPositionX(List<string> firstCollumn)
+        {
+            return (firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur).Length + 1);
+        }
     }
 }

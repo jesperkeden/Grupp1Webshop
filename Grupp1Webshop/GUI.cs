@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,21 @@ namespace Grupp1Webshop
         {
             foreach (string line in text)
                 Console.WriteLine(line);
+        }
+
+        internal static void OverWriteWithSpaces(int length, int positionX, int positionY)
+        {
+            Console.SetCursorPosition(positionX, positionY);
+            Console.Write(new string(' ', length));
+            Console.SetCursorPosition(positionX, positionY);
+        }
+
+        internal static void OverWriteWithSpaces(int length, int positionX)
+        {
+            //Console.CursorTop--;
+            Console.CursorLeft = positionX;
+            Console.Write(new string(' ', length));
+            Console.CursorLeft = positionX;
         }
 
         internal static void PrintCreateMenu()

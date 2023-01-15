@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,25 +9,18 @@ namespace Grupp1Webshop
 {
     internal class Input
     {
-        public static string GetStringFirstUpperInput()
+        public static string GetStringFirstUpperInput(int positionX)
         {
-            string phrase = GetStringLowerInput();
-            string result = char.ToUpper(phrase.First()) + phrase.Substring(1);
-            return result;
+            string phrase = GetStringLowerInput(positionX);
+            return char.ToUpper(phrase.First()) + phrase.Substring(1);
         }
 
-        public static int GetDigitInput(int lowerValue, int higherValue)
+        public static int GetDigitInput(int lowerValue, int higherValue, int positionX)
         {
             int digit = 0;
-            bool chooseNumber = true;
-            Console.Write("Input a value between " + lowerValue + " and " + higherValue + ": ");
-            while (chooseNumber)
-            {
-                if (!int.TryParse(Console.ReadLine(), out digit) || digit < lowerValue || digit > higherValue) ;
-                //Console.WriteLine("Error,Du har matat in fel värden");
-                else
-                    chooseNumber = false;
-            }
+            string prompt = "Input a number between " + lowerValue + " and " + higherValue + ": ";
+            Console.Write(prompt);
+            while (!int.TryParse(GetStringWithMaxLength(positionX + prompt.Length), out digit) || digit < lowerValue || digit > higherValue) ;
             return digit;
         }
 
@@ -42,42 +36,62 @@ namespace Grupp1Webshop
             return number;
         }
 
-        public static string GetPhonenumberInput()
+        public static string GetPhonenumberInput(int positionX)
         {
-            while (true)
-            {
-                string input = "07";
-                Console.Write(input);
-                input += Console.ReadLine();
-                string number = string.Concat(input.Where(char.IsNumber));
-                if (number.Length == 10)
-                {
-                    return number;
-                }
-            }
+            string number = "07";
+            Console.Write(number);
+            while (number.Count() != 10)
+                number = "07" + string.Concat(GetStringWithMaxLength(positionX + 2).Where(char.IsNumber));
+            return number;
         }
 
-        internal static string getBoolAsString()
+        internal static string getBoolAsString(int positionX)
         {
             string getBool = "";
             while(getBool != "True" && getBool != "False")
             {
-                getBool = GetStringFirstUpperInput();
+                getBool = GetStringFirstUpperInput(positionX);
+                //GUI.OverWriteWithSpaces(getBool.Length, positionX);
             }
             return getBool;
         }
 
-        internal static string GetStringLowerInput()
+        internal static string GetStringLowerInput(int positionX)
         {
-            string input = Console.ReadLine();
-            //string result = new String(phrase.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
-            string phrase = string.Concat(input.Where(char.IsLetter)).ToLower();
-            return phrase;
+            string lowerString = "";
+            while (lowerString.Length == 0 || lowerString.Any(x => !char.IsLetter(x)))
+                lowerString = GetStringWithMaxLength(positionX);
+            return string.Concat(lowerString.ToLower());
         }
 
-        internal static string GetIntAsStringInput(int lowerValue, int higherValue)
+        internal static string GetIntAsStringInput(int lowerValue, int higherValue, int positionX)
         {
-            return GetDigitInput(lowerValue, higherValue).ToString();
+            return GetDigitInput(lowerValue, higherValue, positionX).ToString();
+        }
+
+        internal static string GetStringWithMaxLength(int startPositionX)
+        {
+            int maxLength = 84;
+            ConsoleKeyInfo key;
+            string savedInput = "";
+            Console.CursorLeft = startPositionX;
+
+            while (true)
+            {
+                GUI.OverWriteWithSpaces(savedInput.Length, startPositionX + savedInput.Length);
+                key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Enter) break;
+                if (key.Key == ConsoleKey.Backspace && savedInput.Length != 0) savedInput = savedInput.Remove(savedInput.Length - 1);
+                else if (savedInput.Length >= (maxLength - startPositionX))
+                {
+                    GUI.OverWriteWithSpaces(savedInput.Length + 1, startPositionX);
+                    savedInput = "";
+                }
+                else if (Char.IsLetter(key.KeyChar) || (Char.IsDigit(key.KeyChar)))
+                    savedInput += key.KeyChar.ToString();
+            }
+            GUI.OverWriteWithSpaces(savedInput.Length, startPositionX);
+            return savedInput;
         }
     }
 }

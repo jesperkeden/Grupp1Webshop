@@ -61,18 +61,19 @@ namespace Grupp1Webshop.Models
             firstCollumn.Add("Cancel");
             secondCollumn.Insert(0, "");
 
+            int firstColumnPositionX = 3;
+            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstCollumn) + firstColumnPositionX);
+            int positionY = 2;
+
             while (true)
             {
-                int index = Menu.EditMenu(firstCollumn, secondCollumn);
+                int index = Menu.EditMenu(firstCollumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
 
                 if (index == 0) saveUser(secondCollumn, user);
                 else if (index == 10) break;
 
-                Console.SetCursorPosition(16, (2 + index));
-                Console.Write(new string(' ', secondCollumn[index].Length));
-                Console.SetCursorPosition(16, (2 + index));
-                secondCollumn[index] = EditUserChoices(index);
-                Console.Clear();
+                GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
+                secondCollumn[index] = EditUserChoices(index, secondColumnPositionX);
             }
         }
 
@@ -106,31 +107,31 @@ namespace Grupp1Webshop.Models
             return;
         }
 
-        internal static string EditUserChoices(int edit)
+        internal static string EditUserChoices(int edit, int positionX)
         {
             string value = "";
             switch (edit)
             {
                 case 1:
-                    value = Input.getBoolAsString();
+                    value = Input.getBoolAsString(positionX);
                     break;
                 case 2:
                 case 3:
                 case 7:
                 case 9:
-                    value = Input.GetStringFirstUpperInput();
+                    value = Input.GetStringFirstUpperInput(positionX);
                     break;
                 case 4:
-                    value = Input.GetStringLowerInput();
+                    value = Input.GetStringLowerInput(positionX);
                     break;
                 case 5:
-                    value = Input.GetIntAsStringInput(18, 120);
+                    value = Input.GetIntAsStringInput(18, 120, positionX);
                     break;
                 case 8:
-                    value = Input.GetIntAsStringInput(10000, 99999);
+                    value = Input.GetIntAsStringInput(10000, 99999, positionX);
                     break;
                 case 6:
-                    value = Input.GetPhonenumberInput();
+                    value = Input.GetPhonenumberInput(positionX);
                     break;
             }
             return value;
