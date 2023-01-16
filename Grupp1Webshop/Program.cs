@@ -12,9 +12,9 @@ namespace Grupp1Webshop
 
 
             //Menu.MainMenu();
-            User.CreateUser();
-            Supplier.CreateSupplier();
-            Product.CreateProduct();
+            //User.CreateUser();
+            //Supplier.CreateSupplier();
+            //Product.CreateProduct();
             //jesper testar
 
             //string hej = Input.GetStringLowerInput();
