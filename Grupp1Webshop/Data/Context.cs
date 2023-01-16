@@ -8,16 +8,16 @@ using Grupp1Webshop.Models;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace Grupp1Webshop
+namespace Grupp1Webshop.Data
 {
     internal class Context : DbContext
     {
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<User> Users { get; set; }
 
 

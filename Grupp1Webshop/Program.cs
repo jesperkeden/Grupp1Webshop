@@ -13,7 +13,7 @@ namespace Grupp1Webshop
 
             //Menu.MainMenu();
 
-            User.CreateUser();
+            //User.CreateUser();
 
             //string hej = Input.GetStringLowerInput();
             //Console.WriteLine(hej);

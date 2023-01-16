@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Grupp1Webshop.Models
 {
     internal class User
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public bool Admin { get; set; }
         public string FirstName { get; set; }
@@ -22,6 +24,8 @@ namespace Grupp1Webshop.Models
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public City City { get; set; }
+        public Order Order { get; set; }
+        public Basket Basket { get; set; }
 
 
         internal static void CreateUser()
