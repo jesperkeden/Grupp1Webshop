@@ -8,12 +8,13 @@ namespace Grupp1Webshop
         internal static void Main()
         {
 
-            Menu.MainMenu();
+            //Menu.MainMenu();
 
 
             //Menu.MainMenu();
-
-            //User.CreateUser();
+            User.CreateUser();
+            Supplier.CreateSupplier();
+            Product.CreateProduct();
 
             //string hej = Input.GetStringLowerInput();
             //Console.WriteLine(hej);
@@ -54,20 +55,6 @@ namespace Grupp1Webshop
             //Menu.MainMenu();
         }
 
-
-        internal static List<string> GetPropList(User getPropFrom)
-        {
-            //List<string> propNameList = getPropFrom.GetType().GetProperties().Select(p => p.Name).ToList();
-
-            PropertyInfo[] newUserProp = getPropFrom.GetType().GetProperties();
-            List<string> propNameList = new List<string>();
-
-            for (int i = 1; i < (newUserProp.Length); i++)
-            {
-                propNameList.Add(newUserProp[i].Name);
-            }
-            return propNameList;
-        }
 
 
         //public static void ToDoUpdate()
