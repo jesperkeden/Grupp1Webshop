@@ -15,8 +15,10 @@ namespace Grupp1Webshop.Models
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public int ProductId { get; set; }
+        [ForeignKey("User")]
+        public int? CustomerId { get; set; }
+        [ForeignKey("Product")]
+        public int? ProductId { get; set; }
         public string PaymentMethod { get; set; }
         public int Shipping { get; set; }
         public int TotalCost { get; set; }

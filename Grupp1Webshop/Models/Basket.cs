@@ -11,15 +11,16 @@ namespace Grupp1Webshop.Models
     {
         public Basket()
         {
-            this.Products = new HashSet<Product>();
             this.Users = new HashSet<User>();
+            this.Products = new HashSet<Product>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        [ForeignKey("Product")]
+        public int? ProductId { get; set; }
 
-        [ForeignKey("User")]
-        public ICollection<Product> Products { get; set; }
         public ICollection<User> Users { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

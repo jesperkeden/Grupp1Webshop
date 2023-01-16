@@ -14,7 +14,7 @@ namespace Grupp1Webshop.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,8 +40,8 @@ namespace Grupp1Webshop.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Shipping = table.Column<int>(type: "int", nullable: false),
                     TotalCost = table.Column<int>(type: "int", nullable: false),
@@ -53,62 +53,11 @@ namespace Grupp1Webshop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Admin = table.Column<bool>(type: "bit", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StreetAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ZipCode = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    BasketId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Baskets_BasketId",
-                        column: x => x.BasketId,
-                        principalTable: "Baskets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cities_Users_Id",
-                        column: x => x.Id,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Suppliers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactPerson = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
@@ -119,12 +68,6 @@ namespace Grupp1Webshop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Suppliers_Cities_Id",
-                        column: x => x.Id,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,49 +81,44 @@ namespace Grupp1Webshop.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
-                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SupplierId = table.Column<int>(type: "int", nullable: true),
+                    BasketId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Baskets_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Baskets",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BasketProduct",
+                name: "Cities",
                 columns: table => new
                 {
-                    ProductsId = table.Column<int>(type: "int", nullable: false),
-                    User = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BasketProduct", x => new { x.ProductsId, x.User });
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BasketProduct_Baskets_User",
-                        column: x => x.User,
-                        principalTable: "Baskets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BasketProduct_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Cities_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -207,10 +145,53 @@ namespace Grupp1Webshop.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Admin = table.Column<bool>(type: "bit", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreetAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ZipCode = table.Column<int>(type: "int", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    BasketId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Baskets_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Baskets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_BasketProduct_User",
-                table: "BasketProduct",
-                column: "User");
+                name: "IX_Cities_SupplierId",
+                table: "Cities",
+                column: "SupplierId",
+                unique: true,
+                filter: "[SupplierId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProduct_ProductsId",
@@ -218,19 +199,25 @@ namespace Grupp1Webshop.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_BasketId",
+                table: "Products",
+                column: "BasketId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SupplierId",
-                table: "Products",
-                column: "SupplierId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_BasketId",
                 table: "Users",
                 column: "BasketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CityId",
+                table: "Users",
+                column: "CityId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_OrderId",
@@ -241,31 +228,28 @@ namespace Grupp1Webshop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BasketProduct");
-
-            migrationBuilder.DropTable(
                 name: "OrderProduct");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Baskets");
 
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
-
-            migrationBuilder.DropTable(
-                name: "Cities");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Baskets");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
         }
     }
 }
