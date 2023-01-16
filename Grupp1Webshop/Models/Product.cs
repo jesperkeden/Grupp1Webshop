@@ -138,10 +138,10 @@ namespace Grupp1Webshop.Models
                     value = Input.GetIntAsStringInput(0, 100, positionX);
                     break;
                 case nameof(Price):
-                    value = Input.GetDoubleInput(positionX);
+                    //value = Input.GetDoubleInput(positionX);
                     break;
                 case nameof(Description):
-                    value = Input.GetDescriptionInput(positionX);
+                    //value = Input.GetDescriptionInput(positionX);
                     break;
             }
             return value;
