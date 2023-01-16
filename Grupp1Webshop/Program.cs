@@ -7,7 +7,6 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
-<<<<<<< Updated upstream
 
             Menu.MainMenu();
 
@@ -21,12 +20,6 @@ namespace Grupp1Webshop
             //hej = Input.GetStringFirstUpperInput();
             //Console.WriteLine(hej);
 
-=======
-            //Menu.MainMenu();
-            User.CreateUser();
-            Supplier.CreateSupplier();
-            //Product.CreateProduct();
->>>>>>> Stashed changes
 
 
 

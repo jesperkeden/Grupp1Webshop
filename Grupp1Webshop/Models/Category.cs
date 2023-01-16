@@ -10,7 +10,7 @@ namespace Grupp1Webshop.Models
     internal class Category
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id  { get; set; }
+        public string Name  { get; set; }
     }
 }
