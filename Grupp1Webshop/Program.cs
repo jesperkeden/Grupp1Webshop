@@ -14,7 +14,7 @@ namespace Grupp1Webshop
             //Menu.MainMenu();
             User.CreateUser();
             Supplier.CreateSupplier();
-            Product.CreateProduct();
+            //Product.CreateProduct();
             //jesper testar
 
             //string hej = Input.GetStringLowerInput();
