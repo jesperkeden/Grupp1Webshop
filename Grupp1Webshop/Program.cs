@@ -55,20 +55,6 @@ namespace Grupp1Webshop
         }
 
 
-        internal static List<string> GetPropList(User getPropFrom)
-        {
-            //List<string> propNameList = getPropFrom.GetType().GetProperties().Select(p => p.Name).ToList();
-
-            PropertyInfo[] newUserProp = getPropFrom.GetType().GetProperties();
-            List<string> propNameList = new List<string>();
-
-            for (int i = 1; i < (newUserProp.Length); i++)
-            {
-                propNameList.Add(newUserProp[i].Name);
-            }
-            return propNameList;
-        }
-
 
         //public static void ToDoUpdate()
         //{

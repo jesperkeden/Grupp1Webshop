@@ -18,5 +18,18 @@ namespace Grupp1Webshop
         {
             return (firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur).Length + 1);
         }
+
+        internal static List<string> AddMenuChoicesForProp(List<string> propNameList)
+        {
+            propNameList.Insert(0, "Save All");
+            propNameList.Add("Cancel");
+            return propNameList;
+        }
+
+        internal static List<string> AddMenuChoicesForValues(List<string> valueList)
+        {
+            valueList.Insert(0, "");
+            return valueList;
+        }
     }
 }

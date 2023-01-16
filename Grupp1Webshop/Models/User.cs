@@ -40,36 +40,53 @@ namespace Grupp1Webshop.Models
             EditUser(newUser);
         }
 
-        internal static void EditUser(User user)
+        internal static List<string> GetPropertyNames(User user, PropertyInfo[] properties)
         {
-            List<string> firstCollumn = Program.GetPropList(user);
-            List<string> secondCollumn = new List<string>();
-            PropertyInfo[] properties = user.GetType().GetProperties();
+            List<string> propNameList = new List<string>();
 
-            for (int i = 1; i < (firstCollumn.Count + 1); i++)
+            for (int i = 1; i < (properties.Length); i++)
+            {
+                propNameList.Add(properties[i].Name);
+            }
+            return propNameList;
+        }
+
+        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties)
+        {
+            List<string> propertyValues = new List<string>();
+
+            for (int i = 1; i < (properties.Length); i++)
             {
                 try
                 {
-                    secondCollumn.Add(properties[i].GetValue(user).ToString());
+                    propertyValues.Add(properties[i].GetValue(user).ToString());
                 }
                 catch
                 {
-                    secondCollumn.Add("Empty");
+                    propertyValues.Add("Empty");
                 }
             }
-            firstCollumn.Insert(0, "Save All");
-            firstCollumn.Add("Cancel");
-            secondCollumn.Insert(0, "");
+            return propertyValues;
+        }
 
+        internal static void EditUser(User model)
+        {
+            //Get List of prop names and prop values
+            PropertyInfo[] properties = model.GetType().GetProperties();
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(model, properties));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
+
+            //Position of list in GUI
             int firstColumnPositionX = 3;
-            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstCollumn) + firstColumnPositionX);
+            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstColumn) + firstColumnPositionX);
             int positionY = 2;
 
+            //Edit prop values
             while (true)
             {
-                int index = Menu.EditMenu(firstCollumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
+                int index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
 
-                if (index == 0) saveUser(secondCollumn, user);
+                if (index == 0) saveUser(secondCollumn, model);
                 else if (index == 10) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
