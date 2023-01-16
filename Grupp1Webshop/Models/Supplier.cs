@@ -82,13 +82,8 @@ namespace Grupp1Webshop.Models
                 else if (index == secondCollumn.Count) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondCollumn[index] = EditSupplierChoices(index, secondColumnPositionX);
+                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX);
             }
-        }
-
-        private static string EditSupplierChoices(int index, int secondColumnPositionX)
-        {
-            throw new NotImplementedException();
         }
 
         private static void SaveSupplier(List<string> secondColumn, Supplier suplier)
@@ -117,6 +112,34 @@ namespace Grupp1Webshop.Models
             //}
 
             return;
+        }
+
+        internal static string GetValueInput(PropertyInfo edit, int positionX)
+        {
+            string value = "";
+            switch (edit.Name)
+            {
+                case nameof(Name):
+                case nameof(StreetAdress):
+                case nameof(City):
+                    value = Input.GetStringFirstUpperInput(positionX);
+                    break;
+                case nameof(Email):
+                    value = Input.GetStringLowerInput(positionX);
+                    break;
+                case nameof(ZipCode):
+                    value = Input.GetIntAsStringInput(10000, 99999, positionX);
+                    break;
+                case nameof(PhoneNumber):
+                    value = Input.GetPhonenumberInput(positionX);
+                    break;
+                case nameof(ContactPerson):
+                    value = Input.GetStringFirstUpperInput(positionX);
+                    Console.Write(value);
+                    value += " " + Input.GetStringFirstUpperInput(positionX + value.Length + 1);
+                    break;
+            }
+            return value;
         }
     }
 }

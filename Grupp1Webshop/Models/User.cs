@@ -87,7 +87,7 @@ namespace Grupp1Webshop.Models
                 else if (index == secondCollumn.Count) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondCollumn[index] = EditUserChoices(index, secondColumnPositionX);
+                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX);
             }
         }
 
@@ -121,38 +121,36 @@ namespace Grupp1Webshop.Models
             return;
         }
 
-        internal static string EditUserChoices(int edit, int positionX)
+        internal static string GetValueInput(PropertyInfo edit, int positionX)
         {
             string value = "";
-            switch (edit)
+            switch (edit.Name)
             {
-                case 1:
+                case nameof(Admin):
                     value = Input.GetBoolAsString(positionX);
                     break;
-                case 2:
-                case 3:
-                case 7:
-                case 9:
+                case nameof(FirstName):
+                case nameof(LastName):
+                case nameof(StreetAdress):
+                case nameof(City):
                     value = Input.GetStringFirstUpperInput(positionX);
                     break;
-                case 4:
+                case nameof(Email):
                     value = Input.GetStringLowerInput(positionX);
                     break;
-                case 5:
+                case nameof(Age):
                     value = Input.GetIntAsStringInput(18, 120, positionX);
                     break;
-                case 8:
+                case nameof(ZipCode):
                     value = Input.GetIntAsStringInput(10000, 99999, positionX);
                     break;
-                case 6:
+                case nameof(PhoneNumber):
                     value = Input.GetPhonenumberInput(positionX);
                     break;
             }
             return value;
         }
     }
-
-    
 
 
     //Console.WriteLine("Input first name: Jesper");
