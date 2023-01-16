@@ -8,12 +8,13 @@ namespace Grupp1Webshop
         internal static void Main()
         {
 
-            Menu.MainMenu();
+            //Menu.MainMenu();
 
 
             //Menu.MainMenu();
-
-            //User.CreateUser();
+            User.CreateUser();
+            Supplier.CreateSupplier();
+            Product.CreateProduct();
 
             //string hej = Input.GetStringLowerInput();
             //Console.WriteLine(hej);

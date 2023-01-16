@@ -30,21 +30,10 @@ namespace Grupp1Webshop.Models
 
         internal static void CreateUser()
         {
-            var newUser = new User();
-            newUser.FirstName = "Robin";
-            newUser.Age = 30;
-            newUser.Admin = true;
-            newUser.StreetAdress = "Adressen";
-            newUser.PhoneNumber = "07893546";
-            newUser.ZipCode = 1111;
-            newUser.LastName = "Forsling";
-            newUser.Email = "Emailadress";
-            newUser.Id = 1;
-
-            EditUser(newUser);
+            EditUser(new User());
         }
 
-        internal static List<string> GetPropertyNames(User user, PropertyInfo[] properties)
+        internal static List<string> GetPropertyNames(PropertyInfo[] properties)
         {
             List<string> propNameList = new List<string>();
 
@@ -77,7 +66,7 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(model, properties));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(properties));
             List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
 
             //Position of list in GUI
@@ -85,29 +74,31 @@ namespace Grupp1Webshop.Models
             int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstColumn) + firstColumnPositionX);
             int positionY = 2;
 
+            int index = 0;
+
             //Edit prop values
             while (true)
             {
-                int index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
+                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
 
-                if (index == 0) saveUser(secondCollumn, model);
-                else if (index == 10) break;
+                if (index == 0) SaveUser(secondCollumn, model);
+                else if (index == secondCollumn.Count) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
                 secondCollumn[index] = EditUserChoices(index, secondColumnPositionX);
             }
         }
 
-        private static void saveUser(List<string> userTemp, User user)
+        private static void SaveUser(List<string> secondColumn, User user)
         {
-            user.Admin = Convert.ToBoolean(userTemp[1]);
-            user.FirstName = userTemp[2];
-            user.LastName = userTemp[3];
-            user.Email = userTemp[4];
-            user.Age = Convert.ToInt32(userTemp[5]);
-            user.PhoneNumber = userTemp[6];
-            user.StreetAdress = userTemp[7];
-            user.ZipCode = Convert.ToInt32(userTemp[8]);
+            user.Admin = Convert.ToBoolean(secondColumn[1]);
+            user.FirstName = secondColumn[2];
+            user.LastName = secondColumn[3];
+            user.Email = secondColumn[4];
+            user.Age = Convert.ToInt32(secondColumn[5]);
+            user.PhoneNumber = secondColumn[6];
+            user.StreetAdress = secondColumn[7];
+            user.ZipCode = Convert.ToInt32(secondColumn[8]);
             //user.City = userTemp[9];
 
             //saveToDbFunciton("StringToSaveDbText");
@@ -134,7 +125,7 @@ namespace Grupp1Webshop.Models
             switch (edit)
             {
                 case 1:
-                    value = Input.getBoolAsString(positionX);
+                    value = Input.GetBoolAsString(positionX);
                     break;
                 case 2:
                 case 3:

@@ -45,7 +45,7 @@ namespace Grupp1Webshop
             return number;
         }
 
-        internal static string getBoolAsString(int positionX)
+        internal static string GetBoolAsString(int positionX)
         {
             string getBool = "";
             while(getBool != "True" && getBool != "False")
