@@ -88,13 +88,20 @@ namespace Grupp1Webshop.Models
 
         private static void SaveSupplier(List<string> secondColumn, Supplier suplier)
         {
-            suplier.Name = secondColumn[1];
-            suplier.ContactPerson = secondColumn[2];
-            suplier.PhoneNumber = secondColumn[3];
-            suplier.Email = secondColumn[4];
-            suplier.StreetAdress = secondColumn[5];
-            suplier.ZipCode = Convert.ToInt32(secondColumn[6]);
-            //suplier.City = secondColumn[7];
+            string saveOutput = "";
+            if (Helpers.ColumnValueNotEmpty(secondColumn))
+                saveOutput = "Could not save values, some values are empty";
+            else
+            {
+                suplier.Name = secondColumn[1];
+                suplier.ContactPerson = secondColumn[2];
+                suplier.PhoneNumber = secondColumn[3];
+                suplier.Email = secondColumn[4];
+                suplier.StreetAdress = secondColumn[5];
+                suplier.ZipCode = Convert.ToInt32(secondColumn[6]);
+                //suplier.City = secondColumn[7];
+                saveOutput = "Save success";
+            }
 
             //saveToDbFunciton("StringToSaveDbText");
 
@@ -111,6 +118,8 @@ namespace Grupp1Webshop.Models
             //    return;
             //}
 
+            Console.WriteLine(saveOutput);
+            Console.ReadKey();
             return;
         }
 

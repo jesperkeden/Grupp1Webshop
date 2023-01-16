@@ -95,7 +95,7 @@ namespace Grupp1Webshop.Models
         {
             string saveOutput = "";
             if (Helpers.ColumnValueNotEmpty(secondColumn))
-                saveOutput = "Could not save values";
+                saveOutput = "Could not save values, some values are empty";
             else
             {
                 user.Admin = Convert.ToBoolean(secondColumn[1]);
@@ -124,8 +124,9 @@ namespace Grupp1Webshop.Models
             //    }
             //    return;
             //}
-
-            //return saveOutput;
+            Console.WriteLine(saveOutput);
+            Console.ReadKey();
+            return;
         }
 
         internal static string GetValueInput(PropertyInfo edit, int positionX)

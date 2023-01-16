@@ -97,14 +97,21 @@ namespace Grupp1Webshop.Models
 
         private static void SaveProduct(List<string> secondColumn, Product product)
         {
-            product.Name = secondColumn[1];
-            product.Price = Convert.ToDouble(secondColumn[2]);
-            product.Description = secondColumn[3];
-            product.Color = secondColumn[4];
-            product.Quantity = Convert.ToInt32(secondColumn[5]);
-            //product.CategoryId = Convert.ToInt32(secondColumn[6]);
-            //product.SupplierId = Convert.ToInt32(secondColumn[7]);
-            product.Size = secondColumn[8];
+            string saveOutput = "";
+            if (Helpers.ColumnValueNotEmpty(secondColumn))
+                saveOutput = "Could not save values, some values are empty";
+            else
+            {
+                product.Name = secondColumn[1];
+                product.Price = Convert.ToDouble(secondColumn[2]);
+                product.Description = secondColumn[3];
+                product.Color = secondColumn[4];
+                product.Quantity = Convert.ToInt32(secondColumn[5]);
+                //product.CategoryId = Convert.ToInt32(secondColumn[6]);
+                //product.SupplierId = Convert.ToInt32(secondColumn[7]);
+                product.Size = secondColumn[8];
+                saveOutput = "Save success";
+            }
 
             //saveToDbFunciton("StringToSaveDbText");
 
@@ -121,6 +128,8 @@ namespace Grupp1Webshop.Models
             //    return;
             //}
 
+            Console.WriteLine(saveOutput);
+            Console.ReadKey();
             return;
         }
 
