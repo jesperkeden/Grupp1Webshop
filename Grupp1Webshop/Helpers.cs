@@ -31,5 +31,14 @@ namespace Grupp1Webshop
             valueList.Insert(0, "");
             return valueList;
         }
+
+        internal static bool ColumnValueNotEmpty(List<string> secondColumn)
+        {
+            foreach (var item in secondColumn)
+            {
+                if (item == "Empty") return true;
+            }
+            return false;
+        }
     }
 }

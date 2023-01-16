@@ -93,15 +93,22 @@ namespace Grupp1Webshop.Models
 
         private static void SaveUser(List<string> secondColumn, User user)
         {
-            user.Admin = Convert.ToBoolean(secondColumn[1]);
-            user.FirstName = secondColumn[2];
-            user.LastName = secondColumn[3];
-            user.Email = secondColumn[4];
-            user.Age = Convert.ToInt32(secondColumn[5]);
-            user.PhoneNumber = secondColumn[6];
-            user.StreetAdress = secondColumn[7];
-            user.ZipCode = Convert.ToInt32(secondColumn[8]);
-            //user.City = userTemp[9];
+            string saveOutput = "";
+            if (Helpers.ColumnValueNotEmpty(secondColumn))
+                saveOutput = "Could not save values";
+            else
+            {
+                user.Admin = Convert.ToBoolean(secondColumn[1]);
+                user.FirstName = secondColumn[2];
+                user.LastName = secondColumn[3];
+                user.Email = secondColumn[4];
+                user.Age = Convert.ToInt32(secondColumn[5]);
+                user.PhoneNumber = secondColumn[6];
+                user.StreetAdress = secondColumn[7];
+                user.ZipCode = Convert.ToInt32(secondColumn[8]);
+                //user.City = userTemp[9];
+                saveOutput = "Save success";
+            }
 
             //saveToDbFunciton("StringToSaveDbText");
 
@@ -118,7 +125,7 @@ namespace Grupp1Webshop.Models
             //    return;
             //}
 
-            return;
+            //return saveOutput;
         }
 
         internal static string GetValueInput(PropertyInfo edit, int positionX)
