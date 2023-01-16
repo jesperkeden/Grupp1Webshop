@@ -72,10 +72,6 @@ namespace Grupp1Webshop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SupplierId")
-                        .IsUnique()
-                        .HasFilter("[SupplierId] IS NOT NULL");
-
                     b.ToTable("Cities");
                 });
 
@@ -169,6 +165,9 @@ namespace Grupp1Webshop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ContactPerson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -193,6 +192,10 @@ namespace Grupp1Webshop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId")
+                        .IsUnique()
+                        .HasFilter("[CityId] IS NOT NULL");
 
                     b.ToTable("Suppliers");
                 });
@@ -271,15 +274,6 @@ namespace Grupp1Webshop.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("Grupp1Webshop.Models.City", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Supplier", "Supplier")
-                        .WithOne("City")
-                        .HasForeignKey("Grupp1Webshop.Models.City", "SupplierId");
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
                 {
                     b.HasOne("Grupp1Webshop.Models.Basket", null)
@@ -293,6 +287,15 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
+                {
+                    b.HasOne("Grupp1Webshop.Models.City", "City")
+                        .WithOne("Supplier")
+                        .HasForeignKey("Grupp1Webshop.Models.Supplier", "CityId");
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.User", b =>
@@ -346,13 +349,10 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.City", b =>
                 {
-                    b.Navigation("User")
+                    b.Navigation("Supplier")
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
-                {
-                    b.Navigation("City")
+                    b.Navigation("User")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

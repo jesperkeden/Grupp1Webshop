@@ -18,6 +18,8 @@ namespace Grupp1Webshop.Models
         public string Email { get; set; }
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
+        [ForeignKey("City")]
+        public int? CityId { get; set; }
         public City City { get; set; }
 
 
