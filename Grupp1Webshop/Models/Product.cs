@@ -85,7 +85,7 @@ namespace Grupp1Webshop.Models
             //Edit prop values
             while (true)
             {
-                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
+                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY, index);
 
                 if (index == 0) SaveProduct(secondCollumn, model);
                 else if (index == secondCollumn.Count) break;

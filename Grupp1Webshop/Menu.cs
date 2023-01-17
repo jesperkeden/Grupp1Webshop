@@ -323,10 +323,9 @@ namespace Grupp1Webshop
             Console.Clear();
             return index;
         }
-        internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY)
+        internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY, int index)
         {
             Console.Clear();
-            int index = 0;
 
             Console.CursorVisible = false;
             ConsoleKeyInfo keyPressed;

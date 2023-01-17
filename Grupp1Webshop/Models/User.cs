@@ -81,7 +81,7 @@ namespace Grupp1Webshop.Models
             //Edit prop values
             while (true)
             {
-                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY);
+                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY, index);
 
                 if (index == 0) SaveUser(secondCollumn, model);
                 else if (index == secondCollumn.Count) break;
@@ -93,40 +93,36 @@ namespace Grupp1Webshop.Models
 
         private static void SaveUser(List<string> secondColumn, User user)
         {
-            string saveOutput = "";
-            if (Helpers.ColumnValueNotEmpty(secondColumn))
-                saveOutput = "Could not save values, some values are empty";
-            else
+            using (var db = new Data.Context())
             {
-                user.Admin = Convert.ToBoolean(secondColumn[1]);
-                user.FirstName = secondColumn[2];
-                user.LastName = secondColumn[3];
-                user.Email = secondColumn[4];
-                user.Age = Convert.ToInt32(secondColumn[5]);
-                user.PhoneNumber = secondColumn[6];
-                user.StreetAdress = secondColumn[7];
-                user.ZipCode = Convert.ToInt32(secondColumn[8]);
-                //user.City = userTemp[9];
-                saveOutput = "Save success";
+                string saveOutput = "";
+                if (Helpers.ColumnValueNotEmpty(secondColumn))
+                    saveOutput = "Could not save values";
+                else
+                {
+                    user.Admin = Convert.ToBoolean(secondColumn[1]);
+                    user.FirstName = secondColumn[2];
+                    user.LastName = secondColumn[3];
+                    user.Email = secondColumn[4];
+                    user.Age = Convert.ToInt32(secondColumn[5]);
+                    user.PhoneNumber = secondColumn[6];
+                    user.StreetAdress = secondColumn[7];
+                    user.ZipCode = Convert.ToInt32(secondColumn[8]);
+                    user.City.Name = secondColumn[9];
+                    saveOutput = "Save success";
+                }
+                db.Add(user);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    saveOutput = e.InnerException.Message;
+                }
+                Console.WriteLine(saveOutput);
+                Console.ReadKey();
             }
-
-            //saveToDbFunciton("StringToSaveDbText");
-
-            //{ New Generic method
-            //    try
-            //    {
-            //        //saveToDbFunction
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("Could not save data to database!");
-            //        Console.ReadLine();
-            //    }
-            //    return;
-            //}
-            Console.WriteLine(saveOutput);
-            Console.ReadKey();
-            return;
         }
 
         internal static string GetValueInput(PropertyInfo edit, int positionX)
