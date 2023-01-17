@@ -11,19 +11,14 @@ namespace Grupp1Webshop.Models
     {
         public Order()
         {
-            this.Products = new HashSet<Product>();
+            Product = new HashSet<Product>();
         }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [ForeignKey("User")]
-        public int? CustomerId { get; set; }
-        [ForeignKey("Product")]
-        public int? ProductId { get; set; }
-        public string PaymentMethod { get; set; }
+        public string PaymenthMethod { get; set; }
         public string Shipping { get; set; }
-        public int ShippingCost { get; set; }
+        public double ShippingCost { get; set; }
         public double TotalCost { get; set; }
-        public string PlannedDelivery { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public User User { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }
