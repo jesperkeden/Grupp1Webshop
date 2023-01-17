@@ -139,9 +139,11 @@ namespace Grupp1Webshop.Models
                     value = Input.GetDoubleAsStringInput(positionX);
                     break;
                 case nameof(Description):
-                    List <string> listDescription = Helpers.GetNewLinesInString("jhdfgjkhdkjgh.jdhfgdkjfhg. djhnfgkjdfhgjk. jdsfhgkjdhfg. djhgkjhdfkjg. jhdgfkj");
-                    GUI.MessageBox("Description", 4, 20, listDescription);
-                    value = Input.GetDescriptionInput(positionX);
+                    int boxPositionX = 4;
+                    int boxPositionY = 20;
+                    
+                    GUI.MessageBox("Description", boxPositionX, boxPositionY, Helpers.GetNewLinesInString(description));
+                    value = Input.GetDescriptionInput(boxPositionX, boxPositionY, description);
                     break;
             }
             return value;

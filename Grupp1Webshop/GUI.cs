@@ -19,24 +19,27 @@ namespace Grupp1Webshop
 
         internal static void MessageBox(string header, int positionX, int PositionY, List<string> message)
         {
-            foreach (string line in message)Console.WriteLine(line);
-            Console.ReadLine();
-            int sizeX = Helpers.GetLengthOfStringInList(message);
+            int sizeX = Helpers.GetLengthOfStringInList(message) + 3;
+            if (sizeX < 13) sizeX = 13;
+
             Console.SetCursorPosition(positionX, PositionY);
-            Console.Write('┌' + new String('─', sizeX - 2) + '┐');
-            Console.SetCursorPosition(positionX, PositionY + 1);
-            Console.Write('│' + " " + header + new String(' ', sizeX - header.Length - 3) + '│');
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write('┌' + header + new String('─', (sizeX - 2 - header.Length)) + '┐');
             for (int i = 0; i < message.Count; i++)
             {
-                Console.SetCursorPosition(positionX, PositionY + 2 + i);
+                Console.SetCursorPosition(positionX, PositionY + 1 + i);
                 Console.Write('│');
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(" " + message[i] + new String(' ', sizeX - message[i].Length - 3));
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write('│');
             }
-            Console.SetCursorPosition(positionX, PositionY + message.Count + 2);
+            Console.SetCursorPosition(positionX, PositionY + message.Count + 1);
             Console.Write('└' + new String('─', sizeX - 2) + '┘');
+
+            Console.ResetColor();
         }
 
         internal static void OverWriteWithSpaces(int length, int positionX, int positionY)

@@ -105,9 +105,33 @@ namespace Grupp1Webshop
             return value;
         }
 
-        internal static string GetDescriptionInput(int positionX)
+        internal static string GetDescriptionInput(int positionX, int positionY, string description)
         {
-            return "";
+            return GetStringWithMaxLengthForDescription(positionX, positionY, description);
+        }
+
+        internal static string GetStringWithMaxLengthForDescription(int startPositionX, int StartPositionY, string savedInput)
+        {
+            int maxLength = 84;
+            ConsoleKeyInfo key;
+            Console.CursorLeft = startPositionX;
+
+            while (true)
+            {
+                GUI.OverWriteWithSpaces(savedInput.Length, startPositionX + savedInput.Length);
+                key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Enter) break;
+                if (key.Key == ConsoleKey.Backspace && savedInput.Length != 0) savedInput = savedInput.Remove(savedInput.Length - 1);
+                else if (savedInput.Length >= (maxLength - startPositionX))
+                {
+                    GUI.OverWriteWithSpaces(savedInput.Length + 1, startPositionX);
+                    savedInput = "";
+                }
+                else if (Char.IsLetterOrDigit(key.KeyChar) || Char.IsPunctuation(key.KeyChar))
+                    savedInput += key.KeyChar.ToString();
+            }
+            GUI.OverWriteWithSpaces(savedInput.Length, startPositionX);
+            return savedInput;
         }
     }
 }
