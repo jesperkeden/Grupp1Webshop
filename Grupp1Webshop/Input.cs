@@ -87,11 +87,27 @@ namespace Grupp1Webshop
                     GUI.OverWriteWithSpaces(savedInput.Length + 1, startPositionX);
                     savedInput = "";
                 }
-                else if (Char.IsLetter(key.KeyChar) || (Char.IsDigit(key.KeyChar)))
+                else if (Char.IsLetterOrDigit(key.KeyChar) || Char.IsPunctuation(key.KeyChar))
                     savedInput += key.KeyChar.ToString();
             }
             GUI.OverWriteWithSpaces(savedInput.Length, startPositionX);
             return savedInput;
+        }
+
+        internal static string GetDoubleAsStringInput(int positionX)
+        {
+            return GetDoubleInput(0d, positionX).ToString();
+        }
+        public static double GetDoubleInput(double lowerValue, int positionX)
+        {
+            double value = 0;
+            while (!double.TryParse(GetStringWithMaxLength(positionX), out value) || value < lowerValue) ;
+            return value;
+        }
+
+        internal static string GetDescriptionInput(int positionX)
+        {
+            return "";
         }
     }
 }

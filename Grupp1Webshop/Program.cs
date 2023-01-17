@@ -12,7 +12,7 @@ namespace Grupp1Webshop
 
 
             Menu.MainMenu();
-            User.CreateUser();
+            User.CreateUser(true);
             Supplier.CreateSupplier();
             Product.CreateProduct();
             //jesper testar

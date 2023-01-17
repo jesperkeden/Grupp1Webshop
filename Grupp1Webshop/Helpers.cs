@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +15,9 @@ namespace Grupp1Webshop
             return string.Concat(str.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
         }
 
-        internal static int GetSecondCollumnPositionX(List<string> firstCollumn)
+        internal static int GetLengthOfStringInList(List<string> listString)
         {
-            return (firstCollumn.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur).Length + 1);
+            return (listString.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur).Length + 1);
         }
 
         internal static List<string> AddMenuChoicesForProp(List<string> propNameList)
@@ -39,6 +40,19 @@ namespace Grupp1Webshop
                 if (item == "Empty") return true;
             }
             return false;
+        }
+
+        internal static List<string> GetPropertyNames(PropertyInfo[] properties, int startFrom)
+        {
+            List<string> propNameList = new List<string>();
+            for (int i = startFrom; i < (properties.Length); i++)
+                propNameList.Add(properties[i].Name);
+            return propNameList;
+        }
+
+        internal static List<string> GetNewLinesInString(string description)
+        {
+            return description.Split('.').ToList();
         }
     }
 }

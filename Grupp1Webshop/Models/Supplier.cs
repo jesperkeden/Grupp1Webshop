@@ -30,17 +30,6 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Supplier());
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties)
-        {
-            List<string> propNameList = new List<string>();
-
-            for (int i = 1; i < (properties.Length); i++)
-            {
-                propNameList.Add(properties[i].Name);
-            }
-            return propNameList;
-        }
-
         internal static List<string> GetPropertyValues(Supplier supplier, PropertyInfo[] properties)
         {
             List<string> propertyValues = new List<string>();
@@ -63,12 +52,12 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(properties));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1));
             List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
-            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstColumn) + firstColumnPositionX);
+            int secondColumnPositionX = (Helpers.GetLengthOfStringInList(firstColumn) + firstColumnPositionX);
             int positionY = 2;
 
             int index = 0;

@@ -1,3 +1,4 @@
+using Grupp1Webshop.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -99,7 +100,7 @@ namespace Grupp1Webshop
                         CustomerPortal();
                         break;
                     case CustomerChoice.CreateNewCustomer:
-                        // createcustomer()
+                        User.CreateUser(false);
                         break;
                     case CustomerChoice.GoToPrevious:
                         running = false;
@@ -140,10 +141,10 @@ namespace Grupp1Webshop
                         // removeproduct()
                         break;
                     case AdminChoice.AddUser:
-                        // adduser()
+                        User.CreateUser(true);
                         break;
                     case AdminChoice.EditUser:
-                        // edituser()
+                        //User.UpdateUser();
                         break;
                     case AdminChoice.GoToPrevious:
                         running = false;
@@ -160,6 +161,7 @@ namespace Grupp1Webshop
             string addUser = Helpers.ConvertEnumSpacesToString(AdminChoice.AddUser.ToString());
             string editUser = Helpers.ConvertEnumSpacesToString(AdminChoice.EditUser.ToString());
             string previous = Helpers.ConvertEnumSpacesToString(AdminChoice.GoToPrevious.ToString());
+
 
             List<string> adminMainMenuText = new List<string>();
             adminMainMenuText.Add($"{addProduct}");
