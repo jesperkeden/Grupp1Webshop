@@ -29,17 +29,6 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Product());
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties)
-        {
-            List<string> propNameList = new List<string>();
-
-            for (int i = 1; i < (properties.Length); i++)
-            {
-                propNameList.Add(properties[i].Name);
-            }
-            return propNameList;
-        }
-
         internal static List<string> GetPropertyValues(Product product, PropertyInfo[] properties)
         {
             List<string> propertyValues = new List<string>();
@@ -62,12 +51,12 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(properties));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1));
             List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
-            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstColumn) + firstColumnPositionX);
+            int secondColumnPositionX = (Helpers.GetLengthOfStringInList(firstColumn) + firstColumnPositionX);
             int positionY = 2;
 
             int index = 0;
@@ -81,7 +70,7 @@ namespace Grupp1Webshop.Models
                 else if (index == secondCollumn.Count) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX);
+                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX, secondCollumn[index]);
             }
         }
 
@@ -123,7 +112,7 @@ namespace Grupp1Webshop.Models
             return;
         }
 
-        internal static string GetValueInput(PropertyInfo edit, int positionX)
+        internal static string GetValueInput(PropertyInfo edit, int positionX, string description)
         {
             string value = "";
             switch (edit.Name)
@@ -137,10 +126,12 @@ namespace Grupp1Webshop.Models
                     value = Input.GetIntAsStringInput(0, 100, positionX);
                     break;
                 case nameof(UnitPrice):
-                    //value = Input.GetDoubleInput(positionX);
+                    value = Input.GetDoubleAsStringInput(positionX);
                     break;
                 case nameof(Description):
-                    //value = Input.GetDescriptionInput(positionX);
+                    List <string> listDescription = Helpers.GetNewLinesInString("jhdfgjkhdkjgh.jdhfgdkjfhg. djhnfgkjdfhgjk. jdsfhgkjdhfg. djhgkjhdfkjg. jhdgfkj");
+                    GUI.MessageBox("Description", 4, 20, listDescription);
+                    value = Input.GetDescriptionInput(positionX);
                     break;
             }
             return value;

@@ -32,27 +32,16 @@ namespace Grupp1Webshop.Models
         public virtual ICollection<Order> Order { get; set; }
 
 
-        internal static void CreateUser()
+        internal static void CreateUser(bool isAdmin)
         {
-            EditUser(new User());
+            EditUser(new User(), isAdmin);
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties)
-        {
-            List<string> propNameList = new List<string>();
-
-            for (int i = 1; i < (properties.Length); i++)
-            {
-                propNameList.Add(properties[i].Name);
-            }
-            return propNameList;
-        }
-
-        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties)
+        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties, int startFrom)
         {
             List<string> propertyValues = new List<string>();
 
-            for (int i = 1; i < (properties.Length); i++)
+            for (int i = startFrom; i < (properties.Length); i++)
             {
                 try
                 {
@@ -66,16 +55,21 @@ namespace Grupp1Webshop.Models
             return propertyValues;
         }
 
-        internal static void EditUser(User model)
+        internal static void EditUser(User model, bool isAdmin)
         {
+            //Ss admin
+            int startFrom = 1;
+            if (!isAdmin)
+                startFrom = 2;
+    
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(GetPropertyNames(properties));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, startFrom));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, startFrom));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
-            int secondColumnPositionX = (Helpers.GetSecondCollumnPositionX(firstColumn) + firstColumnPositionX);
+            int secondColumnPositionX = (Helpers.GetLengthOfStringInList(firstColumn) + firstColumnPositionX);
             int positionY = 2;
 
             int index = 0;
