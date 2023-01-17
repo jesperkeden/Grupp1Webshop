@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Grupp1Webshop.Models;
 
 namespace Grupp1Webshop.Models
 {
-    internal class Category
+    internal class Size
     {
-        public Category()
+        public Size()
         {
             NewProducts = new HashSet<NewProduct>();
         }
@@ -18,6 +16,5 @@ namespace Grupp1Webshop.Models
         public string Name { get; set; }
 
         public virtual ICollection<NewProduct> NewProducts { get; set; }
-
     }
 }

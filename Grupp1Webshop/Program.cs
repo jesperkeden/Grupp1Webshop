@@ -7,6 +7,11 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
+            //Data.GetAllCities();
+            //Data.GetAllCategories();
+            //Data.GetAllSuppliers();
+            //Data.GetAllProducts();
+            //Data.GetAllUsers();
 
             //Menu.MainMenu();
 

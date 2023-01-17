@@ -12,26 +12,16 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
-        public Product()
-        {
-            this.Orders = new HashSet<Order>();
-        }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public List<Color> Color { get; set; }
+        public List<Size> Size { get; set; }
+        public double UnitPrice { get; set; }
         public string Description { get; set; }
-        public string Color { get; set; }
         public int Quantity { get; set; }
-        public string Size { get; set; }
         public Category Category { get; set; }
-        [ForeignKey("Category")]
-        public int? CategoryId { get; set; }
-        [ForeignKey("Supplier")]
-        public int? SupplierId { get; set; }
-
-        public ICollection<Order> Orders { get; set; }
-
+        public Supplier Supplier { get; set; }
 
 
         internal static void CreateProduct()
@@ -103,13 +93,13 @@ namespace Grupp1Webshop.Models
             else
             {
                 product.Name = secondColumn[1];
-                product.Price = Convert.ToDouble(secondColumn[2]);
+                product.UnitPrice = Convert.ToDouble(secondColumn[2]);
                 product.Description = secondColumn[3];
-                product.Color = secondColumn[4];
+                //product.Color = secondColumn[4];
                 product.Quantity = Convert.ToInt32(secondColumn[5]);
                 //product.CategoryId = Convert.ToInt32(secondColumn[6]);
                 //product.SupplierId = Convert.ToInt32(secondColumn[7]);
-                product.Size = secondColumn[8];
+                //product.Size = secondColumn[8];
                 saveOutput = "Save success";
             }
 
@@ -146,7 +136,7 @@ namespace Grupp1Webshop.Models
                 case nameof(Quantity):
                     value = Input.GetIntAsStringInput(0, 100, positionX);
                     break;
-                case nameof(Price):
+                case nameof(UnitPrice):
                     //value = Input.GetDoubleInput(positionX);
                     break;
                 case nameof(Description):

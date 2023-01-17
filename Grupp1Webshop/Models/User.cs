@@ -13,7 +13,11 @@ namespace Grupp1Webshop.Models
 {
     internal class User
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public User()
+        {
+            Order = new HashSet<Order>();
+        }
+        [ForeignKey("Basket")]
         public int Id { get; set; }
         public bool Admin { get; set; }
         public string FirstName { get; set; }
@@ -23,11 +27,9 @@ namespace Grupp1Webshop.Models
         public string PhoneNumber { get; set; }
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
-        [ForeignKey("City")]
-        public int? CityId { get; set; }
         public City City { get; set; }
-        public Order Order { get; set; }
         public Basket Basket { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
 
 
         internal static void CreateUser()
