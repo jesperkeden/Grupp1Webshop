@@ -12,12 +12,13 @@ namespace Grupp1Webshop.Models
     {
         public Category()
         {
-            NewProducts = new HashSet<NewProduct>();
+            Products = new HashSet<Product>();
         }
-        public int? Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<NewProduct> NewProducts { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
     }
 }

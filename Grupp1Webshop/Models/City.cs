@@ -15,6 +15,7 @@ namespace Grupp1Webshop.Models
             Supplier = new HashSet<Supplier>();
             User = new HashSet<User>();
         }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Supplier> Supplier { get; set; }

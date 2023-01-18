@@ -22,21 +22,6 @@ namespace Grupp1Webshop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ColorNewProduct", b =>
-                {
-                    b.Property<int>("ColorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NewProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColorId", "NewProductsId");
-
-                    b.HasIndex("NewProductsId");
-
-                    b.ToTable("ColorNewProduct");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Basket", b =>
                 {
                     b.Property<int>("Id")
@@ -55,11 +40,11 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.Category", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -89,56 +74,19 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.Color", b =>
                 {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Color");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.NewProduct", b =>
-                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<double>("UnitPrice")
-                        .HasColumnType("float");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("NewProduct");
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
@@ -187,6 +135,9 @@ namespace Grupp1Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -201,6 +152,9 @@ namespace Grupp1Webshop.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
@@ -213,7 +167,11 @@ namespace Grupp1Webshop.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ColorId");
+
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("SizeId");
 
                     b.HasIndex("SupplierId");
 
@@ -222,24 +180,19 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.Size", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Size");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
@@ -327,54 +280,6 @@ namespace Grupp1Webshop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NewProductSize", b =>
-                {
-                    b.Property<int>("NewProductsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SizeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NewProductsId", "SizeId");
-
-                    b.HasIndex("SizeId");
-
-                    b.ToTable("NewProductSize");
-                });
-
-            modelBuilder.Entity("ColorNewProduct", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Color", null)
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Grupp1Webshop.Models.NewProduct", null)
-                        .WithMany()
-                        .HasForeignKey("NewProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Color", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Product", null)
-                        .WithMany("Color")
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.NewProduct", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Category", "Category")
-                        .WithMany("NewProducts")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
                 {
                     b.HasOne("Grupp1Webshop.Models.User", "User")
@@ -393,8 +298,14 @@ namespace Grupp1Webshop.Migrations
                         .HasForeignKey("BasketId");
 
                     b.HasOne("Grupp1Webshop.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Grupp1Webshop.Models.Color", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -402,8 +313,14 @@ namespace Grupp1Webshop.Migrations
                         .WithMany("Product")
                         .HasForeignKey("OrderId");
 
+                    b.HasOne("Grupp1Webshop.Models.Size", null)
+                        .WithMany("Products")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Grupp1Webshop.Models.Supplier", "Supplier")
-                        .WithMany("Product")
+                        .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -411,13 +328,6 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Size", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Product", null)
-                        .WithMany("Size")
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
@@ -450,21 +360,6 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("NewProductSize", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.NewProduct", null)
-                        .WithMany()
-                        .HasForeignKey("NewProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Grupp1Webshop.Models.Size", null)
-                        .WithMany()
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Basket", b =>
                 {
                     b.Navigation("Products");
@@ -475,7 +370,7 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.Category", b =>
                 {
-                    b.Navigation("NewProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.City", b =>
@@ -485,21 +380,24 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Grupp1Webshop.Models.Color", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
                 {
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
+            modelBuilder.Entity("Grupp1Webshop.Models.Size", b =>
                 {
-                    b.Navigation("Color");
-
-                    b.Navigation("Size");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
                 {
-                    b.Navigation("Product");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.User", b =>
