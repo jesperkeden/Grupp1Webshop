@@ -28,11 +28,11 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Supplier());
         }
 
-        internal static List<string> GetPropertyValues(Supplier supplier, PropertyInfo[] properties)
+        internal static List<string> GetPropertyValues(Supplier supplier, PropertyInfo[] properties, int removeLast)
         {
             List<string> propertyValues = new List<string>();
 
-            for (int i = 1; i < (properties.Length); i++)
+            for (int i = 1; i < (properties.Length - removeLast); i++)
             {
                 try
                 {
@@ -50,8 +50,8 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1, 1));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, 1));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -117,11 +117,11 @@ namespace Grupp1Webshop.Models
             {
                 case nameof(Name):
                 case nameof(StreetAdress):
+                case nameof(Email):
+                    value = Input.GetStringFirstLeterInEachWordUpperInput(positionX);
+                    break;
                 case nameof(City):
                     value = Input.GetStringFirstUpperInput(positionX);
-                    break;
-                case nameof(Email):
-                    value = Input.GetStringLowerInput(positionX);
                     break;
                 case nameof(ZipCode):
                     value = Input.GetIntAsStringInput(10000, 99999, positionX);

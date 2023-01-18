@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
+﻿using Grupp1Webshop.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -37,11 +39,11 @@ namespace Grupp1Webshop.Models
             EditUser(new User(), isAdmin);
         }
 
-        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties, int startFrom)
+        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties, int startFrom, int removeLast)
         {
             List<string> propertyValues = new List<string>();
 
-            for (int i = startFrom; i < (properties.Length); i++)
+            for (int i = startFrom; i < (properties.Length - removeLast); i++)
             {
                 try
                 {
@@ -58,14 +60,14 @@ namespace Grupp1Webshop.Models
         internal static void EditUser(User model, bool isAdmin)
         {
             //Ss admin
-            int startFrom = 1;
-            if (!isAdmin)
-                startFrom = 2;
-    
+            int removeFirst = 1;
+            int removeLast = 2;
+            if (!isAdmin) removeFirst = 2;
+
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, startFrom));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, startFrom));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, removeFirst, removeLast));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, removeFirst, removeLast));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -89,36 +91,50 @@ namespace Grupp1Webshop.Models
 
         private static void SaveUser(List<string> secondColumn, User user)
         {
-            using (var db = new Data.Context())
+            string saveOutput = "";
+            if (Helpers.ColumnValueNotEmpty(secondColumn))
+                saveOutput = "Could not save values, some values are empty";
+            else
             {
-                string saveOutput = "";
-                if (Helpers.ColumnValueNotEmpty(secondColumn))
-                    saveOutput = "Could not save values";
-                else
+                user.Admin = Convert.ToBoolean(secondColumn[1]);
+                user.FirstName = secondColumn[2];
+                user.LastName = secondColumn[3];
+                user.Email = secondColumn[4];
+                user.Age = Convert.ToInt32(secondColumn[5]);
+                user.PhoneNumber = secondColumn[6];
+                user.StreetAdress = secondColumn[7];
+                user.ZipCode = Convert.ToInt32(secondColumn[8]);
+                string cityFromColumn = secondColumn[9];
+
+                using (var db = new Context())
                 {
-                    user.Admin = Convert.ToBoolean(secondColumn[1]);
-                    user.FirstName = secondColumn[2];
-                    user.LastName = secondColumn[3];
-                    user.Email = secondColumn[4];
-                    user.Age = Convert.ToInt32(secondColumn[5]);
-                    user.PhoneNumber = secondColumn[6];
-                    user.StreetAdress = secondColumn[7];
-                    user.ZipCode = Convert.ToInt32(secondColumn[8]);
-                    user.City = secondColumn[9].ToList();
-                    saveOutput = "Save success";
+                    try
+                    {
+                        //var dbCities = db.Cities;
+                        //City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
+                        //if (dbCity == null)
+                        //{
+                        //    dbCity = new City()
+                        //    {
+                        //        Name = cityFromColumn
+                        //    };
+
+                        //    dbCities.Add(dbCity);
+                        //}
+
+                        //user.City = dbCity;
+                        db.Add(user);
+                        db.SaveChanges();
+                        saveOutput = "Save success";
+                    }
+                    catch
+                    {
+                        saveOutput = "Could not save values to database";
+                    }
                 }
-                db.Add(user);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    saveOutput = e.InnerException.Message;
-                }
-                Console.WriteLine(saveOutput);
-                Console.ReadKey();
             }
+            Console.WriteLine("\n\n" + saveOutput);
+            Console.ReadLine();
         }
 
         internal static string GetValueInput(PropertyInfo edit, int positionX)
@@ -129,14 +145,14 @@ namespace Grupp1Webshop.Models
                 case nameof(Admin):
                     value = Input.GetBoolAsString(positionX);
                     break;
+                case nameof(StreetAdress):
+                case nameof(Email):
+                    value = Input.GetStringFirstLeterInEachWordUpperInput(positionX);
+                    break;
                 case nameof(FirstName):
                 case nameof(LastName):
-                case nameof(StreetAdress):
                 case nameof(City):
                     value = Input.GetStringFirstUpperInput(positionX);
-                    break;
-                case nameof(Email):
-                    value = Input.GetStringLowerInput(positionX);
                     break;
                 case nameof(Age):
                     value = Input.GetIntAsStringInput(18, 120, positionX);

@@ -38,14 +38,15 @@ namespace Grupp1Webshop
             foreach (var item in secondColumn)
             {
                 if (item == "Empty") return true;
+                else if (item == "0") return true;
             }
             return false;
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties, int startFrom)
+        internal static List<string> GetPropertyNames(PropertyInfo[] properties, int startFrom, int end)
         {
             List<string> propNameList = new List<string>();
-            for (int i = startFrom; i < (properties.Length); i++)
+            for (int i = startFrom; i < (properties.Length - end); i++)
                 propNameList.Add(properties[i].Name);
             return propNameList;
         }
@@ -54,5 +55,7 @@ namespace Grupp1Webshop
         {
             return description.Split('.').ToList();
         }
+
+        
     }
 }

@@ -16,7 +16,7 @@ namespace Grupp1Webshop
             //Menu.MainMenu();
 
 
-            Menu.MainMenu();
+            //Menu.MainMenu();
             User.CreateUser(true);
             Supplier.CreateSupplier();
             Product.CreateProduct();

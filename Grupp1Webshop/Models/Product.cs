@@ -51,7 +51,7 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1, 0));
             List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties));
 
             //Position of list in GUI
@@ -118,6 +118,8 @@ namespace Grupp1Webshop.Models
             switch (edit.Name)
             {
                 case nameof(Name):
+                    value = Input.GetStringFirstLeterInEachWordUpperInput(positionX);
+                    break;
                 case nameof(Color):
                 case nameof(Size):
                     value = Input.GetStringFirstUpperInput(positionX);
@@ -129,11 +131,7 @@ namespace Grupp1Webshop.Models
                     value = Input.GetDoubleAsStringInput(positionX);
                     break;
                 case nameof(Description):
-                    int boxPositionX = 4;
-                    int boxPositionY = 20;
-                    
-                    GUI.MessageBox("Description", boxPositionX, boxPositionY, Helpers.GetNewLinesInString(description));
-                    value = Input.GetDescriptionInput(boxPositionX, boxPositionY, description);
+                    value = Menu.EditDescriptionValue(description);
                     break;
             }
             return value;

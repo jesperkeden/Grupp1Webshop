@@ -375,6 +375,19 @@ namespace Grupp1Webshop
 
             return index;
         }
+
+        internal static string EditDescriptionValue(string description)
+        {
+            List<string> list = new List<string>();
+            Console.Clear();
+            list.Add("Yes");
+            list.Add("No");
+            Console.WriteLine("Want to edit description?");
+            GUI.MessageBox("Description", 10, 2, Helpers.GetNewLinesInString(description));
+            int edit = EditMenu(list);
+            if (edit == 0) return Input.GetDescriptionInput(description);
+            return description;
+        }
     }
 }
 
