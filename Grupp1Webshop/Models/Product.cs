@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Grupp1Webshop.Models;
@@ -36,7 +35,7 @@ namespace Grupp1Webshop.Models
         public Supplier Supplier { get; set; }
         public string Description { get; set; }
         //public virtual ICollection<Supplier> Suppliers { get; set; }
-        
+
 
         internal static void CreateProduct()
         {

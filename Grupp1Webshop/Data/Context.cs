@@ -12,7 +12,7 @@ namespace Grupp1Webshop.Data
 {
     internal class Context : DbContext
     {
-        public DbSet<Basket> Baskets { get; set; }
+        //public DbSet<Basket> Baskets { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }

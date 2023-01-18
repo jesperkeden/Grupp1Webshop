@@ -159,31 +159,62 @@ namespace Grupp1Webshop
         internal static void AddSupplier()
         {
             using var db = new Context();
-            db.AddRange(
-                new Supplier() 
-                { 
-                    Name = "Robins kakor", 
-                    ContactPerson = "Robin", 
-                    PhoneNumber = "0708759983", 
-                    Email = "blabla", 
-                    StreetAdress = "storgatan 6", 
-                    ZipCode = 61335,
-                    CityId = 1,
-                },
-                new Supplier()
+            //db.AddRange(
+
+            //    new Supplier() 
+            //    { 
+            //        Name = "Robins kakor", 
+            //        ContactPerson = "Robin", 
+            //        PhoneNumber = "0708759983", 
+            //        Email = "blabla", 
+            //        StreetAdress = "storgatan 6", 
+            //        ZipCode = 61335,
+            //        CityId = 1,
+            //    },
+            //    new Supplier()
+            //    {
+            //        Name = "Eminas kläder",
+            //        ContactPerson = "Emina",
+            //        PhoneNumber = "0708759900",
+            //        Email = "blablaasd",
+            //        StreetAdress = "storgatan 7",
+            //        ZipCode = 61336,
+            //    });
+            try
+            {
+                var dbNewSupplier = db.Suppliers;
+                var newSupplier = new Supplier()
                 {
-                    Name = "Eminas kläder",
-                    ContactPerson = "Emina",
-                    PhoneNumber = "0708759900",
-                    Email = "blablaasd",
-                    StreetAdress = "storgatan 7",
+                    Name = "Jespers",
+                    ContactPerson = "emina",
+                    PhoneNumber = "0737785368",
+                    Email = "fghfghfgh",
+                    StreetAdress = "dfgdfg",
                     ZipCode = 61336,
-                    CityId = 2,
+                };
+                dbNewSupplier.Add(newSupplier);
+
+                var dbCities = db.Cities;
+                City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == "kiruna");
+                if (dbCity == null)
+                {
+                    dbCity = new City()
+                    {
+                        Name = "kiruna"
+                    };
+
+                    dbCities.Add(dbCity);
                 }
+                newSupplier.City = dbCity;
+
                 
-                );
-            db.SaveChanges();
-            Console.WriteLine("Suppliers added");
+                db.SaveChanges();
+                Console.WriteLine("Suppliers added");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         internal static void AddCity()

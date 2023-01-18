@@ -1,4 +1,5 @@
 ﻿using Grupp1Webshop.Data;
+using Grupp1Webshop.Gammalt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -19,7 +20,7 @@ namespace Grupp1Webshop.Models
         {
             Order = new HashSet<Order>();
         }
-        [ForeignKey("Basket")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public bool Admin { get; set; }
         public string FirstName { get; set; }
@@ -30,7 +31,8 @@ namespace Grupp1Webshop.Models
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public City City { get; set; }
-        public Basket Basket { get; set; }
+        public int CityId { get; set; }
+        //public Basket Basket { get; set; }
         public virtual ICollection<Order> Order { get; set; }
 
 
@@ -110,26 +112,61 @@ namespace Grupp1Webshop.Models
                 {
                     try
                     {
-                        //var dbCities = db.Cities;
-                        //City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
-                        //if (dbCity == null)
+                        var dbUsers = db.Users;
+
+                        //var newSupplier = new User()
                         //{
-                        //    dbCity = new City()
+                        //    Admin = user.Admin,
+                        //    FirstName = secondColumn[2],
+                        //    LastName = secondColumn[3],
+                        //    Email = secondColumn[4],
+                        //    Age = Convert.ToInt32(secondColumn[5]),
+                        //    PhoneNumber = secondColumn[6],
+                        //    StreetAdress = secondColumn[7],
+                        //    ZipCode = Convert.ToInt32(secondColumn[8])
+                        //};
+                        //dbUsers.Add(newSupplier);
+
+                        //User dbUser = dbUsers.ToList().SingleOrDefault(a => a.Email == user.Email);
+                        //if (dbUser == null)
+                        //{
+                        //    dbUser = new User()
                         //    {
-                        //        Name = cityFromColumn
+                        //        Admin = user.Admin,
+                        //        FirstName = secondColumn[2],
+                        //        LastName = secondColumn[3],
+                        //        Email = secondColumn[4],
+                        //        Age = Convert.ToInt32(secondColumn[5]),
+                        //        PhoneNumber = secondColumn[6],
+                        //        StreetAdress = secondColumn[7],
+                        //        ZipCode = Convert.ToInt32(secondColumn[8])
+
                         //    };
 
-                        //    dbCities.Add(dbCity);
+                        //    dbUsers.Add(dbUser);
                         //}
 
-                        //user.City = dbCity;
-                        db.Add(user);
+                        dbUsers.Add(user);
+
+                        var dbCities = db.Cities;
+                        City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
+                        if (dbCity == null)
+                        {
+                            dbCity = new City()
+                            {
+                                Name = cityFromColumn
+                            };
+
+                            dbCities.Add(dbCity);
+                        }
+
+                        user.City = dbCity;
                         db.SaveChanges();
                         saveOutput = "Save success";
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        saveOutput = "Could not save values to database";
+                        saveOutput = "Could not save values to database" + ex;
                     }
                 }
             }

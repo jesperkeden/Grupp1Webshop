@@ -30,10 +30,10 @@ namespace Grupp1Webshop.Gammalt
                         StreetAdress = "Storgatan 6",
                         ZipCode = 61335,
                         //City = 
-                        Order = new List<Order>()
-                        {
+                        //Order = new List<Order>()
+                        //{
 
-                        }
+                        //}
                     }
                 };
             }

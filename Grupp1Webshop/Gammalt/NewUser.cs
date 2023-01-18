@@ -23,7 +23,7 @@ namespace Grupp1Webshop.Gammalt
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public City City { get; set; }
-        public Basket Basket { get; set; }
+        //public Basket Basket { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Grupp1Webshop
 
 
             //Menu.MainMenu();
-            //User.CreateUser(true);
+            User.CreateUser(true);
             //Supplier.CreateSupplier();
             //Product.CreateProduct();
 
@@ -29,7 +29,7 @@ namespace Grupp1Webshop
             //Helpers.AddColors();
             //Helpers.AddSize();
             //Helpers.AddSupplier();
-            Helpers.AddProduct();
+            //Helpers.AddProduct();
 
 
         }

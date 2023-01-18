@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grupp1Webshop.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230118140707_1")]
-    partial class _1
+    [Migration("20230118160747_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,22 +23,6 @@ namespace Grupp1Webshop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Basket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Baskets");
-                });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Category", b =>
                 {
@@ -131,9 +115,6 @@ namespace Grupp1Webshop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BasketId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -164,8 +145,6 @@ namespace Grupp1Webshop.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BasketId");
 
                     b.HasIndex("CategoryId");
 
@@ -241,7 +220,10 @@ namespace Grupp1Webshop.Migrations
             modelBuilder.Entity("Grupp1Webshop.Models.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool>("Admin")
                         .HasColumnType("bit");
@@ -295,10 +277,6 @@ namespace Grupp1Webshop.Migrations
 
             modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
                 {
-                    b.HasOne("Grupp1Webshop.Models.Basket", null)
-                        .WithMany("Products")
-                        .HasForeignKey("BasketId");
-
                     b.HasOne("Grupp1Webshop.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
@@ -351,23 +329,7 @@ namespace Grupp1Webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Grupp1Webshop.Models.Basket", "Basket")
-                        .WithOne("User")
-                        .HasForeignKey("Grupp1Webshop.Models.User", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Basket");
-
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Basket", b =>
-                {
-                    b.Navigation("Products");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Category", b =>
