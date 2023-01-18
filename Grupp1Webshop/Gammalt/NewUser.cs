@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grupp1Webshop.Models;
 
-namespace Grupp1Webshop.Models
+namespace Grupp1Webshop.Gammalt
 {
     internal class NewUser
     {
@@ -22,7 +23,7 @@ namespace Grupp1Webshop.Models
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public City City { get; set; }
-        public Basket Basket { get; set; }  
+        public Basket Basket { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

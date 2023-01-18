@@ -10,6 +10,11 @@ namespace Grupp1Webshop.Models
 {
     internal class Supplier
     {
+        public Supplier()
+        {
+            Products = new HashSet<Product>();
+        }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string ContactPerson { get; set; }
@@ -18,7 +23,8 @@ namespace Grupp1Webshop.Models
         public string StreetAdress { get; set; }
         public int ZipCode { get; set; }
         public City City { get; set; }
-        public List<Product> Product { get; set; }
+        public int CityId { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
 
 

@@ -104,7 +104,7 @@ namespace Grupp1Webshop.Models
                     user.PhoneNumber = secondColumn[6];
                     user.StreetAdress = secondColumn[7];
                     user.ZipCode = Convert.ToInt32(secondColumn[8]);
-                    user.City = secondColumn[9].ToList();
+                    //user.City = secondColumn[9].ToList();
                     saveOutput = "Save success";
                 }
                 db.Add(user);

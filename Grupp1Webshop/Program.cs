@@ -1,5 +1,8 @@
-﻿using Grupp1Webshop.Models;
+﻿using Grupp1Webshop.Data;
+using Grupp1Webshop.Models;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Grupp1Webshop
 {
@@ -13,81 +16,22 @@ namespace Grupp1Webshop
             //Data.GetAllProducts();
             //Data.GetAllUsers();
 
+
             //Menu.MainMenu();
+            //User.CreateUser(true);
+            //Supplier.CreateSupplier();
+            //Product.CreateProduct();
 
 
-            Menu.MainMenu();
-            User.CreateUser(true);
-            Supplier.CreateSupplier();
-            Product.CreateProduct();
-            //jesper testar
-
-            //string hej = Input.GetStringLowerInput();
-            //Console.WriteLine(hej);
-            //hej = Input.GetStringFirstUpperInput();
-            //Console.WriteLine(hej);
+            //Metoder för att fylla på databasen
+            //Helpers.AddCity();
+            //Helpers.AddCategories();
+            //Helpers.AddColors();
+            //Helpers.AddSize();
+            //Helpers.AddSupplier();
+            Helpers.AddProduct();
 
 
-
-
-            //List<string> user = new List<string>();
-            //user.Add("Förnamn");
-            //user.Add("Efternamn");
-            //user.Add("Ålder");
-            //user.Add("Förnamn");
-            //user.Add("Efternamn");
-            //user.Add("Ålder");
-            //user.Add("Förnamn");
-            //user.Add("Efternamn");
-            //user.Add("Ålder");
-            //user.Add("Förnamn");
-            //user.Add("Efternamn");
-            //user.Add("Ålder");
-
-            //List<string> userEdit = new List<string>();
-            //userEdit.Add("Robin");
-            //userEdit.Add("Forsling");
-            //userEdit.Add("30");
-            //userEdit.Add("Robin");
-            //userEdit.Add("Forsling");
-            //userEdit.Add("30");
-            //userEdit.Add("Robin");
-            //userEdit.Add("Forsling");
-            //userEdit.Add("30");
-            //userEdit.Add("Robin");
-            //userEdit.Add("Forsling");
-            //userEdit.Add("30");
-            //Menu.EditMenu(user, userEdit);
-            //Menu.MainMenu();
-        }
-
-
-
-        //public static void ToDoUpdate()
-        //{
-        //    using (var database = new Context())
-        //    {
-        //        int chosenId = CaptureId();
-
-        //        var updatePost = (from t in database.ToDoS
-        //                          where t.Id == chosenId
-        //                          select t).SingleOrDefault();
-        //        if (updatePost.Fixat != null)
-        //        {
-        //            updatePost.Fixat = true;
-        //            database.SaveChanges();
-        //            Console.Clear();
-        //        }
-        //    }
-        //}
-
-
-
-        private static int CaptureId()
-        {
-            Console.Write("Ange vilken post du vill uppdatera: ");
-            int summa = int.Parse(Console.ReadLine());
-            return summa;
         }
     }
 }

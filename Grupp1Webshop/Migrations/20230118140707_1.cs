@@ -4,7 +4,7 @@
 
 namespace Grupp1Webshop.Migrations
 {
-    public partial class first : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,26 +48,29 @@ namespace Grupp1Webshop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "NewProduct",
+                name: "Colors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NewProduct", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NewProduct_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Colors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sizes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sizes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,11 +160,13 @@ namespace Grupp1Webshop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitPrice = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<double>(type: "float", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ColorId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BasketId = table.Column<int>(type: "int", nullable: true),
                     OrderId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -180,10 +185,22 @@ namespace Grupp1Webshop.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Products_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Products_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Products_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Suppliers_SupplierId",
                         column: x => x.SupplierId,
@@ -191,112 +208,6 @@ namespace Grupp1Webshop.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Color",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Color", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Color_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Size",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Size", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Size_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ColorNewProduct",
-                columns: table => new
-                {
-                    ColorId = table.Column<int>(type: "int", nullable: false),
-                    NewProductsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ColorNewProduct", x => new { x.ColorId, x.NewProductsId });
-                    table.ForeignKey(
-                        name: "FK_ColorNewProduct_Color_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "Color",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ColorNewProduct_NewProduct_NewProductsId",
-                        column: x => x.NewProductsId,
-                        principalTable: "NewProduct",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NewProductSize",
-                columns: table => new
-                {
-                    NewProductsId = table.Column<int>(type: "int", nullable: false),
-                    SizeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewProductSize", x => new { x.NewProductsId, x.SizeId });
-                    table.ForeignKey(
-                        name: "FK_NewProductSize_NewProduct_NewProductsId",
-                        column: x => x.NewProductsId,
-                        principalTable: "NewProduct",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_NewProductSize_Size_SizeId",
-                        column: x => x.SizeId,
-                        principalTable: "Size",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Color_ProductId",
-                table: "Color",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ColorNewProduct_NewProductsId",
-                table: "ColorNewProduct",
-                column: "NewProductsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NewProduct_CategoryId",
-                table: "NewProduct",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NewProductSize_SizeId",
-                table: "NewProductSize",
-                column: "SizeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
@@ -314,19 +225,24 @@ namespace Grupp1Webshop.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_ColorId",
+                table: "Products",
+                column: "ColorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_OrderId",
                 table: "Products",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_SizeId",
+                table: "Products",
+                column: "SizeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_SupplierId",
                 table: "Products",
                 column: "SupplierId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Size_ProductId",
-                table: "Size",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suppliers_CityId",
@@ -342,28 +258,19 @@ namespace Grupp1Webshop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ColorNewProduct");
-
-            migrationBuilder.DropTable(
-                name: "NewProductSize");
-
-            migrationBuilder.DropTable(
-                name: "Color");
-
-            migrationBuilder.DropTable(
-                name: "NewProduct");
-
-            migrationBuilder.DropTable(
-                name: "Size");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "Colors");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

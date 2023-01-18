@@ -4,14 +4,15 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Grupp1Webshop.Models;
 
-namespace Grupp1Webshop.Models
+namespace Grupp1Webshop.Gammalt
 {
     internal class NewSupplier
     {
         public NewSupplier()
         {
-            
+
         }
         public int Id { get; set; }
         public string Name { get; set; }

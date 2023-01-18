@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grupp1Webshop.Data
+namespace Grupp1Webshop.Gammalt
 {
     internal class UserManager
     {
