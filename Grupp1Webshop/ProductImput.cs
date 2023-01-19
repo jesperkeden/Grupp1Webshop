@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grupp1Webshop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Grupp1Webshop
 
         public static List<Models.Product> Products { get; set; }
 
-     
+
         //public static List<Models.Product> GetAllproducts()
         //{
         //    Random rnd = new Random();
@@ -2297,6 +2298,7 @@ namespace Grupp1Webshop
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
         //                Quantity = rnd.Next(5, 50)
         //            }
+
 
         //    };
         //    return Products;

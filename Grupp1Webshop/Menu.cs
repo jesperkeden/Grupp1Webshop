@@ -132,19 +132,19 @@ namespace Grupp1Webshop
                 switch (adminchoice)
                 {
                     case AdminChoice.AddProduct:
-                        // addproduct()
+                        Product.CreateProduct();
                         break;
                     case AdminChoice.UpdateProduct:
-                        // updateproduct()
+                        Product.UpdateProduct();
                         break;
                     case AdminChoice.RemoveProduct:
-                        // removeproduct()
+                        Product.RemoveProduct();
                         break;
                     case AdminChoice.AddUser:
                         User.CreateUser(true);
                         break;
                     case AdminChoice.EditUser:
-                        //User.UpdateUser();
+                        User.UpdateUser();
                         break;
                     case AdminChoice.GoToPrevious:
                         running = false;
@@ -190,7 +190,7 @@ namespace Grupp1Webshop
                         // �ndra uppgifter(samma metod som admin/ edituser, v�ljer currentuser)
                         break;
                     case CustomerPortalChoice.OrderHistory:
-                        // orderhistory()
+                        // orderHistory()
                         break;
                     case CustomerPortalChoice.ShoppingCart:
                         // seeShoppingCart()
@@ -304,7 +304,6 @@ namespace Grupp1Webshop
         }
         internal static int EditMenu(List<string> firstCollumn)
         {
-            Console.Clear();
             int firstColumnPositionX = 3;
             int index = 0;
             int positionY = 2;
@@ -323,6 +322,7 @@ namespace Grupp1Webshop
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
+            Console.Clear();
             return index;
         }
         internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY, int index)
@@ -392,6 +392,7 @@ namespace Grupp1Webshop
         internal static string PickSupplierFromMenu()
         {
             var suppliersList = Helpers.GetSuppliersFromDb();
+            Console.Clear();
             return suppliersList[Menu.EditMenu(Helpers.ConvertClassListToStringList(suppliersList))].Name;
         }
     }

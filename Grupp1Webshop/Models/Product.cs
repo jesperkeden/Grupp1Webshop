@@ -42,28 +42,15 @@ namespace Grupp1Webshop.Models
 
         internal static void CreateProduct()
         {
-            EditSupplier(new Product());
+            EditProduct(new Product());
         }
 
-        //internal static List<string> GetPropertyValues(Product product, PropertyInfo[] properties)
-        //{
-        //    List<string> propertyValues = new List<string>();
+        internal static void UpdateProduct()
+        {
+            Helpers.GetProductFromDb();
+        }
 
-        //    for (int i = 1; i < (properties.Length); i++)
-        //    {
-        //        try
-        //        {
-        //            propertyValues.Add(properties[i].GetValue(product).ToString());
-        //        }
-        //        catch
-        //        {
-        //            propertyValues.Add("Empty");
-        //        }
-        //    }
-        //    return propertyValues;
-        //}
-
-        internal static void EditSupplier(Product model)
+        internal static void EditProduct(Product model)
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
