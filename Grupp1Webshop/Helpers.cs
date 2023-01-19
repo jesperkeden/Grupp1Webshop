@@ -52,7 +52,7 @@ namespace Grupp1Webshop
         {
             List<string> propNameList = new List<string>();
             foreach (var property in properties)
-                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin"))) 
+                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
                     propNameList.Add(property.Name);
             return propNameList;
         }
@@ -137,55 +137,6 @@ namespace Grupp1Webshop
             db.SaveChanges();
             Console.WriteLine("Categories added");
         }
-
-        //internal static void AddColors()
-        //{
-        //    using var db = new Context();
-        //    db.AddRange(
-
-        //        new Color() { Name = "Black" },
-        //        new Color() { Name = "Beige" },
-        //        new Color() { Name = "Blue" },
-        //        new Color() { Name = "White" },
-        //        new Color() { Name = "Silver" },
-        //        new Color() { Name = "Red" },
-        //        new Color() { Name = "Black/Stripped" },
-        //        new Color() { Name = "Black/Floral" },
-        //        new Color() { Name = "Green" },
-        //        new Color() { Name = "Blue/Denim" },
-        //        new Color() { Name = "Blue/Light" },
-        //        new Color() { Name = "Cream" }
-
-        //        );
-        //    db.SaveChanges();
-        //    Console.WriteLine("Colors added");
-        //}
-        //internal static void AddSize()
-        //{
-        //    using var db = new Context();
-        //    db.AddRange(
-
-        //        new Size() { Name = "XS" },
-        //        new Size() { Name = "S" },
-        //        new Size() { Name = "M" },
-        //        new Size() { Name = "L" },
-        //        new Size() { Name = "XL" },
-        //        new Size() { Name = "32" },
-        //        new Size() { Name = "34" },
-        //        new Size() { Name = "35" },
-        //        new Size() { Name = "36" },
-        //        new Size() { Name = "37" },
-        //        new Size() { Name = "38" },
-        //        new Size() { Name = "39" },
-        //        new Size() { Name = "40" },
-        //        new Size() { Name = "41" },
-        //        new Size() { Name = "42" },
-        //        new Size() { Name = "43" },
-        //        new Size() { Name = "44" }
-        //        );
-        //    db.SaveChanges();
-        //    Console.WriteLine("Sizes added");
-        //}
         internal static void AddProduct()
         {
             using var db = new Context();
@@ -221,81 +172,64 @@ namespace Grupp1Webshop
         internal static void AddSupplier()
         {
             using var db = new Context();
-            db.AddRange(
+            db.AddRange
+                (
 
                 new Supplier()
                 {
-                    Name = "Robins kakor",
-                    ContactPerson = "Robin",
+                    Name = "Robins Chokladkakor",
+                    ContactPerson = "Robin Forsling",
                     PhoneNumber = "0708759983",
-                    Email = "blabla",
-                    StreetAdress = "storgatan 6",
+                    Email = "koko@hotmail.com",
+                    StreetAdress = "Storgatan 6",
                     ZipCode = 61335,
-                    CityId = 1,
+                    CityId = 1
                 },
                 new Supplier()
                 {
-                    Name = "Eminas kläder",
-                    ContactPerson = "Emina",
+                    Name = "Eminas Klädbutik",
+                    ContactPerson = "Emina Duro",
                     PhoneNumber = "0708759900",
-                    Email = "blablaasd",
-                    StreetAdress = "storgatan 7",
-                    ZipCode = 61336,
-                });
-            try
-            {
-                var dbNewSupplier = db.Suppliers;
-                var newSupplier = new Supplier()
+                    Email = "emina@hotmail.com",
+                    StreetAdress = "Storgatan 7",
+                    ZipCode = 61335,
+                    CityId = 2
+
+                },
+                new Supplier()
                 {
-                    Name = "Jespers",
-                    ContactPerson = "emina",
+                    Name = "Jespers Datasupport",
+                    ContactPerson = "Jesper Kedén",
                     PhoneNumber = "0737785368",
-                    Email = "fghfghfgh",
-                    StreetAdress = "dfgdfg",
+                    Email = "jesper.keden@hotmail.com",
+                    StreetAdress = "Storgatan 8",
                     ZipCode = 61336,
-                };
+                    CityId = 3
 
-                dbNewSupplier.Add(newSupplier);
-
-                var dbCities = db.Cities;
-                City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == "kiruna");
-                if (dbCity == null)
-                {
-                    dbCity = new City()
-                    {
-                        Name = "kiruna"
-                    };
-
-                    dbCities.Add(dbCity);
                 }
-                newSupplier.City = dbCity;
+            );
+            db.SaveChanges();
+            Console.WriteLine("Suppliers added");
 
-                
-                db.SaveChanges();
-                Console.WriteLine("Suppliers added");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
         }
-
-        internal static void AddCity()
+        internal static void AddCities()
         {
             using var db = new Context();
             db.AddRange(
 
-                new City() { Name = "Nyköping" }, 
-                new City() { Name = "Stockholm" } 
+                new City() { Name = "Nyköping" },
+                new City() { Name = "Stockholm" },
+                new City() { Name = "Göteborg" },
+                new City() { Name = "Malmö" }
 
-                );
+             );
+
             db.SaveChanges();
-            Console.WriteLine("City added");
+            Console.WriteLine("Cities added");
         }
-
         internal static void AddProductFromNewProduct()
         {
-            List<Product> products = ProductImput.GetAllproducts();
+            List<Product> products = ProductImput.GetAllProducts();
             using (var db = new Context())
             {
                 foreach (Product product in products)
@@ -314,6 +248,7 @@ namespace Grupp1Webshop
                 try
                 {
                     db.SaveChanges();
+                    Console.WriteLine("Products added...");
 
                 }
                 catch (Exception ex)
@@ -382,7 +317,7 @@ namespace Grupp1Webshop
         internal static List<string> ConvertClassListToStringList(List<Product> Products)
         {
             var ProductsNames = Products.Select(x => x.Name);
-            return new List<string> (ProductsNames);
+            return new List<string>(ProductsNames);
         }
 
         internal static List<string> ConvertClassListToStringList(List<Supplier> suppliers)
@@ -435,8 +370,8 @@ namespace Grupp1Webshop
             using (var db = new Context())
             {
                 var deleteUser = (from c in db.Users
-                                      where c.Id == user.Id
-                                      select c).SingleOrDefault();
+                                  where c.Id == user.Id
+                                  select c).SingleOrDefault();
                 if (deleteUser != null)
                 {
                     db.Users.Remove((User)deleteUser);
@@ -458,8 +393,8 @@ namespace Grupp1Webshop
             using (var db = new Context())
             {
                 var deleteSupplier = (from c in db.Suppliers
-                                    where c.Id == supplier.Id
-                                    select c).SingleOrDefault();
+                                      where c.Id == supplier.Id
+                                      select c).SingleOrDefault();
                 if (deleteSupplier != null)
                 {
                     db.Suppliers.Remove((Supplier)deleteSupplier);
@@ -481,8 +416,8 @@ namespace Grupp1Webshop
             using (var db = new Context())
             {
                 var deleteProduct = (from c in db.Products
-                                    where c.Id == product.Id
-                                    select c).SingleOrDefault();
+                                     where c.Id == product.Id
+                                     select c).SingleOrDefault();
                 if (deleteProduct != null)
                 {
                     db.Products.Remove((Product)deleteProduct);
