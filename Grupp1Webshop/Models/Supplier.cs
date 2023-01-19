@@ -35,6 +35,12 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Supplier());
         }
 
+        internal static void UpdateSupplier()
+        {
+            List<Supplier> products = Helpers.GetSuppliersFromDb();
+            EditSupplier(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+        }
+
         internal static void EditSupplier(Supplier model)
         {
             //Get List of prop names and prop values
@@ -137,6 +143,11 @@ namespace Grupp1Webshop.Models
                     break;
             }
             return value;
+        }
+
+        internal static void RemoveSupplier()
+        {
+            throw new NotImplementedException();
         }
     }
 }

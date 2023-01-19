@@ -19,10 +19,17 @@ namespace Grupp1Webshop
             //Data.GetAllUsers();
 
 
+
             //Menu.MainMenu();
             //User.CreateUser(true);
             //Supplier.CreateSupplier();
             //Product.CreateProduct();
+
+            Menu.MainMenu();
+            User.CreateUser(true);
+            Supplier.CreateSupplier();
+            Product.CreateProduct();
+
 
 
             //Metoder för att fylla på databasen
