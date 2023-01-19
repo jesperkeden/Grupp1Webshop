@@ -13,6 +13,8 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
+        internal readonly object UnitsSold;
+
         public Product()
         {
             //Category = new HashSet<Category>();
@@ -27,6 +29,7 @@ namespace Grupp1Webshop.Models
         public string Size { get; set; }
         public int Quantity { get; set; }
         public double UnitPrice { get; set; }
+        public int UnitSold { get; set; }
         public Supplier Supplier { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
