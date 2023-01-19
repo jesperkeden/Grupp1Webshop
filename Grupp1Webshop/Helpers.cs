@@ -283,6 +283,35 @@ namespace Grupp1Webshop
             db.SaveChanges();
             Console.WriteLine("City added");
         }
+        //internal static void AddProduct()
+        //{
+        //    List<Product> products = new GetAllProducts();
+        //    using var db = new Context();
+        //    var dbNewProduct = db.Products;
+        //    var newProduct = new Product()
+        //    {
+        //        Name = product.Name,
+        //        Colour product.Colour[0],
+        //        Size = product.Size[0],
+        //        UnitPrice = product.Price,
+        //        Description = product.Description,
+        //        Quantity= product.Quantity,
+        //        Category= product.Category,
+        //        Supplier=GenerateSuplierName();
+        //    };
+
+        //   dbNewProduct.Add(NewProduct);
+
+        //}
+
+
+        //private string GenerateSuplierName()
+        //{
+        //    Random rnd = new Random();
+        //    string [] suppliers = ConvertClassListToStringList(GetSuppliersFromDb());
+
+        //    return suppliers[rnd.Next(suppliers.Length)];
+        //}
 
         internal static List<Supplier> GetSuppliersFromDb()
         {
