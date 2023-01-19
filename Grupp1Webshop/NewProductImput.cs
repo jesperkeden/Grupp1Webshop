@@ -2611,560 +2611,879 @@ namespace Grupp1Webshop
         //                Quantity=rnd.Next(5, 50),
         //                Category=1
         //            },
+
         //            new Product()
         //            {
         //                Name = "Boots",
-        //                Size = "39",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "39"
+        //                },
+        //                UnitPrice = 299.00,
         //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
-        //            },
-        //            new Product()
-        //            {
-        //                Name = "Boots",
-        //                Size = "40",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
-        //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Boots",
-        //                Size = "41",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 299.00,
         //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Boots",
-        //                Size = "42",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "41"
+        //                },
+        //                UnitPrice = 299.00,
         //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Boots",
-        //                Size = "43",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 299.00,
         //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Boots",
-        //                Size = "44",
-        //                Color = "Black/Varnish",
-        //                Price = 299.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "43"
+        //                },
+        //                UnitPrice = 299.00,
         //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
+        //            },
+        //            new Product()
+        //            {
+        //                Name = "Boots",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "44"
+        //                },
+        //                UnitPrice = 299.00,
+        //                Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
+        //                Quantity=rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "35",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "35"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "36",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "36"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "37",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "37"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "39",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "38"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "40",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "39"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "41",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "42",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "41"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "43",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Paired Ph Warm - Sneaker High",
-        //                Size = "44",
-        //                Color = "Black",
-        //                Price = 1249.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "43"
+        //                },
+        //                UnitPrice = 1249.00,
         //                Description = "Sporty sneakers like the Paired PH Warm Sneaker High will give your vegan winter look a cool finish. The stylish nubuck look in black can be combined with almost anything. In addition, thanks to the soft fur lining, these sneakers become very comfortable to wear. The padded shaft and removable Memory Foam insole provide a smooth ride. This makes these sneakers look ultra-light and makes any outfit trendy. ",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "35",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "35"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "36",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "36"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "37",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "37"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "38",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "38"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "39",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "39"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "40",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "41",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "41"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "42",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "43",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "43"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Knee-high boots",
-        //                Size = "44",
-        //                Color = "Black",
-        //                Price = 699.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "44"
+        //                },
+        //                UnitPrice = 699.00,
         //                Description = "A pair of boots with a knee-high shaft that has a decorative strap with D-rings at the top. Feed in satin. Heel height 3.5 cm.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "35",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "35"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "36",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "36"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "37",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "37"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "38",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "38"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
+        //            },
+        //            new Product()
+        //            {
+
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "39",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "39"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "40",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "41",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "41"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "42",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "43",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Beige"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "43"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "44",
-        //                Color = "Beige",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "35"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "35",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "36"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "36",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "37"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "37",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "38"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "38",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "39"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "39",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "40",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "41"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "41",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Leather Chelsea boots",
-        //                Size = "42",
-        //                Color = "Black",
-        //                Price = 899.00,
-        //                Category = "Shoes",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "43"
+        //                },
+        //                UnitPrice = 899.00,
         //                Description = "Chelsea boots in leather with elastic gores in the sides and a loop front and back. Cotton canvas linings and insoles and chunky soles that are patterned underneath.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=1
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "32",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "34"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "34",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "36"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "36",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "38"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "38",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "40"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "40",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "42"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Skirt in bouclé",
-        //                Size = "42",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "44"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
-        //            },
-        //            new Product()
-        //            {
-        //                Name = "Skirt in bouclé",
-        //                Size = "44",
-        //                Color = "Black/Checked",
-        //                Price = 399.00,
-        //                Category = "Skirts",
-        //                Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=3
         //            },
         //            new Product()
         //            {
         //                Name = "Puffer jacket",
-        //                Size = "XS",
-        //                Color = "Black",
-        //                Price = 399.00,
-        //                Category = "Jackets",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "XS"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=4
         //            },
         //            new Product()
         //            {
         //                Name = "Puffer jacket",
-        //                Size = "S",
-        //                Color = "Black",
-        //                Price = 399.00,
-        //                Category = "Jackets",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "S"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=4
         //            },
         //            new Product()
         //            {
         //                Name = "Puffer jacket",
-        //                Size = "M",
-        //                Color = "Black",
-        //                Price = 399.00,
-        //                Category = "Jackets",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "M"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=4
         //            },
         //            new Product()
         //            {
         //                Name = "Puffer jacket",
-        //                Size = "L",
-        //                Color = "Black",
-        //                Price = 399.00,
-        //                Category = "Jackets",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "L"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
-        //                Quantity =rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=4
         //            },
         //            new Product()
         //            {
         //                Name = "Puffer jacket",
-        //                Size = "XL",
-        //                Color = "Black",
-        //                Price = 399.00,
-        //                Category = "Jackets",
+        //                Color = new List<string>()
+        //                {
+        //                   "Black"
+        //                },
+        //                Size = new List<string>()
+        //                {
+        //                   "XL"
+        //                },
+        //                UnitPrice = 399.00,
         //                Description = "En quiltad pufferjacka i vävd kvalitet. Jackan har avslappnad passform med ståkrage, dragkedja fram och stolpfickor. Klädd resår vid ärmslut samt resår och dragsko med snörstopp i nederkant. Fodrad.",
-        //                Quantity = rnd.Next(5, 50)
+        //                Quantity =rnd.Next(5, 50),
+        //                Category=4
         //            }
 
-        //};
-        //        }
-        //        //return Products;
+        //        };
         //    }
+        //        //return Products;
+        // }
     }
 }
