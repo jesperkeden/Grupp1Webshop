@@ -112,6 +112,9 @@ namespace Grupp1Webshop
             }
         }
 
-        
+        internal static void WriteString(string v)
+        {
+            Console.WriteLine(v);
+        }
     }
 }

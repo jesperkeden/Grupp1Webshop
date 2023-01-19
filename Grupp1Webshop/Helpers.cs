@@ -1,6 +1,8 @@
 ﻿using Grupp1Webshop.Data;
 using Grupp1Webshop.Gammalt;
 using Grupp1Webshop.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -532,7 +534,18 @@ namespace Grupp1Webshop
 
         internal static List<Product> Showbasket(List<Product> basket)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            foreach (Product product in basket)
+            {
+                GUI.WriteString(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4) + "In Stock: " + product.Quantity.ToString().PadRight(4));
+                GUI.MessageBox("description", 3, 21, Helpers.GetNewLinesInString(product.Description));
+            }
+            Console.ReadLine();
+
+
+
+
+            return basket;
         }
     }
 }
