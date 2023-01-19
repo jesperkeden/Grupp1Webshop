@@ -34,7 +34,7 @@ namespace Grupp1Webshop.Models
         public int ZipCode { get; set; }
         public City City { get; set; }
         public int CityId { get; set; }
-        //public Basket Basket { get; set; }
+        public List<Order> OrderHistory { get; set; }
         public virtual ICollection<Order> Order { get; set; }
 
 
