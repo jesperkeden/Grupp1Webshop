@@ -14,34 +14,21 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
-        internal readonly object UnitsSold;
-
-        public Product()
-        {
-            //Category = new HashSet<Category>();
-            //Suppliers = new HashSet<Supplier>();
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public Category Category { get; set; }
         public string Color { get; set; }
         public string Size { get; set; }
         public int Quantity { get; set; }
+        public string Description { get; set; }
         public double UnitPrice { get; set; }
         public int UnitSold { get; set; }
-        public Supplier Supplier { get; set; }
-        public string Description { get; set; }
         public int CategoryId { get; set; }
-        //[ForeignKey("Color")]
-        //public int ColorId { get; set; }
-        //[ForeignKey("Size")]
-        //public int SizeId { get; set; }
-        //[ForeignKey("Category")]
-        //[ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-        //public virtual ICollection<Supplier> Suppliers { get; set; }
+        public Supplier Supplier { get; set; }
+        public Category Category { get; set; }
+        public Order Order { get; set; }
+
 
 
         internal static void CreateProduct()
