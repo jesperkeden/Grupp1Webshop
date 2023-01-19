@@ -101,7 +101,8 @@ namespace Grupp1Webshop
                 switch (customerchoice)
                 {
                     case CustomerChoice.Login:
-                        CustomerPortal();
+                        //CustomerPortal(user);
+                        Security.CustomerLogin();
                         break;
                     case CustomerChoice.CreateNewCustomer:
                         User.CreateUser(false);
@@ -194,7 +195,7 @@ namespace Grupp1Webshop
             int choice = Menu.EditMenu(adminMainMenuText);
             return choice;
         }
-        internal static void CustomerPortal()
+        internal static void CustomerPortal(User user)
         {
             bool running = true;
             while (running)
@@ -208,13 +209,10 @@ namespace Grupp1Webshop
                         ProductPortal();
                         break;
                     case CustomerPortalChoice.EditYourProfile:
-                        // �ndra uppgifter(samma metod som admin/ edituser, v�ljer currentuser)
+                        User.EditUser(user, false);
                         break;
                     case CustomerPortalChoice.OrderHistory:
                         // orderHistory()
-                        break;
-                    case CustomerPortalChoice.ShoppingCart:
-                        // seeShoppingCart()
                         break;
                     case CustomerPortalChoice.Logout:
                         running = false;

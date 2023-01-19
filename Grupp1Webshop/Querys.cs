@@ -94,5 +94,12 @@ namespace Grupp1Webshop
             var productList = db.Products.Where(d => d.CategoryId == categoryId).ToList();
             return productList;
         }
+
+        //public static User QGetSelectedUser(string firstName, string lastName, string password)
+        //{
+        //    using var db = new Data.Context();
+        //    var user = db.Users.Where(d => d.FirstName == firstName, FirstName == lastName, FirstName == password).ToList();
+        //    return user;
+        //}
     }
 }

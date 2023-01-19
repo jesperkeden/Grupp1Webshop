@@ -27,6 +27,7 @@ namespace Grupp1Webshop.Models
         public bool Admin { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
         public string PhoneNumber { get; set; }
@@ -122,12 +123,13 @@ namespace Grupp1Webshop.Models
                     user.Admin = Convert.ToBoolean(secondColumn[1]);
                     user.FirstName = secondColumn[2];
                     user.LastName = secondColumn[3];
-                    user.Email = secondColumn[4];
-                    user.Age = Convert.ToInt32(secondColumn[5]);
-                    user.PhoneNumber = secondColumn[6];
-                    user.StreetAdress = secondColumn[7];
-                    user.ZipCode = Convert.ToInt32(secondColumn[8]);
-                    string cityFromColumn = secondColumn[9];
+                    user.Password = secondColumn[4];
+                    user.Email = secondColumn[5];
+                    user.Age = Convert.ToInt32(secondColumn[6]);
+                    user.PhoneNumber = secondColumn[7];
+                    user.StreetAdress = secondColumn[8];
+                    user.ZipCode = Convert.ToInt32(secondColumn[9]);
+                    string cityFromColumn = secondColumn[10];
 
                     var dbCities = db.Cities;
                     City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
@@ -163,6 +165,9 @@ namespace Grupp1Webshop.Models
             string value = "";
             switch (edit.Name)
             {
+                case nameof(Password):
+                    value = Input.GetStringWithMaxLengthForDescription("");
+                    break;
                 case nameof(Admin):
                     value = Input.GetBoolAsString(positionX);
                     break;
