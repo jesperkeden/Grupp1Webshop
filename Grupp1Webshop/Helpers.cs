@@ -301,6 +301,38 @@ namespace Grupp1Webshop
             var suppliersNames = suppliers.Select(x => x.Name);
             return new List<string> (suppliersNames);
         }
+
+        internal static List<Category> GetCategoriesFromDb()
+        {
+            List<Category> categories = new List<Category>();
+            using (var db = new Context())
+            {
+                categories = db.Categories.ToList();
+            }
+            return categories;
+        }
+
+        internal static List<string> ConvertProductsListToStringList(List<Product> products)
+        {
+            var productNames = products.Select(x => x.Name);
+            return new List<string>(productNames);
+        }
+
+        internal static List<Product> GetProductsFromDb()
+        {
+            List<Product> products = new List<Product>();
+            using (var db = new Context())
+            {
+                products = db.Products.ToList();
+            }
+            return products;
+        }
+
+        internal static List<string> ConvertProductListToStringList(List<Product> products)
+        {
+            var productsNames = products.Select(x => x.Name);
+            return new List<string>(productsNames);
+        }
     }
 }
 

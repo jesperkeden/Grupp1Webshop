@@ -20,9 +20,9 @@ namespace Grupp1Webshop
 
 
             //Menu.MainMenu();
-            User.CreateUser(true);
-            Supplier.CreateSupplier();
-            Product.CreateProduct();
+            //User.CreateUser(true);
+            //Supplier.CreateSupplier();
+            //Product.CreateProduct();
 
 
             //Metoder för att fylla på databasen
@@ -32,6 +32,12 @@ namespace Grupp1Webshop
             //Helpers.AddSize();
             //Helpers.AddSupplier();
             //Helpers.AddProduct();
+            int input = 5;
+            Querys.QShowAllCategories();
+            Console.WriteLine();
+            Querys.QShowOneCategory(input);
+            Console.WriteLine();
+            Querys.QBestselling();
 
 
         }
