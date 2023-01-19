@@ -47,7 +47,8 @@ namespace Grupp1Webshop.Models
 
         internal static void UpdateProduct()
         {
-            Helpers.GetProductFromDb();
+            List<Product> products = Helpers.GetProductsFromDb();
+            EditProduct(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
         }
 
         internal static void EditProduct(Product model)
@@ -55,7 +56,7 @@ namespace Grupp1Webshop.Models
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
             List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, true));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, true));
+            List<string> secondColumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, true));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -67,13 +68,13 @@ namespace Grupp1Webshop.Models
             //Edit prop values
             while (true)
             {
-                index = Menu.EditMenu(firstColumn, secondCollumn, firstColumnPositionX, secondColumnPositionX, positionY, index);
+                index = Menu.EditMenu(firstColumn, secondColumn, firstColumnPositionX, secondColumnPositionX, positionY, index);
 
-                if (index == 0) SaveProduct(secondCollumn, model);
-                else if (index == secondCollumn.Count) break;
+                if (index == 0) SaveProduct(secondColumn, model);
+                else if (index == secondColumn.Count) break;
 
-                GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX, secondCollumn[index]);
+                GUI.OverWriteWithSpaces(secondColumn[index].Length, secondColumnPositionX, (positionY + index));
+                secondColumn[index] = GetValueInput(properties[index], secondColumnPositionX, secondColumn[index]);
             }
         }
 
@@ -159,6 +160,11 @@ namespace Grupp1Webshop.Models
                     break;
             }
             return value;
+        }
+
+        internal static void RemoveProduct()
+        {
+            throw new NotImplementedException();
         }
     }
 }

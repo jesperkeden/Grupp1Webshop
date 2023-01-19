@@ -24,11 +24,15 @@ namespace Grupp1Webshop
         }
         enum AdminChoice
         {
+            AddSupplier,
+            UpdateSupplier,
+            RemoveSupplier,
             AddProduct,
             UpdateProduct,
             RemoveProduct,
             AddUser,
             EditUser,
+            RemoveUser,
             GoToPrevious
         }
         enum CustomerPortalChoice
@@ -131,6 +135,15 @@ namespace Grupp1Webshop
 
                 switch (adminchoice)
                 {
+                    case AdminChoice.AddSupplier:
+                        Supplier.CreateSupplier();
+                        break;
+                    case AdminChoice.UpdateSupplier:
+                        Supplier.UpdateSupplier();
+                        break;
+                    case AdminChoice.RemoveSupplier:
+                        Supplier.RemoveSupplier();
+                        break;
                     case AdminChoice.AddProduct:
                         Product.CreateProduct();
                         break;
@@ -144,7 +157,10 @@ namespace Grupp1Webshop
                         User.CreateUser(true);
                         break;
                     case AdminChoice.EditUser:
-                        User.UpdateUser();
+                        User.UpdateUser(true);
+                        break;
+                    case AdminChoice.RemoveUser:
+                        User.RemoveUser();
                         break;
                     case AdminChoice.GoToPrevious:
                         running = false;
@@ -160,15 +176,20 @@ namespace Grupp1Webshop
             string removeProduct = Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveProduct.ToString());
             string addUser = Helpers.ConvertEnumSpacesToString(AdminChoice.AddUser.ToString());
             string editUser = Helpers.ConvertEnumSpacesToString(AdminChoice.EditUser.ToString());
+            //string removeUser = Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveUser.ToString());
             string previous = Helpers.ConvertEnumSpacesToString(AdminChoice.GoToPrevious.ToString());
 
 
             List<string> adminMainMenuText = new List<string>();
+            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.AddSupplier.ToString())}");
+            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.UpdateSupplier.ToString())}");
+            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveSupplier.ToString())}");
             adminMainMenuText.Add($"{addProduct}");
             adminMainMenuText.Add($"{updateProduct}");
             adminMainMenuText.Add($"{removeProduct}");
             adminMainMenuText.Add($"{addUser}");
             adminMainMenuText.Add($"{editUser}");
+            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveUser.ToString())}");
             adminMainMenuText.Add($"{previous}");
             int choice = Menu.EditMenu(adminMainMenuText);
             return choice;

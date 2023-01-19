@@ -38,10 +38,8 @@ namespace Grupp1Webshop
         internal static bool ColumnValueEmpty(List<string> secondColumn)
         {
             foreach (var item in secondColumn)
-            {
-                if (item == "Empty") return true;
-                else if (item == "0") return true;
-            }
+                if (item == "Empty" || item == "empty" || item == "" || item == " " || item == "0")
+                    return true;
             return false;
         }
 
@@ -66,7 +64,7 @@ namespace Grupp1Webshop
                     if (value != null)
                         propertyValues.Add(value.ToString());
                     else
-                        propertyValues.Add("empty");
+                        propertyValues.Add("Empty");
                 }
             }
             return propertyValues;
@@ -296,11 +294,77 @@ namespace Grupp1Webshop
             return suppliers;
         }
 
+        internal static List<Product> GetProductsFromDb()
+        {
+            List<Product> products = new List<Product>();
+            using (var db = new Context())
+            {
+                products = db.Products.ToList();
+            }
+            return products;
+        }
+
+        internal static List<User> GetUsersFromDb()
+        {
+            List<User> users = new List<User>();
+            using (var db = new Context())
+            {
+                users = db.Users.ToList();
+            }
+            return users;
+        }
+
+        internal static List<string> ConvertClassListToStringList(List<Product> Products)
+        {
+            var ProductsNames = Products.Select(x => x.Name);
+            return new List<string> (ProductsNames);
+        }
+
         internal static List<string> ConvertClassListToStringList(List<Supplier> suppliers)
         {
             var suppliersNames = suppliers.Select(x => x.Name);
-            return new List<string> (suppliersNames);
+            return new List<string>(suppliersNames);
         }
+
+        internal static List<string> ConvertClassListToStringList(List<User> users)
+        {
+            List<string> usersNames = new List<string>();
+            foreach (var user in users)
+            {
+                usersNames.Add("ID: " + user.Id + ". Name: " + user.FirstName + " " + user.LastName);
+            }
+            return usersNames;
+        }
+
+        internal static void DeleteModel(User user)
+        {
+            using (var db = new Context())
+            {
+                var deleteUser = (from c in db.Users
+                                      where c.Id == user.Id
+                                      select c).SingleOrDefault();
+                if (deleteUser != null)
+                {
+                    db.Users.Remove((User)deleteUser);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An error has occured, please try again!");
+                        Console.WriteLine(e);
+                    }
+                }
+            }
+        }
+
+
+        //internal static List<string> ConvertClassListToStringList(List<User> Users)
+        //{
+        //    var UsersNames = Users.Select(x => x.Name);
+        //    return new List<string>(UsersNames);
+        //}
     }
 }
 

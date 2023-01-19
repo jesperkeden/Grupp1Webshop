@@ -42,6 +42,18 @@ namespace Grupp1Webshop.Models
             EditUser(new User(), isAdmin);
         }
 
+        internal static void UpdateUser(bool isAdmin)
+        {
+            List<User> users = Helpers.GetUsersFromDb();
+            EditUser(users[Menu.EditMenu(Helpers.ConvertClassListToStringList(users))], isAdmin);
+        }
+
+        internal static void RemoveUser()
+        {
+            List<User> users = Helpers.GetUsersFromDb();
+            Helpers.DeleteModel(users[Menu.EditMenu(Helpers.ConvertClassListToStringList(users))]);
+        }
+
         internal static void EditUser(User model, bool isAdmin)
         {
             //Get List of prop names and prop values
