@@ -11,10 +11,10 @@ namespace Grupp1Webshop.Models
 {
     internal class Order
     {
-        public Order()
-        {
-            Product = new HashSet<Product>();
-        }
+        //public Order()
+        //{
+        //    Products = new HashSet<Product>();
+        //}
 
         public int Id { get; set; }
         public string PaymenthMethod { get; set; }
@@ -22,10 +22,11 @@ namespace Grupp1Webshop.Models
         public double ShippingCost { get; set; }
         public double TotalCost { get; set; }
         public bool HasPayed { get; set; } = false;
-        public int UserId { get; set; }
         public User User { get; set; }
-        public List<Order> OrderHistory { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+        public int UserId { get; set; }
+        //public List<Order> OrderHistory { get; set; }
+        //public virtual ICollection<Product> Products { get; set; }
+
 
     }
 }

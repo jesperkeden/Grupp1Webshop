@@ -8,12 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Grupp1Webshop.Data;
 using Grupp1Webshop.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Grupp1Webshop.Models
 {
     internal class Product
     {
+        //public Product() 
+        //{
+        //    Orders = new HashSet<Order>();
+        //}
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,12 +29,10 @@ namespace Grupp1Webshop.Models
         public string Description { get; set; }
         public double UnitPrice { get; set; }
         public int UnitSold { get; set; }
-        public int CategoryId { get; set; }
-        public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
         public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public Supplier? Supplier { get; set; }
         public Order Order { get; set; }
-
 
 
         internal static void CreateProduct()
