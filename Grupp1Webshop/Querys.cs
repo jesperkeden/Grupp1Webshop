@@ -10,38 +10,50 @@ namespace Grupp1Webshop
 {
     internal class Querys
     {
-        public static void QBestselling()
+        public static void QBestselling() // bästsäljande produkter
         {
             using var db = new Data.Context();
             var products = Helpers.GetProductsFromDb();
-            //var prodList = Helpers.ConvertProductListToStringList(products);
-            //var items = from p in products
-            //            orderby p.UnitSold,
-                        
-            //            select p;
-
-            //products.OrderBy(p => p.UnitsSold.Count).Take(5);
-
-            var result = products.
-                Take(3).
-                OrderByDescending(p => p.UnitSold).
-                ToList();
-            //OrderByDescending(p => p.UnitSold).ToList();
+            var result = products
+                .Take(3)
+                .OrderBy(p => p.UnitSold)
+                .ToList();
+            Console.WriteLine("Top 3 Bestselling Products");
             foreach (var product in result)
             {
-                Console.WriteLine(product.Name);
+                Console.WriteLine($"{product.Name} has been sold {product.UnitSold} times.");
             }
 
+        }
+        public static void QAges()
+        {
+            using var db = new Data.Context();
+            var users = Helpers.GetUsersFromDb();
 
+            int min = users.Min(p => p.Age);
+            int max = users.Max(p => p.Age);
+            Console.WriteLine("Young vs. Old");
+            Console.WriteLine();
+            Console.WriteLine("Our youngest customer is {0} years old.", min);
+            Console.WriteLine();
+            Console.WriteLine("Our oldest customer is {0} years old.", max);
 
         }
-        public void QPopularAge()
-        {
 
-        }
-        public void QTopFiveExpensiveProduct()
+        public static void QTopFiveExpensiveProduct()
         {
-
+            using var db = new Data.Context();
+            var products = Helpers.GetProductsFromDb();
+            var result = products
+                .Take(5)
+                .OrderBy(p => p.UnitPrice)
+                .ToList();
+            Console.WriteLine("Top 5 Most Expensive Products");
+            Console.WriteLine();
+            foreach (var product in result)
+            {
+                Console.WriteLine($"{product.Name} costs {product.UnitPrice} SEK.");
+            }
         }
 
         public static void QShowOneCategory(int input) //Vill ha CategoryID / ID från category som input
@@ -67,12 +79,11 @@ namespace Grupp1Webshop
 
         }
 
-        public static void QShowAllCategories()
+        public static void QShowAllCategories() //Visa ALLA kategorier
         {
             using var db = new Data.Context();
             var categories = Helpers.GetCategoriesFromDb();
-            //var categories = Helpers.ConvertCategoryListToStringList(categories);
-  
+
             foreach (var item in categories)
             {
                 Console.WriteLine($"{item.Name}");

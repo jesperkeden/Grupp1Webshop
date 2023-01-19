@@ -25,10 +25,10 @@ namespace Grupp1Webshop
             //Supplier.CreateSupplier();
             //Product.CreateProduct();
 
-            Menu.MainMenu();
-            User.CreateUser(true);
-            Supplier.CreateSupplier();
-            Product.CreateProduct();
+            //Menu.MainMenu();
+            //User.CreateUser(true);
+            //Supplier.CreateSupplier();
+            //Product.CreateProduct();
 
 
 
@@ -39,12 +39,19 @@ namespace Grupp1Webshop
             //Helpers.AddSize();
             //Helpers.AddSupplier();
             //Helpers.AddProduct();
-            int input = 5;
+
+            int input = 4;
+            Console.WriteLine("Alla kategorier:");
             Querys.QShowAllCategories();
             Console.WriteLine();
+            Console.WriteLine("Visa en kategori (jeans)");
             Querys.QShowOneCategory(input);
             Console.WriteLine();
             Querys.QBestselling();
+            Console.WriteLine();
+            Querys.QAges();
+            Console.WriteLine();
+            Querys.QTopFiveExpensiveProduct();
 
 
         }

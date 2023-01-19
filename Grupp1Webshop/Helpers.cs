@@ -372,16 +372,6 @@ namespace Grupp1Webshop
             return new List<string>(productNames);
         }
 
-        internal static List<Product> GetProductsFromDb()
-        {
-            List<Product> products = new List<Product>();
-            using (var db = new Context())
-            {
-                products = db.Products.ToList();
-            }
-            return products;
-        }
-
         internal static List<string> ConvertProductListToStringList(List<Product> products)
         {
             var productsNames = products.Select(x => x.Name);
