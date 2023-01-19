@@ -13,7 +13,7 @@ namespace Grupp1Webshop
         public static List<Models.Product> Products { get; set; }
 
 
-        public static List<Models.Product> GetAllproducts()
+        public static List<Models.Product> GetAllProducts()
         {
             Random rnd = new Random();
 

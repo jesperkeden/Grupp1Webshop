@@ -32,7 +32,7 @@ namespace Grupp1Webshop.Models
         public Category Category { get; set; }
         public int CategoryId { get; set; }
         public Supplier? Supplier { get; set; }
-        public Order Order { get; set; }
+        public Order? Order { get; set; }
 
 
         internal static void CreateProduct()
