@@ -50,7 +50,7 @@ namespace Grupp1Webshop
         {
             List<string> propNameList = new List<string>();
             foreach (var property in properties)
-                if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin"))) 
+                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin"))) 
                     propNameList.Add(property.Name);
             return propNameList;
         }
@@ -61,7 +61,7 @@ namespace Grupp1Webshop
 
             foreach (PropertyInfo property in properties)
             {
-                if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
+                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
                 {
                     object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
                     if (value != null)
@@ -219,27 +219,27 @@ namespace Grupp1Webshop
         internal static void AddSupplier()
         {
             using var db = new Context();
-            //db.AddRange(
+            db.AddRange(
 
-            //    new Supplier() 
-            //    { 
-            //        Name = "Robins kakor", 
-            //        ContactPerson = "Robin", 
-            //        PhoneNumber = "0708759983", 
-            //        Email = "blabla", 
-            //        StreetAdress = "storgatan 6", 
-            //        ZipCode = 61335,
-            //        CityId = 1,
-            //    },
-            //    new Supplier()
-            //    {
-            //        Name = "Eminas kläder",
-            //        ContactPerson = "Emina",
-            //        PhoneNumber = "0708759900",
-            //        Email = "blablaasd",
-            //        StreetAdress = "storgatan 7",
-            //        ZipCode = 61336,
-            //    });
+                new Supplier()
+                {
+                    Name = "Robins kakor",
+                    ContactPerson = "Robin",
+                    PhoneNumber = "0708759983",
+                    Email = "blabla",
+                    StreetAdress = "storgatan 6",
+                    ZipCode = 61335,
+                    CityId = 1,
+                },
+                new Supplier()
+                {
+                    Name = "Eminas kläder",
+                    ContactPerson = "Emina",
+                    PhoneNumber = "0708759900",
+                    Email = "blablaasd",
+                    StreetAdress = "storgatan 7",
+                    ZipCode = 61336,
+                });
             try
             {
                 var dbNewSupplier = db.Suppliers;
@@ -298,6 +298,13 @@ namespace Grupp1Webshop
             {
                 foreach (Product product in products)
                 {
+                    product.CategoryId++;
+                    string suplierName = GenerateSuplierName();
+
+                    var dbSuppliers = db.Suppliers;
+                    Supplier dbSupplier = dbSuppliers.ToList().SingleOrDefault(a => a.Name == suplierName);
+                    product.Supplier = dbSupplier;
+
                     var newProduct = product;
                     var dbNewProduct = db.Products;
                     dbNewProduct.Add(newProduct);
@@ -332,7 +339,7 @@ namespace Grupp1Webshop
             //dbNewProduct.Add(NewProduct);
         }
 
-        private string GenerateSuplierName()
+        private static string GenerateSuplierName()
         {
             Random rnd = new Random();
             List<string> suppliers = ConvertClassListToStringList(GetSuppliersFromDb());
@@ -380,6 +387,12 @@ namespace Grupp1Webshop
         {
             var suppliersNames = suppliers.Select(x => x.Name);
             return new List<string>(suppliersNames);
+        }
+
+        internal static List<string> ConvertClassListToStringList(List<Category> categories)
+        {
+            var categoriesNames = categories.Select(x => x.Name);
+            return new List<string>(categoriesNames);
         }
 
 
@@ -484,13 +497,43 @@ namespace Grupp1Webshop
             }
         }
 
+        internal static List<Product> buyProducts(List<Product> products, List<Product> basket)
+        {
+            int choice = 0;
+            while (true)
+            {
+                choice = Menu.ProductMenu(products, choice);
+                if (choice == -1) break;
+                basket.Add(products[choice]);
+            }
+            return basket;
+        }
 
-        //internal static List<string> ConvertClassListToStringList(List<User> Users)
-        //{
-        //    var UsersNames = Users.Select(x => x.Name);
-        //    return new List<string>(UsersNames);
-        //}
+        internal static List<Product> ShowAllProducts(List<Product> basket)
+        {
+            List<Product> products = Helpers.GetProductsFromDb();
+            return buyProducts(products, basket);
+        }
 
+        internal static List<Product> ShowCategoryProducts(List<Product> basket)
+        {
+            List<Product> products = Helpers.GetCategoryProductsFromDb();
+            return buyProducts(products, basket);
+        }
+
+        private static List<Product> GetCategoryProductsFromDb()
+        {
+            List<Category> catList = Querys.QShowAllCategories();
+            List<string> catStringList = ConvertClassListToStringList(catList);
+            int index = Menu.EditMenu(catStringList) + 1;
+            List<Product> productList = Querys.QGetSelectedProducts(index);
+            return productList;
+        }
+
+        internal static List<Product> Showbasket(List<Product> basket)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

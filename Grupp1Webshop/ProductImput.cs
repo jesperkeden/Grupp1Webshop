@@ -953,6 +953,7 @@ namespace Grupp1Webshop
                     {
                         Name = "Dressed pants",
                         Size = "46",
+                        Color ="Beige",
                         UnitPrice = 299.00,
                         CategoryId = 5,
                         Description = "A pair of ankle-length, dressy trousers in woven quality. The pants have gylf with zipper and buttoning with hush and hook. Oblique front pockets and decorative post pockets at the rear. Straight legs with folds front and back and folded folds at the top. Little slit at the end of the legs.",

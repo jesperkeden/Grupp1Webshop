@@ -18,10 +18,10 @@ namespace Grupp1Webshop.Models
 {
     internal class User
     {
-        public User()
-        {
-            Order = new HashSet<Order>();
-        }
+        //public User()
+        //{
+        //    Order = new HashSet<Order>();
+        //}
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public bool Admin { get; set; }
@@ -35,7 +35,7 @@ namespace Grupp1Webshop.Models
         public City City { get; set; }
         public int CityId { get; set; }
         public List<Order> OrderHistory { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
+        //public virtual ICollection<Order> Order { get; set; }
 
 
         internal static void CreateUser(bool isAdmin)

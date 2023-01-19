@@ -1,5 +1,6 @@
 ﻿using Grupp1Webshop.Data;
 using Grupp1Webshop.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,18 +80,19 @@ namespace Grupp1Webshop
 
         }
 
-        public static void QShowAllCategories() //Visa ALLA kategorier
+        public static List<Category> QShowAllCategories() //Visa ALLA kategorier
         {
             using var db = new Data.Context();
             var categories = Helpers.GetCategoriesFromDb();
 
-            foreach (var item in categories)
-            {
-                Console.WriteLine($"{item.Name}");
-            }
-
+            return categories;
         }
 
-
+        public static List<Product> QGetSelectedProducts(int categoryId)
+        {
+            using var db = new Data.Context();
+            var productList = db.Products.Where(d => d.CategoryId == categoryId).ToList();
+            return productList;
+        }
     }
 }

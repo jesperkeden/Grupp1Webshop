@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Grupp1Webshop
 {
@@ -76,6 +77,29 @@ namespace Grupp1Webshop
             }
         }
 
+        internal static void PrintProductMenu(int positionX, int positionY, int index, List<string> text, string theOneProduct, int writeFrom, int writeTo, int descLength)
+        {
+            for (int i = 0; i < text.Count; i++)
+            {
+                Console.SetCursorPosition(positionX, positionY + i);
+                if (i == index)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(theOneProduct);
+                    Console.ResetColor();
+                    positionY += descLength + 2;
+                }
+                else if (writeFrom <= i + 10 && writeTo >= i + 10)
+                {
+                    Console.WriteLine(text[i]);
+                }
+                //Console.WriteLine(text[i] + " " + i);
+                //Console.ResetColor();
+            }
+            
+            Console.SetCursorPosition(0, index);
+        }
+
         internal static void PrintMenuWithNumbers(string header, int positionX, int PositionY, int index, List<string> text)
         {
             for (int i = 0; i < text.Count; i++)
@@ -87,5 +111,7 @@ namespace Grupp1Webshop
                 Console.ResetColor();
             }
         }
+
+        
     }
 }

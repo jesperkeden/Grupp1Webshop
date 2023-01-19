@@ -10,7 +10,7 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
-            Helpers.AddCategories();
+            //Helpers.AddCategories();
             //Helpers.AddProductFromNewProduct();
 
             //Data.GetAllCities();
@@ -21,7 +21,7 @@ namespace Grupp1Webshop
 
 
 
-            //Menu.MainMenu();
+            Menu.MainMenu();
             //User.CreateUser(true);
             //Supplier.CreateSupplier();
             //Product.CreateProduct();

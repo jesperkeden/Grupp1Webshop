@@ -242,6 +242,7 @@ namespace Grupp1Webshop
         }
         internal static void ProductPortal()
         {
+            List<Product> basket = new List<Product>();
             bool running = true;
             while (running)
             {
@@ -251,13 +252,14 @@ namespace Grupp1Webshop
                 switch (productportalchoice)
                 {
                     case ProductPortalChoice.AllProducts:
-                        // lista alla produkter()
+                        basket = Helpers.ShowAllProducts(basket);
                         break;
                     case ProductPortalChoice.ByCategory:
-                        ProductCategory();
+                        //ProductCategory();
+                        basket = Helpers.ShowCategoryProducts(basket);
                         break;
                     case ProductPortalChoice.ShoppingCart:
-                        // orderhistory()
+                        basket = Helpers.Showbasket(basket);
                         break;
                     case ProductPortalChoice.GoToPrevious:
                         running = false;
@@ -367,30 +369,49 @@ namespace Grupp1Webshop
 
             return index;
         }
-        internal static int ProductMenu(List<string> list)
+        internal static int ProductMenu(List<Product> products, int index)
         {
+            List<string> list = new List<string>();
             int positionX = 3;
-            int index = 0;
-            int middle = 10;
+            //int index = 0;
+            int middle = 20;
+            int writeFrom = index;
+            int writeTo = index + 20;
+
+            foreach (Product product in products)
+            {
+                list.Add(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4));
+            }
 
             Console.CursorVisible = false;
             ConsoleKeyInfo keyPressed;
             do
             {
+                string description = products[index].Description;
+                List<string> descriptionList = Helpers.GetNewLinesInString(description);
+                int decLength = descriptionList.Count();
+
+                string theOneProduct = products[index].Name.PadRight(40) + "Price: " + products[index].UnitPrice.ToString().PadRight(7) + "Color: " + products[index].Color.PadRight(18) + "Size: " + products[index].Size.PadRight(4) + "In Stock: " + products[index].Quantity.ToString().PadRight(4);
                 Console.Clear();
-                GUI.PrintMenu("header", positionX, middle, index, list);
+                GUI.PrintProductMenu(positionX, middle, index, list, theOneProduct, writeFrom, writeTo, decLength);
+
+                GUI.MessageBox("description", 3, index + 21, descriptionList);
 
                 keyPressed = Console.ReadKey();
                 if (keyPressed.Key == ConsoleKey.DownArrow && index != list.Count - 1)
                 {
                     index++;
-                    middle--;
+                    writeFrom++;
+                    writeTo++;
+
                 }
                 else if (keyPressed.Key == ConsoleKey.UpArrow && index >= 1)
                 {
                     index--;
-                    middle++;
+                    writeFrom--;
+                    writeTo--;
                 }
+                else if (keyPressed.Key == ConsoleKey.B) return -1;
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
