@@ -38,7 +38,7 @@ namespace Grupp1Webshop
         internal static bool ColumnValueEmpty(List<string> secondColumn)
         {
             foreach (var item in secondColumn)
-                if (item == "Empty" || item == "empty" || item == "" || item == " " || item == "0")
+                if (item == "Empty" || item == "empty" || item == " " || item == "0")
                     return true;
             return false;
         }
@@ -346,6 +346,52 @@ namespace Grupp1Webshop
                 if (deleteUser != null)
                 {
                     db.Users.Remove((User)deleteUser);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An error has occured, please try again!");
+                        Console.WriteLine(e);
+                    }
+                }
+            }
+        }
+
+        internal static void DeleteModel(Supplier supplier)
+        {
+            using (var db = new Context())
+            {
+                var deleteSupplier = (from c in db.Suppliers
+                                    where c.Id == supplier.Id
+                                    select c).SingleOrDefault();
+                if (deleteSupplier != null)
+                {
+                    db.Suppliers.Remove((Supplier)deleteSupplier);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An error has occured, please try again!");
+                        Console.WriteLine(e);
+                    }
+                }
+            }
+        }
+
+        internal static void DeleteModel(Product product)
+        {
+            using (var db = new Context())
+            {
+                var deleteProduct = (from c in db.Products
+                                    where c.Id == product.Id
+                                    select c).SingleOrDefault();
+                if (deleteProduct != null)
+                {
+                    db.Products.Remove((Product)deleteProduct);
                     try
                     {
                         db.SaveChanges();

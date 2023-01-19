@@ -99,35 +99,35 @@ namespace Grupp1Webshop.Models
                 string cityFromColumn = secondColumn[9];
 
 
-                try
+                using (var db = new Context())
                 {
-                    using (var db = new Context())
+                    var dbUsers = db.Users;
+                    dbUsers.Add(user);
+
+                    var dbCities = db.Cities;
+                    City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
+                    if (dbCity == null)
                     {
-                        var dbUsers = db.Users;
-                        dbUsers.Add(user);
-
-                        var dbCities = db.Cities;
-                        City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
-                        if (dbCity == null)
+                        dbCity = new City()
                         {
-                            dbCity = new City()
-                            {
-                                Name = cityFromColumn
-                            };
+                            Name = cityFromColumn
+                        };
 
-                            dbCities.Add(dbCity);
-                        }
+                        dbCities.Add(dbCity);
+                    }
 
-                        user.City = dbCity;
+                    user.City = dbCity;
+                    try
+                    {
                         db.SaveChanges();
                         saveOutput = "Save success";
+
+                    }
+                    catch (Exception ex)
+                    {
+                        saveOutput = "Could not save values to database" + ex;
                     }
                 }
-                catch (Exception ex)
-                {
-                    saveOutput = "Could not save values to database" + ex;
-                }
-                
             }
             Console.WriteLine("\n\n" + saveOutput);
             Console.ReadLine();

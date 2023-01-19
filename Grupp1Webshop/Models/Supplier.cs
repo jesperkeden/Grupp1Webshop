@@ -41,6 +41,12 @@ namespace Grupp1Webshop.Models
             EditSupplier(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
         }
 
+        internal static void RemoveSupplier()
+        {
+            List<Supplier> products = Helpers.GetSuppliersFromDb();
+            Helpers.DeleteModel(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+        }
+
         internal static void EditSupplier(Supplier model)
         {
             //Get List of prop names and prop values
@@ -84,33 +90,38 @@ namespace Grupp1Webshop.Models
                 string cityFromColumn = secondColumn[7];
 
 
-                try
+                using (var db = new Context())
                 {
-                    using (var db = new Context())
+                    var dbSuppliers = db.Suppliers;
+                    Supplier dbSupplier = dbSuppliers.ToList().SingleOrDefault(a => a.Id == supplier.Id);
+                    if (dbSupplier == null)
                     {
-                        var dbUsers = db.Suppliers;
-                        dbUsers.Add(supplier);
+                        dbSuppliers.Add(supplier);
+                    }
 
-                        var dbCities = db.Cities;
-                        City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
-                        if (dbCity == null)
+
+                    var dbCities = db.Cities;
+                    City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
+                    if (dbCity == null)
+                    {
+                        dbCity = new City()
                         {
-                            dbCity = new City()
-                            {
-                                Name = cityFromColumn
-                            };
+                            Name = cityFromColumn
+                        };
 
-                            dbCities.Add(dbCity);
-                        }
+                        dbCities.Add(dbCity);
+                    }
+                    supplier.City = dbCity;
 
-                        supplier.City = dbCity;
+                    try
+                    {
                         db.SaveChanges();
                         saveOutput = "Save success";
                     }
-                }
-                catch (Exception ex)
-                {
-                    saveOutput = "Could not save values to database" + ex;
+                    catch (Exception ex)
+                    {
+                        saveOutput = "Could not save values to database" + ex;
+                    }
                 }
             }
             Console.WriteLine("\n\n" + saveOutput);
@@ -143,11 +154,6 @@ namespace Grupp1Webshop.Models
                     break;
             }
             return value;
-        }
-
-        internal static void RemoveSupplier()
-        {
-            throw new NotImplementedException();
         }
     }
 }

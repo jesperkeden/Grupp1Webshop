@@ -51,6 +51,12 @@ namespace Grupp1Webshop.Models
             EditProduct(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
         }
 
+        internal static void RemoveProduct()
+        {
+            List<Product> products = Helpers.GetProductsFromDb();
+            Helpers.DeleteModel(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+        }
+
         internal static void EditProduct(Product model)
         {
             //Get List of prop names and prop values
@@ -160,11 +166,6 @@ namespace Grupp1Webshop.Models
                     break;
             }
             return value;
-        }
-
-        internal static void RemoveProduct()
-        {
-            throw new NotImplementedException();
         }
     }
 }
