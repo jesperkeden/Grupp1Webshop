@@ -10,7 +10,8 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
-
+            Helpers.AddCategories();
+            //Helpers.AddProductFromNewProduct();
 
             //Data.GetAllCities();
             //Data.GetAllCategories();
@@ -40,18 +41,18 @@ namespace Grupp1Webshop
             //Helpers.AddSupplier();
             //Helpers.AddProduct();
 
-            int input = 4;
-            Console.WriteLine("Alla kategorier:");
-            Querys.QShowAllCategories();
-            Console.WriteLine();
-            Console.WriteLine("Visa en kategori (jeans)");
-            Querys.QShowOneCategory(input);
-            Console.WriteLine();
-            Querys.QBestselling();
-            Console.WriteLine();
-            Querys.QAges();
-            Console.WriteLine();
-            Querys.QTopFiveExpensiveProduct();
+            //int input = 4;
+            //Console.WriteLine("Alla kategorier:");
+            //Querys.QShowAllCategories();
+            //Console.WriteLine();
+            //Console.WriteLine("Visa en kategori (jeans)");
+            //Querys.QShowOneCategory(input);
+            //Console.WriteLine();
+            //Querys.QBestselling();
+            //Console.WriteLine();
+            //Querys.QAges();
+            //Console.WriteLine();
+            //Querys.QTopFiveExpensiveProduct();
 
 
         }

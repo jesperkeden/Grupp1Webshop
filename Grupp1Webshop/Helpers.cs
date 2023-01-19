@@ -1,4 +1,5 @@
 ﻿using Grupp1Webshop.Data;
+using Grupp1Webshop.Gammalt;
 using Grupp1Webshop.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Grupp1Webshop
 {
@@ -289,25 +291,46 @@ namespace Grupp1Webshop
             Console.WriteLine("City added");
         }
 
-        //internal static void AddProductFromNewProduct()
-        //{
-        //    List<Product> products = new GetAllProducts();
-        //    using var db = new Context();
-        //    var dbNewProduct = db.Products;
-        //    var newProduct = new Product()
-        //    {
-        //        Name = products.Name,
-        //        Color = products.Colour[0].Name,
-        //        Size = products.Size[0],
-        //        UnitPrice = products.Price,
-        //        Description = products.Description,
-        //        Quantity = products.Quantity,
-        //        CategoryId = products.CategoryId,
-        //        Supplier = GenerateSuplierName()
-        //    };
+        internal static void AddProductFromNewProduct()
+        {
+            List<Product> products = ProductImput.GetAllproducts();
+            using (var db = new Context())
+            {
+                foreach (Product product in products)
+                {
+                    var newProduct = product;
+                    var dbNewProduct = db.Products;
+                    dbNewProduct.Add(newProduct);
+                }
+                try
+                {
+                    db.SaveChanges();
 
-        //    dbNewProduct.Add(NewProduct);
-        //}
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.InnerException);
+                    Console.ReadLine();
+                }
+
+            }
+            //using var db = new Context();
+            //var dbNewProduct = db.Products;
+
+            //var newProduct = new Product()
+            //{
+            //    Name = products.Name,
+            //    Color = products.Colour[0].Name,
+            //    Size = products.Size[0],
+            //    UnitPrice = products.Price,
+            //    Description = products.Description,
+            //    Quantity = products.Quantity,
+            //    CategoryId = products.CategoryId,
+            //    Supplier = GenerateSuplierName()
+            //};
+
+            //dbNewProduct.Add(NewProduct);
+        }
 
         private string GenerateSuplierName()
         {
