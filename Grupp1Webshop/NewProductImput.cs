@@ -5,62 +5,51 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Grupp1Webshop.Data;
 namespace Grupp1Webshop
 {
     internal class NewProductImput
     {
-        //public static List<Product> Products { get; set; }
-        //public static List<Product> GetAllProducts()
-        //{
-        //    Random rnd = new();
-        //    if (Products == null || !Products.Any())
-        //    {
-        //         Products = new List<Product>()
-        //         {
-        //            new Product()
-        //            {
-        //                Name = "Dress with wrinkle",
-        //                Color = new List<string>()
-        //                {
-        //                   "Black"
-        //                },
-        //                Size = new List<string>()
-        //                {
-        //                   "XS"
-        //                },
-        //                UnitPrice = 299,
-        //                Description = "A figure-close, calf-length dress in soft leotard without a sleeve. The dress has a wide neckline and hidden zipper at the back. Wrinkle at the waist for a slightly draped effect. Straight cut bottom edge. Unlined.";
-        //              //Quantity = rnd.Next(5,50),
-        //              //Category = 0
-        //            },
-        //            new Product()
-        //            {
-        //                Name = "Dress with wrinkle",
-        //                Color = new List<string>()
-        //                {
-        //                   "Black"
-        //                },
-        //                Size = new List<string>()
-        //                {
-        //                   "S"
-        //                },
-        //                UnitPrice = 299,
-        //                Description = "A figure-close, calf-length dress in soft leotard without a sleeve. The dress has a wide neckline and hidden zipper at the back. Wrinkle at the waist for a slightly draped effect. Straight cut bottom edge. Unlined.";
-        //              //Quantity = rnd.Next(5,50),
-        //              //Category = 2
-        //            }
+        public static List<Product> Products { get; set; }
+        public List<Product> GetAllProducts()
+        {
+            if (Products == null || !Products.Any())
+            {
+                Random rnd = new ();
+                Products = new List<Product>()
+                {
+                    new Product()
+                    {
+                        Name = "Dress with wrinkle",
+                        Color = "Black",
+                        Size = "XS",
+                        UnitPrice = 299,
+                        Description = "A figure-close, calf-length dress in soft leotard without a sleeve. The dress has a wide neckline and hidden zipper at the back. Wrinkle at the waist for a slightly draped effect. Straight cut bottom edge. Unlined.",
+                        Quantity = rnd.Next(5, 50)
+                    
+                    },
+                    new Product()
+                    {
+                        Name = "Dress with wrinkle",
+                        Color =  "Black",
+                        Size =  "S",
+                        UnitPrice = 299,
+                        Description = "A figure-close, calf-length dress in soft leotard without a sleeve. The dress has a wide neckline and hidden zipper at the back. Wrinkle at the waist for a slightly draped effect. Straight cut bottom edge. Unlined.",
+                        Quantity = rnd.Next(5, 50),
+                        CategoryId = 0
+                     }
+    };
+}
+return Products;
+
+}
+}
         //            new Product()
         //   {
         //                Name = "Dress with wrinkle",
-        //                Color = new List<string>()
-        //                {
-        //                   "Black"
-        //                },
-        //                Size = new List<string>()
-        //                {
-        //                   "M"
-        //                },
+        //                Color = n
+        //                   "Black"       //              
+        //                Size = "M"    
         //                UnitPrice = 299,                       
         //                Description = "A figure-close, calf-length dress in soft leotard without a sleeve. The dress has a wide neckline and hidden zipper at the back. Wrinkle at the waist for a slightly draped effect. Straight cut bottom edge. Unlined.",
         //                Quantity=rnd.Next(5, 50),
@@ -3483,9 +3472,9 @@ namespace Grupp1Webshop
         //                Category=4
         //            }
 
-        //        };
+        //                };
         //    }
-        //        //return Products;
-        // }
+        //    return Products;
+        //}
     }
-}
+    }
