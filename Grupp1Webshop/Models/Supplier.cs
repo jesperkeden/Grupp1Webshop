@@ -1,4 +1,6 @@
 ﻿using Grupp1Webshop.Data;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,16 +37,35 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Supplier());
         }
 
+        internal static int GetProductChoice(List<Supplier> model)
+        {
+            if (model.Count < 1)
+            {
+                Console.WriteLine("There is no Suppliers");
+                Console.ReadKey();
+                return -1;
+            }
+            return Menu.EditMenu(Helpers.ConvertClassListToStringList(model));
+        }
+
         internal static void UpdateSupplier()
         {
-            List<Supplier> products = Helpers.GetSuppliersFromDb();
-            EditSupplier(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+            List<Supplier> suppliers = Helpers.GetSuppliersFromDb();
+            int index = GetProductChoice(suppliers);
+            if (index != -1)
+            {
+                EditSupplier(suppliers[index]);
+            }
         }
 
         internal static void RemoveSupplier()
         {
-            List<Supplier> products = Helpers.GetSuppliersFromDb();
-            Helpers.DeleteModel(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+            List<Supplier> suppliers = Helpers.GetSuppliersFromDb();
+            int index = GetProductChoice(suppliers);
+            if (index != -1)
+            {
+                Helpers.DeleteModel(suppliers[index]);
+            }
         }
 
         internal static void EditSupplier(Supplier model)
@@ -81,15 +102,6 @@ namespace Grupp1Webshop.Models
                 saveOutput = "Could not save values, some values are empty";
             else
             {
-                supplier.Name = secondColumn[1];
-                supplier.ContactPerson = secondColumn[2];
-                supplier.PhoneNumber = secondColumn[3];
-                supplier.Email = secondColumn[4];
-                supplier.StreetAdress = secondColumn[5];
-                supplier.ZipCode = Convert.ToInt32(secondColumn[6]);
-                string cityFromColumn = secondColumn[7];
-
-
                 using (var db = new Context())
                 {
                     var dbSuppliers = db.Suppliers;
@@ -98,7 +110,15 @@ namespace Grupp1Webshop.Models
                     {
                         dbSuppliers.Add(supplier);
                     }
+                    else supplier = dbSupplier;
 
+                    supplier.Name = secondColumn[1];
+                    supplier.ContactPerson = secondColumn[2];
+                    supplier.PhoneNumber = secondColumn[3];
+                    supplier.Email = secondColumn[4];
+                    supplier.StreetAdress = secondColumn[5];
+                    supplier.ZipCode = Convert.ToInt32(secondColumn[6]);
+                    string cityFromColumn = secondColumn[7];
 
                     var dbCities = db.Cities;
                     City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);

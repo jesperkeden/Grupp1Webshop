@@ -2,6 +2,7 @@
 using Grupp1Webshop.Gammalt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections;
@@ -42,16 +43,35 @@ namespace Grupp1Webshop.Models
             EditUser(new User(), isAdmin);
         }
 
+        internal static int GetProductChoice(List<User> model)
+        {
+            if (model.Count < 1)
+            {
+                Console.WriteLine("There is no Users");
+                Console.ReadKey();
+                return -1;
+            }
+            return Menu.EditMenu(Helpers.ConvertClassListToStringList(model));
+        }
+
         internal static void UpdateUser(bool isAdmin)
         {
             List<User> users = Helpers.GetUsersFromDb();
-            EditUser(users[Menu.EditMenu(Helpers.ConvertClassListToStringList(users))], isAdmin);
+            int index = GetProductChoice(users);
+            if (index != -1)
+            {
+                EditUser(users[index], isAdmin);
+            }
         }
 
         internal static void RemoveUser()
         {
             List<User> users = Helpers.GetUsersFromDb();
-            Helpers.DeleteModel(users[Menu.EditMenu(Helpers.ConvertClassListToStringList(users))]);
+            int index = GetProductChoice(users);
+            if (index != -1)
+            {
+                Helpers.DeleteModel(users[index]);
+            }
         }
 
         internal static void EditUser(User model, bool isAdmin)
@@ -88,21 +108,25 @@ namespace Grupp1Webshop.Models
                 saveOutput = "Could not save values, some values are empty";
             else
             {
-                user.Admin = Convert.ToBoolean(secondColumn[1]);
-                user.FirstName = secondColumn[2];
-                user.LastName = secondColumn[3];
-                user.Email = secondColumn[4];
-                user.Age = Convert.ToInt32(secondColumn[5]);
-                user.PhoneNumber = secondColumn[6];
-                user.StreetAdress = secondColumn[7];
-                user.ZipCode = Convert.ToInt32(secondColumn[8]);
-                string cityFromColumn = secondColumn[9];
-
-
                 using (var db = new Context())
                 {
                     var dbUsers = db.Users;
-                    dbUsers.Add(user);
+                    User dbUser = dbUsers.ToList().SingleOrDefault(a => a.Id == user.Id);
+                    if (dbUser == null)
+                    {
+                        dbUsers.Add(user);
+                    }
+                    else user = dbUser;
+
+                    user.Admin = Convert.ToBoolean(secondColumn[1]);
+                    user.FirstName = secondColumn[2];
+                    user.LastName = secondColumn[3];
+                    user.Email = secondColumn[4];
+                    user.Age = Convert.ToInt32(secondColumn[5]);
+                    user.PhoneNumber = secondColumn[6];
+                    user.StreetAdress = secondColumn[7];
+                    user.ZipCode = Convert.ToInt32(secondColumn[8]);
+                    string cityFromColumn = secondColumn[9];
 
                     var dbCities = db.Cities;
                     City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
@@ -115,8 +139,8 @@ namespace Grupp1Webshop.Models
 
                         dbCities.Add(dbCity);
                     }
-
                     user.City = dbCity;
+
                     try
                     {
                         db.SaveChanges();

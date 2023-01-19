@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grupp1Webshop.Data;
 using Grupp1Webshop.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Grupp1Webshop.Models
 {
@@ -48,16 +49,35 @@ namespace Grupp1Webshop.Models
             EditProduct(new Product());
         }
 
+        internal static int GetProductChoice(List<Product> model)
+        {
+            if (model.Count < 1)
+            {
+                Console.WriteLine("There is no products");
+                Console.ReadKey();
+                return -1;
+            }
+            return Menu.EditMenu(Helpers.ConvertClassListToStringList(model));
+        }
+
         internal static void UpdateProduct()
         {
             List<Product> products = Helpers.GetProductsFromDb();
-            EditProduct(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+            int index = GetProductChoice(products);
+            if (index != -1) 
+            {
+                EditProduct(products[index]);
+            }
         }
 
         internal static void RemoveProduct()
         {
             List<Product> products = Helpers.GetProductsFromDb();
-            Helpers.DeleteModel(products[Menu.EditMenu(Helpers.ConvertClassListToStringList(products))]);
+            int index = GetProductChoice(products);
+            if (index != -1)
+            {
+                Helpers.DeleteModel(products[index]);
+            }
         }
 
         internal static void EditProduct(Product model)
@@ -94,47 +114,51 @@ namespace Grupp1Webshop.Models
                 saveOutput = "Could not save values, some values are empty";
             else
             {
-                product.Name = secondColumn[1];
-                string categoryFromColumn = secondColumn[2];
-                product.Color = secondColumn[3];
-                product.Size = secondColumn[4];
-                product.Quantity = Convert.ToInt32(secondColumn[5]);
-                product.UnitPrice = Convert.ToDouble(secondColumn[6]);
-                string supplierFromColumn = secondColumn[7];
-                product.Description = secondColumn[8];
-
-
-                try
+                using (var db = new Context())
                 {
-                    using (var db = new Context())
+                    var dbProducts = db.Products;
+                    Product dbProduct = dbProducts.ToList().SingleOrDefault(a => a.Id == product.Id);
+                    if (dbProduct == null)
                     {
-                        var dbProduct = db.Products;
-                        dbProduct.Add(product);
+                        dbProducts.Add(product);
+                    }
+                    else product = dbProduct;
 
-                        var dbCategories = db.Categories;
-                        Category dbCategory = dbCategories.ToList().SingleOrDefault(a => a.Name == categoryFromColumn);
-                        if (dbCategory == null)
+                    product.Name = secondColumn[1];
+                    string categoryFromColumn = secondColumn[2];
+                    product.Color = secondColumn[3];
+                    product.Size = secondColumn[4];
+                    product.Quantity = Convert.ToInt32(secondColumn[5]);
+                    product.UnitPrice = Convert.ToDouble(secondColumn[6]);
+                    string supplierFromColumn = secondColumn[8];
+                    product.Description = secondColumn[9];
+
+                    var dbCategories = db.Categories;
+                    Category dbCategory = dbCategories.ToList().SingleOrDefault(a => a.Name == categoryFromColumn);
+                    if (dbCategory == null)
+                    {
+                        dbCategory = new Category()
                         {
-                            dbCategory = new Category()
-                            {
-                                Name = categoryFromColumn
-                            };
+                            Name = categoryFromColumn
+                        };
 
-                            dbCategories.Add(dbCategory);
-                        }
-                        product.Category = dbCategory;
+                        dbCategories.Add(dbCategory);
+                    }
+                    product.Category = dbCategory;
 
+                    try
+                    {
                         var dbSuppliers = db.Suppliers;
                         Supplier dbSupplier = dbSuppliers.ToList().SingleOrDefault(a => a.Name == supplierFromColumn);
                         product.Supplier = dbSupplier;
-
                         db.SaveChanges();
+
                         saveOutput = "Save success";
                     }
-                }
-                catch (Exception ex)
-                {
-                    saveOutput = "Could not save values to database" + ex;
+                    catch (Exception ex)
+                    {
+                        saveOutput = "Could not save values to database" + ex;
+                    }
                 }
 
             }

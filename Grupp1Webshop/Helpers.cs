@@ -2,6 +2,7 @@
 using Grupp1Webshop.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -63,6 +64,10 @@ namespace Grupp1Webshop
                     object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
                     if (value != null)
                         propertyValues.Add(value.ToString());
+                    //else if (model.GetType().GetProperty(property.Name))
+                    //{
+
+                    //}
                     else
                         propertyValues.Add("Empty");
                 }
@@ -283,42 +288,41 @@ namespace Grupp1Webshop
             db.SaveChanges();
             Console.WriteLine("City added");
         }
-        //internal static void AddProduct()
+
+        //internal static void AddProductFromNewProduct()
         //{
         //    List<Product> products = new GetAllProducts();
         //    using var db = new Context();
         //    var dbNewProduct = db.Products;
         //    var newProduct = new Product()
         //    {
-        //        Name = product.Name,
-        //        Colour product.Colour[0],
-        //        Size = product.Size[0],
-        //        UnitPrice = product.Price,
-        //        Description = product.Description,
-        //        Quantity= product.Quantity,
-        //        Category= product.Category,
-        //        Supplier=GenerateSuplierName();
+        //        Name = products.Name,
+        //        Color = products.Colour[0].Name,
+        //        Size = products.Size[0],
+        //        UnitPrice = products.Price,
+        //        Description = products.Description,
+        //        Quantity = products.Quantity,
+        //        CategoryId = products.CategoryId,
+        //        Supplier = GenerateSuplierName()
         //    };
 
-        //   dbNewProduct.Add(NewProduct);
-
+        //    dbNewProduct.Add(NewProduct);
         //}
 
+        private string GenerateSuplierName()
+        {
+            Random rnd = new Random();
+            List<string> suppliers = ConvertClassListToStringList(GetSuppliersFromDb());
 
-        //private string GenerateSuplierName()
-        //{
-        //    Random rnd = new Random();
-        //    string [] suppliers = ConvertClassListToStringList(GetSuppliersFromDb());
-
-        //    return suppliers[rnd.Next(suppliers.Length)];
-        //}
+            return suppliers[rnd.Next(suppliers.Count)];
+        }
 
         internal static List<Supplier> GetSuppliersFromDb()
         {
-            List <Supplier> suppliers = new List<Supplier>();
+            List<Supplier> suppliers = new List<Supplier>();
             using (var db = new Context())
             {
-                suppliers =  db.Suppliers.ToList();
+                suppliers = db.Suppliers.ToList();
             }
             return suppliers;
         }
@@ -370,16 +374,6 @@ namespace Grupp1Webshop
         {
             var productNames = products.Select(x => x.Name);
             return new List<string>(productNames);
-        }
-
-        internal static List<Product> GetProductsFromDb()
-        {
-            List<Product> products = new List<Product>();
-            using (var db = new Context())
-            {
-                products = db.Products.ToList();
-            }
-            return products;
         }
 
         internal static List<string> ConvertProductListToStringList(List<Product> products)
