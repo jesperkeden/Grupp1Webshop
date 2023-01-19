@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grupp1Webshop.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -34,30 +35,12 @@ namespace Grupp1Webshop.Models
             EditSupplier(new Supplier());
         }
 
-        internal static List<string> GetPropertyValues(Supplier supplier, PropertyInfo[] properties, int removeLast)
-        {
-            List<string> propertyValues = new List<string>();
-
-            for (int i = 1; i < (properties.Length - removeLast); i++)
-            {
-                try
-                {
-                    propertyValues.Add(properties[i].GetValue(supplier).ToString());
-                }
-                catch
-                {
-                    propertyValues.Add("Empty");
-                }
-            }
-            return propertyValues;
-        }
-
         internal static void EditSupplier(Supplier model)
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, 1, 1));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, 1));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, true));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, true));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -79,41 +62,53 @@ namespace Grupp1Webshop.Models
             }
         }
 
-        private static void SaveSupplier(List<string> secondColumn, Supplier suplier)
+        private static void SaveSupplier(List<string> secondColumn, Supplier supplier)
         {
             string saveOutput = "";
-            if (Helpers.ColumnValueNotEmpty(secondColumn))
+            if (Helpers.ColumnValueEmpty(secondColumn))
                 saveOutput = "Could not save values, some values are empty";
             else
             {
-                suplier.Name = secondColumn[1];
-                suplier.ContactPerson = secondColumn[2];
-                suplier.PhoneNumber = secondColumn[3];
-                suplier.Email = secondColumn[4];
-                suplier.StreetAdress = secondColumn[5];
-                suplier.ZipCode = Convert.ToInt32(secondColumn[6]);
-                //suplier.City = secondColumn[7];
-                saveOutput = "Save success";
+                supplier.Name = secondColumn[1];
+                supplier.ContactPerson = secondColumn[2];
+                supplier.PhoneNumber = secondColumn[3];
+                supplier.Email = secondColumn[4];
+                supplier.StreetAdress = secondColumn[5];
+                supplier.ZipCode = Convert.ToInt32(secondColumn[6]);
+                string cityFromColumn = secondColumn[7];
+
+
+                try
+                {
+                    using (var db = new Context())
+                    {
+                        var dbUsers = db.Suppliers;
+                        dbUsers.Add(supplier);
+
+                        var dbCities = db.Cities;
+                        City dbCity = dbCities.ToList().SingleOrDefault(a => a.Name == cityFromColumn);
+                        if (dbCity == null)
+                        {
+                            dbCity = new City()
+                            {
+                                Name = cityFromColumn
+                            };
+
+                            dbCities.Add(dbCity);
+                        }
+
+                        supplier.City = dbCity;
+                        db.SaveChanges();
+                        saveOutput = "Save success";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    saveOutput = "Could not save values to database" + ex;
+                }
             }
-
-            //saveToDbFunciton("StringToSaveDbText");
-
-            //{ New Generic method
-            //    try
-            //    {
-            //        //saveToDbFunction
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("Could not save data to database!");
-            //        Console.ReadLine();
-            //    }
-            //    return;
-            //}
-
-            Console.WriteLine(saveOutput);
+            Console.WriteLine("\n\n" + saveOutput);
             Console.ReadKey();
-            return;
         }
 
         internal static string GetValueInput(PropertyInfo edit, int positionX)

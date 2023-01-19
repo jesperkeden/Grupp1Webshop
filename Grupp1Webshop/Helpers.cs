@@ -35,7 +35,7 @@ namespace Grupp1Webshop
             return valueList;
         }
 
-        internal static bool ColumnValueNotEmpty(List<string> secondColumn)
+        internal static bool ColumnValueEmpty(List<string> secondColumn)
         {
             foreach (var item in secondColumn)
             {
@@ -45,13 +45,68 @@ namespace Grupp1Webshop
             return false;
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties, int startFrom, int end)
+        internal static List<string> GetPropertyNames(PropertyInfo[] properties, bool isAdmin)
         {
             List<string> propNameList = new List<string>();
-            for (int i = startFrom; i < (properties.Length - end); i++)
-                propNameList.Add(properties[i].Name);
+            foreach (var property in properties)
+                if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin"))) 
+                    propNameList.Add(property.Name);
             return propNameList;
         }
+
+        internal static List<string> GetPropertyValues<T>(T model, PropertyInfo[] properties, bool isAdmin)
+        {
+            List<string> propertyValues = new List<string>();
+
+            foreach (PropertyInfo property in properties)
+            {
+                if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
+                {
+                    object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
+                    if (value != null)
+                        propertyValues.Add(value.ToString());
+                    else
+                        propertyValues.Add("empty");
+                }
+            }
+            return propertyValues;
+        }
+
+        //internal static List<string> GetPropertyValues(Supplier model, PropertyInfo[] properties, bool isAdmin)
+        //{
+        //    List<string> propertyValues = new List<string>();
+
+        //    foreach (PropertyInfo property in properties)
+        //    {
+        //        if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && (isAdmin || !property.Name.StartsWith("Admin")))
+        //        {
+        //            object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
+        //            if (value != null)
+        //                propertyValues.Add(value.ToString());
+        //            else
+        //                propertyValues.Add("empty");
+        //        }
+        //    }
+        //    return propertyValues;
+        //}
+
+        //internal static List<string> GetPropertyValues(Product model, PropertyInfo[] properties, bool isAdmin)
+        //{
+        //    List<string> propertyValues = new List<string>();
+
+        //    foreach (PropertyInfo property in properties)
+        //    {
+        //        if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && (isAdmin || !property.Name.StartsWith("Admin")))
+        //        {
+        //            object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
+        //            if (value != null)
+        //                propertyValues.Add(value.ToString());
+        //            else
+        //                propertyValues.Add("empty");
+        //        }
+        //    }
+        //    return propertyValues;
+        //}
 
         internal static List<string> GetNewLinesInString(string description)
         {
@@ -76,54 +131,54 @@ namespace Grupp1Webshop
             Console.WriteLine("Categories added");
         }
 
-        internal static void AddColors()
-        {
-            using var db = new Context();
-            db.AddRange(
+        //internal static void AddColors()
+        //{
+        //    using var db = new Context();
+        //    db.AddRange(
 
-                new Color() { Name = "Black" },
-                new Color() { Name = "Beige" },
-                new Color() { Name = "Blue" },
-                new Color() { Name = "White" },
-                new Color() { Name = "Silver" },
-                new Color() { Name = "Red" },
-                new Color() { Name = "Black/Stripped" },
-                new Color() { Name = "Black/Floral" },
-                new Color() { Name = "Green" },
-                new Color() { Name = "Blue/Denim" },
-                new Color() { Name = "Blue/Light" },
-                new Color() { Name = "Cream" }
+        //        new Color() { Name = "Black" },
+        //        new Color() { Name = "Beige" },
+        //        new Color() { Name = "Blue" },
+        //        new Color() { Name = "White" },
+        //        new Color() { Name = "Silver" },
+        //        new Color() { Name = "Red" },
+        //        new Color() { Name = "Black/Stripped" },
+        //        new Color() { Name = "Black/Floral" },
+        //        new Color() { Name = "Green" },
+        //        new Color() { Name = "Blue/Denim" },
+        //        new Color() { Name = "Blue/Light" },
+        //        new Color() { Name = "Cream" }
 
-                );
-            db.SaveChanges();
-            Console.WriteLine("Colors added");
-        }
-        internal static void AddSize()
-        {
-            using var db = new Context();
-            db.AddRange(
+        //        );
+        //    db.SaveChanges();
+        //    Console.WriteLine("Colors added");
+        //}
+        //internal static void AddSize()
+        //{
+        //    using var db = new Context();
+        //    db.AddRange(
 
-                new Size() { Name = "XS" },
-                new Size() { Name = "S" },
-                new Size() { Name = "M" },
-                new Size() { Name = "L" },
-                new Size() { Name = "XL" },
-                new Size() { Name = "32" },
-                new Size() { Name = "34" },
-                new Size() { Name = "35" },
-                new Size() { Name = "36" },
-                new Size() { Name = "37" },
-                new Size() { Name = "38" },
-                new Size() { Name = "39" },
-                new Size() { Name = "40" },
-                new Size() { Name = "41" },
-                new Size() { Name = "42" },
-                new Size() { Name = "43" },
-                new Size() { Name = "44" }
-                );
-            db.SaveChanges();
-            Console.WriteLine("Sizes added");
-        }
+        //        new Size() { Name = "XS" },
+        //        new Size() { Name = "S" },
+        //        new Size() { Name = "M" },
+        //        new Size() { Name = "L" },
+        //        new Size() { Name = "XL" },
+        //        new Size() { Name = "32" },
+        //        new Size() { Name = "34" },
+        //        new Size() { Name = "35" },
+        //        new Size() { Name = "36" },
+        //        new Size() { Name = "37" },
+        //        new Size() { Name = "38" },
+        //        new Size() { Name = "39" },
+        //        new Size() { Name = "40" },
+        //        new Size() { Name = "41" },
+        //        new Size() { Name = "42" },
+        //        new Size() { Name = "43" },
+        //        new Size() { Name = "44" }
+        //        );
+        //    db.SaveChanges();
+        //    Console.WriteLine("Sizes added");
+        //}
         internal static void AddProduct()
         {
             using var db = new Context();
@@ -140,17 +195,17 @@ namespace Grupp1Webshop
                 //    CategoryId = 1, 
                 //    SupplierId = 1 
                 //},
-                new Product()
-                {
-                    Name = "Byxor",
-                    Description = "blåa vanliga jeans",
-                    UnitPrice = 1399,
-                    Quantity = 8,
-                    ColorId = 7,
-                    SizeId = 8,
-                    CategoryId = 4,
-                    SupplierId = 2
-                }
+                //new Product()
+                //{
+                //    Name = "Byxor",
+                //    Description = "blåa vanliga jeans",
+                //    UnitPrice = 1399,
+                //    Quantity = 8,
+                //    ColorId = 7,
+                //    SizeId = 8,
+                //    CategoryId = 4,
+                //    SupplierId = 2
+                //}
 
                 );
             db.SaveChanges();
@@ -192,6 +247,7 @@ namespace Grupp1Webshop
                     StreetAdress = "dfgdfg",
                     ZipCode = 61336,
                 };
+
                 dbNewSupplier.Add(newSupplier);
 
                 var dbCities = db.Cities;
@@ -228,6 +284,22 @@ namespace Grupp1Webshop
                 );
             db.SaveChanges();
             Console.WriteLine("City added");
+        }
+
+        internal static List<Supplier> GetSuppliersFromDb()
+        {
+            List <Supplier> suppliers = new List<Supplier>();
+            using (var db = new Context())
+            {
+                suppliers =  db.Suppliers.ToList();
+            }
+            return suppliers;
+        }
+
+        internal static List<string> ConvertClassListToStringList(List<Supplier> suppliers)
+        {
+            var suppliersNames = suppliers.Select(x => x.Name);
+            return new List<string> (suppliersNames);
         }
     }
 }

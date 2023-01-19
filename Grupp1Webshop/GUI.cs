@@ -66,10 +66,12 @@ namespace Grupp1Webshop
         {
             for (int i = 0; i < text.Count; i++)
             {
+                int maxLengthInString = 80;
+                string textItem = text[i].Length > maxLengthInString ? text[i].Substring(0, maxLengthInString) + "....." : text[i];
                 Console.SetCursorPosition(positionX, PositionY + i);
                 if (i == index)
                     Console.ForegroundColor= ConsoleColor.Green;
-                Console.WriteLine(text[i]);
+                Console.WriteLine(textItem);
                 Console.ResetColor();
             }
         }

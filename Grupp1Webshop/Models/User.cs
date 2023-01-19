@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -41,35 +42,12 @@ namespace Grupp1Webshop.Models
             EditUser(new User(), isAdmin);
         }
 
-        internal static List<string> GetPropertyValues(User user, PropertyInfo[] properties, int startFrom, int removeLast)
-        {
-            List<string> propertyValues = new List<string>();
-
-            for (int i = startFrom; i < (properties.Length - removeLast); i++)
-            {
-                try
-                {
-                    propertyValues.Add(properties[i].GetValue(user).ToString());
-                }
-                catch
-                {
-                    propertyValues.Add("Empty");
-                }
-            }
-            return propertyValues;
-        }
-
         internal static void EditUser(User model, bool isAdmin)
         {
-            //Ss admin
-            int removeFirst = 1;
-            int removeLast = 2;
-            if (!isAdmin) removeFirst = 2;
-
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, removeFirst, removeLast));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(GetPropertyValues(model, properties, removeFirst, removeLast));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, isAdmin));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, isAdmin));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -94,7 +72,7 @@ namespace Grupp1Webshop.Models
         private static void SaveUser(List<string> secondColumn, User user)
         {
             string saveOutput = "";
-            if (Helpers.ColumnValueNotEmpty(secondColumn))
+            if (Helpers.ColumnValueEmpty(secondColumn))
                 saveOutput = "Could not save values, some values are empty";
             else
             {
@@ -108,44 +86,12 @@ namespace Grupp1Webshop.Models
                 user.ZipCode = Convert.ToInt32(secondColumn[8]);
                 string cityFromColumn = secondColumn[9];
 
-                using (var db = new Context())
+
+                try
                 {
-                    try
+                    using (var db = new Context())
                     {
                         var dbUsers = db.Users;
-
-                        //var newSupplier = new User()
-                        //{
-                        //    Admin = user.Admin,
-                        //    FirstName = secondColumn[2],
-                        //    LastName = secondColumn[3],
-                        //    Email = secondColumn[4],
-                        //    Age = Convert.ToInt32(secondColumn[5]),
-                        //    PhoneNumber = secondColumn[6],
-                        //    StreetAdress = secondColumn[7],
-                        //    ZipCode = Convert.ToInt32(secondColumn[8])
-                        //};
-                        //dbUsers.Add(newSupplier);
-
-                        //User dbUser = dbUsers.ToList().SingleOrDefault(a => a.Email == user.Email);
-                        //if (dbUser == null)
-                        //{
-                        //    dbUser = new User()
-                        //    {
-                        //        Admin = user.Admin,
-                        //        FirstName = secondColumn[2],
-                        //        LastName = secondColumn[3],
-                        //        Email = secondColumn[4],
-                        //        Age = Convert.ToInt32(secondColumn[5]),
-                        //        PhoneNumber = secondColumn[6],
-                        //        StreetAdress = secondColumn[7],
-                        //        ZipCode = Convert.ToInt32(secondColumn[8])
-
-                        //    };
-
-                        //    dbUsers.Add(dbUser);
-                        //}
-
                         dbUsers.Add(user);
 
                         var dbCities = db.Cities;
@@ -164,11 +110,12 @@ namespace Grupp1Webshop.Models
                         db.SaveChanges();
                         saveOutput = "Save success";
                     }
-                    catch(Exception ex)
-                    {
-                        saveOutput = "Could not save values to database" + ex;
-                    }
                 }
+                catch (Exception ex)
+                {
+                    saveOutput = "Could not save values to database" + ex;
+                }
+                
             }
             Console.WriteLine("\n\n" + saveOutput);
             Console.ReadLine();

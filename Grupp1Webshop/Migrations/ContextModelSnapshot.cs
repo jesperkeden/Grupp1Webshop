@@ -56,23 +56,6 @@ namespace Grupp1Webshop.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Grupp1Webshop.Models.Color", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -116,8 +99,9 @@ namespace Grupp1Webshop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -133,8 +117,9 @@ namespace Grupp1Webshop.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SizeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
@@ -146,32 +131,11 @@ namespace Grupp1Webshop.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ColorId");
-
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("SizeId");
 
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Size", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>
@@ -281,21 +245,9 @@ namespace Grupp1Webshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Grupp1Webshop.Models.Color", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Grupp1Webshop.Models.Order", null)
                         .WithMany("Product")
                         .HasForeignKey("OrderId");
-
-                    b.HasOne("Grupp1Webshop.Models.Size", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.HasOne("Grupp1Webshop.Models.Supplier", "Supplier")
                         .WithMany("Products")
@@ -342,19 +294,9 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Grupp1Webshop.Models.Color", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
                 {
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Grupp1Webshop.Models.Size", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>

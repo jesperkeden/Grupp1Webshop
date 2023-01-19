@@ -304,6 +304,7 @@ namespace Grupp1Webshop
         }
         internal static int EditMenu(List<string> firstCollumn)
         {
+            Console.Clear();
             int firstColumnPositionX = 3;
             int index = 0;
             int positionY = 2;
@@ -322,7 +323,6 @@ namespace Grupp1Webshop
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
-            Console.Clear();
             return index;
         }
         internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY, int index)
@@ -387,6 +387,12 @@ namespace Grupp1Webshop
             int edit = EditMenu(list);
             if (edit == 0) return Input.GetDescriptionInput(description);
             return description;
+        }
+
+        internal static string PickSupplierFromMenu()
+        {
+            var suppliersList = Helpers.GetSuppliersFromDb();
+            return suppliersList[Menu.EditMenu(Helpers.ConvertClassListToStringList(suppliersList))].Name;
         }
     }
 }

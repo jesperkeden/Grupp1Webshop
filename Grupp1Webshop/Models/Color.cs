@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Grupp1Webshop.Models
 {
-    internal class Color
-    {
-        public Color()
-        {
-            Products = new HashSet<Product>();
-        }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Name { get; set; }
+    //internal class Color
+    //{
+    //    public Color()
+    //    {
+    //        Products = new HashSet<Product>();
+    //    }
+    //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
-    }
+    //    public virtual ICollection<Product> Products { get; set; }
+    //}
 }

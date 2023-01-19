@@ -10,6 +10,8 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
+
+
             //Data.GetAllCities();
             //Data.GetAllCategories();
             //Data.GetAllSuppliers();
@@ -19,8 +21,8 @@ namespace Grupp1Webshop
 
             //Menu.MainMenu();
             User.CreateUser(true);
-            //Supplier.CreateSupplier();
-            //Product.CreateProduct();
+            Supplier.CreateSupplier();
+            Product.CreateProduct();
 
 
             //Metoder för att fylla på databasen
