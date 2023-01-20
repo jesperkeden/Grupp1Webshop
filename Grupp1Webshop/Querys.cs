@@ -102,6 +102,11 @@ namespace Grupp1Webshop
             return user;
         }
 
-     
+        public static List<Order> QGetSelectedOrder(User user)
+        {
+            using var db = new Data.Context();
+            var orderList = db.Orders.Where(d => d.User == user).ToList();
+            return orderList;
+        }
     }
 }

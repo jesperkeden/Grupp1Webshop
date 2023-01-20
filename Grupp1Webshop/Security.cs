@@ -4,22 +4,18 @@ namespace Grupp1Webshop
 {
     internal class Security
     {
-        internal static void CustomerLogin()
+        internal static void UserLogin()
         {
             User user = Login();
             if (user == null)
                 return;
 
-            Menu.CustomerPortal(user);
+            Menu.UserMainMenu(user);
         }
 
-        internal static void AdminLogin()
+        internal static bool CheckAdminPrivileges(User user)
         {
-            User user = Login();
-            if (user == null)
-                return;
-
-            Menu.AdminMainMenu();
+            return user.Admin;
         }
 
         private static User Login()

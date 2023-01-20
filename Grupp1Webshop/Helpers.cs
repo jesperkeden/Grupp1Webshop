@@ -80,211 +80,11 @@ namespace Grupp1Webshop
             return propertyValues;
         }
 
-        //internal static List<string> GetPropertyValues(Supplier model, PropertyInfo[] properties, bool isAdmin)
-        //{
-        //    List<string> propertyValues = new List<string>();
-
-        //    foreach (PropertyInfo property in properties)
-        //    {
-        //        if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && (isAdmin || !property.Name.StartsWith("Admin")))
-        //        {
-        //            object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
-        //            if (value != null)
-        //                propertyValues.Add(value.ToString());
-        //            else
-        //                propertyValues.Add("empty");
-        //        }
-        //    }
-        //    return propertyValues;
-        //}
-
-        //internal static List<string> GetPropertyValues(Product model, PropertyInfo[] properties, bool isAdmin)
-        //{
-        //    List<string> propertyValues = new List<string>();
-
-        //    foreach (PropertyInfo property in properties)
-        //    {
-        //        if (!property.Name.EndsWith("Id") && !property.Name.EndsWith("Order") && (isAdmin || !property.Name.StartsWith("Admin")))
-        //        {
-        //            object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
-        //            if (value != null)
-        //                propertyValues.Add(value.ToString());
-        //            else
-        //                propertyValues.Add("empty");
-        //        }
-        //    }
-        //    return propertyValues;
-        //}
-
         internal static List<string> GetNewLinesInString(string description)
         {
             return description.Split('.').ToList();
         }
-
-
-        internal static void AddCategories()
-        {
-            using var db = new Context();
-            db.AddRange(
-
-                new Category() { Name = "Dresses" },
-                new Category() { Name = "Shoes" },
-                new Category() { Name = "Sweaters" },
-                new Category() { Name = "Skirts" },
-                new Category() { Name = "Jackets" },
-                new Category() { Name = "Bottoms" }
-
-                );
-            db.SaveChanges();
-            Console.WriteLine("Categories added");
-        }
-        internal static void AddProduct()
-        {
-            using var db = new Context();
-            var supplier = new Supplier();
-            db.AddRange(
-                //new Product() 
-                //{ 
-                //    Name = "Dress with wrinkle", 
-                //    Description = "Hej", 
-                //    UnitPrice = 299, 
-                //    Quantity = 1, 
-                //    ColorId = 1, 
-                //    SizeId = 1, 
-                //    CategoryId = 1, 
-                //    SupplierId = 1 
-                //},
-                //new Product()
-                //{
-                //    Name = "Byxor",
-                //    Description = "blåa vanliga jeans",
-                //    UnitPrice = 1399,
-                //    Quantity = 8,
-                //    ColorId = 7,
-                //    SizeId = 8,
-                //    CategoryId = 4,
-                //    SupplierId = 2
-                //}
-
-                );
-            db.SaveChanges();
-            Console.WriteLine("Product added");
-        }
-        internal static void AddSupplier()
-        {
-            using var db = new Context();
-            db.AddRange
-                (
-
-                new Supplier()
-                {
-                    Name = "Robins Chokladkakor",
-                    ContactPerson = "Robin Forsling",
-                    PhoneNumber = "0708759983",
-                    Email = "koko@hotmail.com",
-                    StreetAdress = "Storgatan 6",
-                    ZipCode = 61335,
-                    CityId = 1
-                },
-                new Supplier()
-                {
-                    Name = "Eminas Klädbutik",
-                    ContactPerson = "Emina Duro",
-                    PhoneNumber = "0708759900",
-                    Email = "emina@hotmail.com",
-                    StreetAdress = "Storgatan 7",
-                    ZipCode = 61335,
-                    CityId = 2
-
-                },
-                new Supplier()
-                {
-                    Name = "Jespers Datasupport",
-                    ContactPerson = "Jesper Kedén",
-                    PhoneNumber = "0737785368",
-                    Email = "jesper.keden@hotmail.com",
-                    StreetAdress = "Storgatan 8",
-                    ZipCode = 61336,
-                    CityId = 3
-
-                }
-            );
-            db.SaveChanges();
-            Console.WriteLine("Suppliers added");
-
-        }
-        internal static void AddCities()
-        {
-            using var db = new Context();
-            db.AddRange(
-
-                new City() { Name = "Nyköping" },
-                new City() { Name = "Stockholm" },
-                new City() { Name = "Göteborg" },
-                new City() { Name = "Malmö" }
-
-             );
-
-            db.SaveChanges();
-            Console.WriteLine("Cities added");
-        }
-        internal static void AddProductFromNewProduct()
-        {
-            List<Product> products = ProductImput.GetAllProducts();
-            using (var db = new Context())
-            {
-                foreach (Product product in products)
-                {
-                    product.CategoryId++;
-                    string suplierName = GenerateSuplierName();
-
-                    var dbSuppliers = db.Suppliers;
-                    Supplier dbSupplier = dbSuppliers.ToList().SingleOrDefault(a => a.Name == suplierName);
-                    product.Supplier = dbSupplier;
-
-                    var newProduct = product;
-                    var dbNewProduct = db.Products;
-                    dbNewProduct.Add(newProduct);
-                }
-                try
-                {
-                    db.SaveChanges();
-                    Console.WriteLine("Products added...");
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.InnerException);
-                    Console.ReadLine();
-                }
-
-            }
-            //using var db = new Context();
-            //var dbNewProduct = db.Products;
-
-            //var newProduct = new Product()
-            //{
-            //    Name = products.Name,
-            //    Color = products.Colour[0].Name,
-            //    Size = products.Size[0],
-            //    UnitPrice = products.Price,
-            //    Description = products.Description,
-            //    Quantity = products.Quantity,
-            //    CategoryId = products.CategoryId,
-            //    Supplier = GenerateSuplierName()
-            //};
-
-            //dbNewProduct.Add(NewProduct);
-        }
-
-        private static string GenerateSuplierName()
-        {
-            Random rnd = new Random();
-            List<string> suppliers = ConvertClassListToStringList(GetSuppliersFromDb());
-
-            return suppliers[rnd.Next(suppliers.Count)];
-        }
-
+       
         internal static List<Supplier> GetSuppliersFromDb()
         {
             List<Supplier> suppliers = new List<Supplier>();
@@ -333,6 +133,15 @@ namespace Grupp1Webshop
             return new List<string>(categoriesNames);
         }
 
+        internal static List<string> ConvertClassListToStringList(List<Order> orders)
+        {
+            List<string> orderNameList = new List<string>();
+            foreach(Order order in orders)
+            {
+                orderNameList.Add(order.Id + "\tCost: " + order.TotalCost + "\tNumber of products: " + order.Products.Count.ToString());
+            }
+            return orderNameList;
+        }
 
         internal static List<Category> GetCategoriesFromDb()
         {
@@ -468,6 +277,17 @@ namespace Grupp1Webshop
             return productList;
         }
 
+        internal static List<string> GetBasketInfoList(Order order)
+        {
+            List<string> basketInfo = new List<string>();
+            basketInfo.Add("Products in basket:".PadRight(30) + order.Products.Count.ToString());
+            basketInfo.Add("Price of products in basket:".PadRight(30) + (order.TotalCost - order.ShippingCost) + " kr");
+            basketInfo.Add("Shipping:".PadRight(30) + order.Shipping);
+            basketInfo.Add("Shipping Cost:".PadRight(30) + order.ShippingCost + " kr");
+            basketInfo.Add("Paymenth method:".PadRight(30) + order.PaymenthMethod);
+            basketInfo.Add("Total Cost:".PadRight(30) + order.TotalCost + " kr");
+            return basketInfo;
+        }
     }
 }
 

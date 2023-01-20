@@ -256,7 +256,7 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired();
 
                     b.HasOne("Grupp1Webshop.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("Grupp1Webshop.Models.Supplier", "Supplier")
@@ -302,6 +302,11 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("Supplier");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>

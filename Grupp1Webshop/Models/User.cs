@@ -168,7 +168,7 @@ namespace Grupp1Webshop.Models
                     value = Input.GetStringWithMaxLengthForDescription("");
                     break;
                 case nameof(Admin):
-                    if (!isAdmin) return value = "False";
+                    if (!isAdmin) return "False";
                     value = Input.GetBoolAsString(positionX);
                     break;
                 case nameof(StreetAdress):

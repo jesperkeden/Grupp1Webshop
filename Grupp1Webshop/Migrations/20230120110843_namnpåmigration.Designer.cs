@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grupp1Webshop.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230119210326_First")]
-    partial class First
+    [Migration("20230120110843_namnpåmigration")]
+    partial class namnpåmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,7 +116,7 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -216,6 +216,10 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -254,10 +258,8 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired();
 
                     b.HasOne("Grupp1Webshop.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Grupp1Webshop.Models.Supplier", "Supplier")
                         .WithMany("Products")
@@ -302,6 +304,11 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("Supplier");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>

@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Grupp1Webshop.Data;
 using Grupp1Webshop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Grupp1Webshop.Models
 {
     internal class Order
     {
-        //public Order()
-        //{
-        //    Products = new HashSet<Product>();
-        //}
-
+        public Order()
+        {
+            Products = new HashSet<Product>();
+        }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string PaymenthMethod { get; set; }
         public string Shipping { get; set; }
@@ -23,42 +25,89 @@ namespace Grupp1Webshop.Models
         public double TotalCost { get; set; }
         public bool HasPayed { get; set; } = false;
         public User User { get; set; }
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+
 
         //public List<Order> OrderHistory { get; set; }
-        //public virtual ICollection<Product> Products { get; set; }
 
 
-        internal static void PayOrder(User user, List<Product> products, Order order)
+        internal static Order PayOrder(User user, List<Product> products, Order order)
         {
             string saveOutput = "";
 
             using (var db = new Context())
             {
 
+                order.HasPayed = true;
 
+                //Console.WriteLine(order.Id + " " + order.PaymenthMethod + " " + order.Shipping + " " + order.ShippingCost + " " + order.TotalCost + " " + order.HasPayed + " " + order.User + " "/* + order.UserId + " "*/ + order.Products);
+                //Console.ReadLine();
                 try
                 {
-                    order.HasPayed = true;
-                    order.User = user;
+                    var dbProducts = db.Products;
+                    foreach (Product product in products)
+                    {
+                        Product dbProduct = dbProducts.ToList().SingleOrDefault(a => a.Id == product.Id);
+                        //if (dbProduct == null)
+                        //{
+                        //    dbProducts.Add(dbProduct);
+                        //}
+                        order.Products.Add(dbProduct);
+                    }
+
+                    var dbUsers = db.Users;
+                    User dbUser = dbUsers.ToList().SingleOrDefault(a => a.Id == user.Id);
+                    order.User = dbUser;
 
                     var dbOrders = db.Orders;
                     Order dbOrder = dbOrders.ToList().SingleOrDefault(a => a.Id == order.Id);
-                    if (dbOrder == null)
+                    if (dbOrder != null)
                     {
-                        dbOrders.Add(dbOrder);
+                        throw new Exception("Order ID already Exist");
                     }
+                    dbOrders.Add(order);
 
                     db.SaveChanges();
-                    saveOutput = "Save success";
+                    saveOutput = "Your purchase has been made!";
                 }
                 catch (Exception ex)
                 {
-                    saveOutput = "Could not save values to database\n\n" + ex;
+                    saveOutput = "Your purchase could not be completed, please contact Admin!\n\n" + ex;
+                    order.HasPayed = false;
                 }
             }
             Console.WriteLine("\n\n" + saveOutput);
-            Console.ReadLine();
+            return order;
+        }
+
+        internal static void Receipt(Order order, List<string> basketInfo)
+        {
+            if (order.HasPayed)
+            {
+
+                for (int i = 0; i < basketInfo.Count; i++)
+                {
+                    GUI.WriteStringAtLocation(basketInfo[i], 50, 2 + i);
+                }
+                int counting = 0;
+                foreach ( Product product in order.Products)
+                {
+                    counting++;
+                    GUI.WriteStringAtLocation(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4), 1, counting);
+                }
+
+                Console.ReadLine();
+            }
+            else Console.WriteLine("Order has not been completed!");
+            Console.Clear();
+        }
+
+        internal static void OrderHistory(User user)
+        {
+            List<Order> orders = Querys.QGetSelectedOrder(user);
+            int index = Menu.EditMenu(Helpers.ConvertClassListToStringList(orders));
+            Receipt(orders[index], Helpers.GetBasketInfoList(orders[index]));
         }
     }
 }

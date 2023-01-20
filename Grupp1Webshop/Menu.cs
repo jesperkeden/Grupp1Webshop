@@ -13,14 +13,14 @@ namespace Grupp1Webshop
     internal class Menu
     {
         enum MainChoice { 
-            Customer, 
-            Admin,
+            Login, 
+            CreateUser,
             Quit 
         }
-        enum CustomerChoice
+        enum UserChoice
         {
-            Login,
-            CreateNewCustomer,
+            ProductMenu,
+            AdminMenu,
             GoToPrevious
         }
         enum AdminChoice
@@ -51,14 +51,7 @@ namespace Grupp1Webshop
             ShoppingCart,
             GoToPrevious
         }
-        //enum ProductCategoryChoice
-        //{
-        //    Tops,
-        //    Bottoms,
-        //    Shoes,
-        //    Search,
-        //    GoToPrevious
-        //}
+
 
         internal static void MainMenu()
         {
@@ -67,65 +60,66 @@ namespace Grupp1Webshop
             bool running = true;
             while (running)
             {
-                MainChoice mainchoice = (MainChoice)MainMenuText();
-                switch (mainchoice)
+                MainChoice mainChoice = (MainChoice)MainMenuText();
+                switch (mainChoice)
                 {
-                    case MainChoice.Customer:
-                        CustomerMainMenu();
+                    case MainChoice.Login:
+                        Security.UserLogin();
                         break;
-                    case MainChoice.Admin:
-                        Security.AdminLogin();
+                    case MainChoice.CreateUser:
+                        User.CreateUser(false);
                         break;
                     case MainChoice.Quit:
                         running = false;
-                        return;
+                        break;
                 }
             }
         }
         internal static int MainMenuText()
         {
+            Console.Clear();
+
             List<string> mainMenuText = new List<string>();
-            mainMenuText.Add($"{MainChoice.Customer}");
-            mainMenuText.Add($"{MainChoice.Admin}");
+            mainMenuText.Add($"{MainChoice.Login}");
+            mainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(MainChoice.CreateUser.ToString())}");
             mainMenuText.Add($"{MainChoice.Quit}");
-            int choice = Menu.EditMenu(mainMenuText);
-            return choice;
+
+            return Menu.EditMenu(mainMenuText);
         }
-        internal static void CustomerMainMenu()
+        internal static void UserMainMenu(User user)
         {
             bool running = true;
             while (running)
             {
 
-                CustomerChoice customerchoice = (CustomerChoice)CustomerMainMenuText();
+                UserChoice userChoice = (UserChoice)UserMainMenu();
 
-                switch (customerchoice)
+                switch (userChoice)
                 {
-                    case CustomerChoice.Login:
-                        //CustomerPortal();
-                        Security.CustomerLogin();
+                    case UserChoice.ProductMenu:
+                        CustomerPortal(user);
                         break;
-                    case CustomerChoice.CreateNewCustomer:
-                        User.CreateUser(false);
+                    case UserChoice.AdminMenu:
+                        if (Security.CheckAdminPrivileges(user))
+                            Menu.AdminMainMenu();
                         break;
-                    case CustomerChoice.GoToPrevious:
+                    case UserChoice.GoToPrevious:
                         running = false;
-                        return;
+                        break;
                 }
             }
         }
-        internal static int CustomerMainMenuText()
+        internal static int UserMainMenu()
         {
             Console.Clear();
-            string createCustomer = Helpers.ConvertEnumSpacesToString(CustomerChoice.CreateNewCustomer.ToString());
-            string previous = Helpers.ConvertEnumSpacesToString(CustomerChoice.GoToPrevious.ToString());
 
-            List<string> customerMainMenuText = new List<string>();
-            customerMainMenuText.Add($"Login as customer");
-            customerMainMenuText.Add($"{createCustomer}");
-            customerMainMenuText.Add($"{previous}");
-            int choice = Menu.EditMenu(customerMainMenuText);
-            return choice;
+            List<string> customerMainMenuText = new List<string>
+            {
+                $"{Helpers.ConvertEnumSpacesToString(UserChoice.ProductMenu.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(UserChoice.AdminMenu.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(UserChoice.GoToPrevious.ToString())}"
+            };
+            return Menu.EditMenu(customerMainMenuText);
         }
         internal static void AdminMainMenu()
         {
@@ -166,35 +160,28 @@ namespace Grupp1Webshop
                         break;
                     case AdminChoice.GoToPrevious:
                         running = false;
-                        return;
+                        break;
                 }
             }
         }
         internal static int AdminMenuText()
         {
             Console.Clear();
-            string addProduct = Helpers.ConvertEnumSpacesToString(AdminChoice.AddProduct.ToString());
-            string updateProduct = Helpers.ConvertEnumSpacesToString(AdminChoice.UpdateProduct.ToString());
-            string removeProduct = Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveProduct.ToString());
-            string addUser = Helpers.ConvertEnumSpacesToString(AdminChoice.AddUser.ToString());
-            string editUser = Helpers.ConvertEnumSpacesToString(AdminChoice.EditUser.ToString());
-            //string removeUser = Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveUser.ToString());
-            string previous = Helpers.ConvertEnumSpacesToString(AdminChoice.GoToPrevious.ToString());
 
-
-            List<string> adminMainMenuText = new List<string>();
-            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.AddSupplier.ToString())}");
-            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.UpdateSupplier.ToString())}");
-            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveSupplier.ToString())}");
-            adminMainMenuText.Add($"{addProduct}");
-            adminMainMenuText.Add($"{updateProduct}");
-            adminMainMenuText.Add($"{removeProduct}");
-            adminMainMenuText.Add($"{addUser}");
-            adminMainMenuText.Add($"{editUser}");
-            adminMainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveUser.ToString())}");
-            adminMainMenuText.Add($"{previous}");
-            int choice = Menu.EditMenu(adminMainMenuText);
-            return choice;
+            List<string> adminMainMenuText = new List<string>
+            {
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.AddSupplier.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.UpdateSupplier.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveSupplier.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.AddProduct.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.UpdateProduct.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveProduct.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.AddUser.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.EditUser.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.RemoveUser.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(AdminChoice.GoToPrevious.ToString())}"
+            };
+            return Menu.EditMenu(adminMainMenuText);
         }
         internal static void CustomerPortal(User user)
         {
@@ -214,10 +201,10 @@ namespace Grupp1Webshop
                         ShowbasketMenu(basket, user);
                         break;
                     case CustomerPortalChoice.OrderHistory:
-                        // orderHistory()
+                        Order.OrderHistory(user);
                         break;
                     case CustomerPortalChoice.EditYourProfile:
-                        User.EditUser(user, user.Admin);
+                        User.EditUser(user, Security.CheckAdminPrivileges(user));
                         break;
                     case CustomerPortalChoice.Logout:
                         running = false;
@@ -229,20 +216,16 @@ namespace Grupp1Webshop
         internal static int CustomerPortalText()
         {
             Console.Clear();
-            string products = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Products.ToString());
-            string shoppingCart = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.ShoppingCart.ToString());
-            string orderHistory = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.OrderHistory.ToString());
-            string editCredentials = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.EditYourProfile.ToString());
-            string logout = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Logout.ToString());
 
-            List<string> CustomerPortalText = new List<string>();
-            CustomerPortalText.Add($"{products}");
-            CustomerPortalText.Add($"{shoppingCart}");
-            CustomerPortalText.Add($"{orderHistory}");
-            CustomerPortalText.Add($"{editCredentials}");
-            CustomerPortalText.Add($"{logout}");
-            int choice = Menu.EditMenu(CustomerPortalText);
-            return choice;
+            List<string> CustomerPortalText = new List<string>
+            {
+                $"{CustomerPortalChoice.Products}",
+                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.ShoppingCart.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.OrderHistory.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.EditYourProfile.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Logout.ToString())}"
+            };
+            return Menu.EditMenu(CustomerPortalText);
         }
         internal static List<Product> ProductPortal(User user, List<Product> basket)
         {
@@ -273,61 +256,25 @@ namespace Grupp1Webshop
         internal static int ProductPortalText()
         {
             Console.Clear();
-            string allProducts = Helpers.ConvertEnumSpacesToString(ProductPortalChoice.AllProducts.ToString());
-            string byCategory = Helpers.ConvertEnumSpacesToString(ProductPortalChoice.ByCategory.ToString());
-            string shoppingCart = Helpers.ConvertEnumSpacesToString(ProductPortalChoice.ShoppingCart.ToString());
-            string previous = Helpers.ConvertEnumSpacesToString(ProductPortalChoice.GoToPrevious.ToString());
 
-            List<string> ProductPortalText = new List<string>();
-            ProductPortalText.Add($"{allProducts}");
-            ProductPortalText.Add($"{byCategory}");
-            ProductPortalText.Add($"{shoppingCart}");
-            ProductPortalText.Add($"{previous}");
-            int choice = Menu.EditMenu(ProductPortalText);
-            return choice;
+            List<string> ProductPortalText = new List<string>
+            {
+                $"{Helpers.ConvertEnumSpacesToString(ProductPortalChoice.AllProducts.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(ProductPortalChoice.ByCategory.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(ProductPortalChoice.ShoppingCart.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(ProductPortalChoice.GoToPrevious.ToString())}"
+            };
+            return Menu.EditMenu(ProductPortalText);
         }
-        //internal static void ProductCategory()
-        //{
-        //    bool running = true;
-        //    while (running)
-        //    {
+        
 
-        //        ProductCategoryChoice productcategorychoice = (ProductCategoryChoice)ProductCategoryText();
 
-        //        switch (productcategorychoice)
-        //        {
-        //            case ProductCategoryChoice.Tops:
-        //                // visa alla toppar()
-        //                break;
-        //            case ProductCategoryChoice.Bottoms:
-        //                // visa alla bottoms()
-        //                break;
-        //            case ProductCategoryChoice.Shoes:
-        //                // visa alla skor()
-        //                break;
-        //            case ProductCategoryChoice.Search:
-        //                // fritexts�kning()
-        //                break;
-        //            case ProductCategoryChoice.GoToPrevious:
-        //                running = false;
-        //                return;
-        //        }
-        //    }
-        //}
-        //internal static int ProductCategoryText()
-        //{
-        //    Console.Clear();
-        //    string previous = Helpers.ConvertEnumSpacesToString(ProductCategoryChoice.GoToPrevious.ToString());
 
-        //    List<string> ProductCategoryText = new List<string>();
-        //    ProductCategoryText.Add($"{ProductCategoryChoice.Tops}");
-        //    ProductCategoryText.Add($"{ProductCategoryChoice.Bottoms}");
-        //    ProductCategoryText.Add($"{ProductCategoryChoice.Shoes}");
-        //    ProductCategoryText.Add($"{ProductCategoryChoice.Search}");
-        //    ProductCategoryText.Add($"{previous}");
-        //    int choice = Menu.EditMenu(ProductCategoryText);
-        //    return choice;
-        //}
+
+
+
+
+
         internal static int EditMenu(List<string> firstCollumn)
         {
             int firstColumnPositionX = 3;
@@ -454,7 +401,6 @@ namespace Grupp1Webshop
             Console.Clear();
             do
             {
-                List<string> basketInfo = new List<string>();
                 while (productMenu)
                 {
                     if (basket.Count == 0)
@@ -466,6 +412,7 @@ namespace Grupp1Webshop
                     Console.Clear();
                 }
 
+                List<string> basketInfo = new List<string>();
 
                 basketInfo.Add("Products in basket:".PadRight(30) + basket.Count.ToString());
                 if (basket.Count != 0)
@@ -478,8 +425,9 @@ namespace Grupp1Webshop
                     }
                     order.TotalCost = productCost + order.ShippingCost;
                     order.PaymenthMethod = "Visa";
+                    order.Shipping = "Postnord";
                     basketInfo.Add("Price of products in basket:".PadRight(30) + productCost + " kr");
-                    basketInfo.Add("Shipping:".PadRight(30) + "Postnord");
+                    basketInfo.Add("Shipping:".PadRight(30) + order.Shipping);
                     basketInfo.Add("Shipping Cost:".PadRight(30) + order.ShippingCost + " kr");
                     basketInfo.Add("Paymenth method:".PadRight(30) + order.PaymenthMethod);
                     basketInfo.Add("Total Cost:".PadRight(30) + order.TotalCost + " kr");
@@ -491,27 +439,11 @@ namespace Grupp1Webshop
                 }
 
                 index = Menu.EditMenu(basketMenuList);
+                Console.Clear();
                 if (index == 0) productMenu = true;
-                else if (index == 1 && basket.Count != 0) Order.PayOrder(user, basket, order);
+                else if (index == 1 && basket.Count != 0) Order.Receipt(Order.PayOrder(user, basket, order), basketInfo);
             } while (index != basketMenuList.Count - 1);
             return basket;
         }
     }
 }
-
-
-//Kund meny
-//produktsidan(meny)
-//�ndra uppgifter(samma metod som admin/edituser, v�ljer currentuser)
-//se orderhistorik
-//se kundkorg
-//logout metod, confirm y/n f�r att logga ut och s�nd tillbaka till mainmenu
-
-
-//produktsida > alla produkter
-//se kundkorg
-//S�k > fritext s�ka
-//Kategorier > ny meny med kategorier (tr�ja, byxa, skor)
-////tr�ja
-////byxa
-////skor

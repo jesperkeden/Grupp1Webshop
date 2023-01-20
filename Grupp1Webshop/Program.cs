@@ -15,6 +15,8 @@ namespace Grupp1Webshop
             //Data.GetAllProducts();
             //Data.GetAllUsers();
 
+
+
             Menu.MainMenu();
             //Menu.ProductPortal();
             //User.CreateUser(true);
@@ -29,10 +31,11 @@ namespace Grupp1Webshop
             //-----------------------------------
             //Metoder i korrekt ordning för att fylla på DB
             //-----------------------------------
-            //Helpers.AddCategories();
-            //Helpers.AddCities();
-            //Helpers.AddSupplier();
-            //Helpers.AddProductFromNewProduct();
+            //AddDbData.AddCategories();
+            //AddDbData.AddCities();
+            //AddDbData.AddSupplier();
+            //AddDbData.AddUsers();
+            //AddDbData.AddProductFromNewProduct();
 
 
         }
