@@ -72,8 +72,8 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, true));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, true));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;

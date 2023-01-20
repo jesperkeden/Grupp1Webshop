@@ -24,9 +24,41 @@ namespace Grupp1Webshop.Models
         public bool HasPayed { get; set; } = false;
         public User User { get; set; }
         public int UserId { get; set; }
+
         //public List<Order> OrderHistory { get; set; }
         //public virtual ICollection<Product> Products { get; set; }
 
 
+        internal static void PayOrder(User user, List<Product> products, Order order)
+        {
+            string saveOutput = "";
+
+            using (var db = new Context())
+            {
+
+
+                try
+                {
+                    order.HasPayed = true;
+                    order.User = user;
+
+                    var dbOrders = db.Orders;
+                    Order dbOrder = dbOrders.ToList().SingleOrDefault(a => a.Id == order.Id);
+                    if (dbOrder == null)
+                    {
+                        dbOrders.Add(dbOrder);
+                    }
+
+                    db.SaveChanges();
+                    saveOutput = "Save success";
+                }
+                catch (Exception ex)
+                {
+                    saveOutput = "Could not save values to database\n\n" + ex;
+                }
+            }
+            Console.WriteLine("\n\n" + saveOutput);
+            Console.ReadLine();
+        }
     }
 }

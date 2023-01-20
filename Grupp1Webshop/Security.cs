@@ -6,19 +6,48 @@ namespace Grupp1Webshop
     {
         internal static void CustomerLogin()
         {
-            //Menu.CustomerPortal(Login());
+            User user = Login();
+            if (user == null)
+                return;
+
+            Menu.CustomerPortal(user);
         }
 
-        //private static User Login()
-        //{
-        //    GUI.WriteString("Input First and Last name");
-        //    Input.GetStringWithMaxLengthForDescription("");
-        //    GUI.WriteString("Input First and Last name");
-        //    Input.GetStringWithMaxLengthForDescription("");
+        internal static void AdminLogin()
+        {
+            User user = Login();
+            if (user == null)
+                return;
 
-        //    //using var db = new Data.Context();
-        //    //var productList = db.Products.Where(d => d.CategoryId == categoryId).ToList();
-        //    //return /*productList;*/
-        //}
+            Menu.AdminMainMenu();
+        }
+
+        private static User Login()
+        {
+            GUI.WriteString("Input Firstname");
+            string firstName = Input.GetStringWithMaxLength(0);
+            GUI.WriteString("Input Last name");
+            string lastName = Input.GetStringWithMaxLength(0);
+            GUI.WriteString("Input Password");
+            string password = Input.GetStringWithMaxLength(0);
+
+            string output = "Name and password has no match!\n\n";
+            User user = new User();
+            try
+            {
+                user = Querys.QGetSelectedUserFromPassword(firstName, lastName, password);
+            }
+            catch (Exception ex)
+            {
+                output += ex.Message;
+            }
+            if (user == null) 
+            {
+                Console.WriteLine(output);
+                Console.ReadLine();
+            }
+            Console.Clear();
+            return user;
+        }
     }
 }

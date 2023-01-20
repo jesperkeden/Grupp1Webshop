@@ -3,6 +3,7 @@ using Grupp1Webshop.Gammalt;
 using Grupp1Webshop.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,22 +49,22 @@ namespace Grupp1Webshop
             return false;
         }
 
-        internal static List<string> GetPropertyNames(PropertyInfo[] properties, bool isAdmin)
+        internal static List<string> GetPropertyNames(PropertyInfo[] properties)
         {
             List<string> propNameList = new List<string>();
             foreach (var property in properties)
-                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
+                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products"))
                     propNameList.Add(property.Name);
             return propNameList;
         }
 
-        internal static List<string> GetPropertyValues<T>(T model, PropertyInfo[] properties, bool isAdmin)
+        internal static List<string> GetPropertyValues<T>(T model, PropertyInfo[] properties)
         {
             List<string> propertyValues = new List<string>();
 
             foreach (PropertyInfo property in properties)
             {
-                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products") && (isAdmin || !property.Name.StartsWith("Admin")))
+                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products"))
                 {
                     object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
                     if (value != null)
@@ -439,7 +440,7 @@ namespace Grupp1Webshop
             int choice = 0;
             while (true)
             {
-                choice = Menu.ProductMenu(products, choice);
+                choice = Menu.ProductMenu(products, "Press enter to add product to basket\t B = Back", choice);
                 if (choice == -1) break;
                 basket.Add(products[choice]);
             }
@@ -467,21 +468,6 @@ namespace Grupp1Webshop
             return productList;
         }
 
-        internal static List<Product> Showbasket(List<Product> basket)
-        {
-            Console.Clear();
-            foreach (Product product in basket)
-            {
-                GUI.WriteString(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4) + "In Stock: " + product.Quantity.ToString().PadRight(4));
-                GUI.MessageBox("description", 3, 21, Helpers.GetNewLinesInString(product.Description));
-            }
-            Console.ReadLine();
-
-
-
-
-            return basket;
-        }
     }
 }
 

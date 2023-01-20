@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -77,8 +79,10 @@ namespace Grupp1Webshop
             }
         }
 
-        internal static void PrintProductMenu(int positionX, int positionY, int index, List<string> text, string theOneProduct, int writeFrom, int writeTo, int descLength)
+        internal static void PrintProductMenu(int positionX, int positionY, int index, List<string> text, string theOneProduct, string info, int writeFrom, int writeTo, int descLength)
         {
+            Console.SetCursorPosition(2, 1 + index);
+            Console.Write(info);
             for (int i = 0; i < text.Count; i++)
             {
                 Console.SetCursorPosition(positionX, positionY + i);
@@ -89,7 +93,7 @@ namespace Grupp1Webshop
                     Console.ResetColor();
                     positionY += descLength + 2;
                 }
-                else if (writeFrom <= i + 10 && writeTo >= i + 10)
+                else if (writeFrom <= i + 15 && writeTo >= i + 15)
                 {
                     Console.WriteLine(text[i]);
                 }
@@ -114,6 +118,12 @@ namespace Grupp1Webshop
 
         internal static void WriteString(string v)
         {
+            Console.WriteLine(v);
+        }
+
+        internal static void WriteStringAtLocation(string v, int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
             Console.WriteLine(v);
         }
     }

@@ -2,6 +2,7 @@ using Grupp1Webshop.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -38,8 +39,8 @@ namespace Grupp1Webshop
         enum CustomerPortalChoice
         {
             Products,
-            OrderHistory,
             ShoppingCart,
+            OrderHistory,
             EditYourProfile,
             Logout,
         }
@@ -50,14 +51,14 @@ namespace Grupp1Webshop
             ShoppingCart,
             GoToPrevious
         }
-        enum ProductCategoryChoice
-        {
-            Tops,
-            Bottoms,
-            Shoes,
-            Search,
-            GoToPrevious
-        }
+        //enum ProductCategoryChoice
+        //{
+        //    Tops,
+        //    Bottoms,
+        //    Shoes,
+        //    Search,
+        //    GoToPrevious
+        //}
 
         internal static void MainMenu()
         {
@@ -73,7 +74,7 @@ namespace Grupp1Webshop
                         CustomerMainMenu();
                         break;
                     case MainChoice.Admin:
-                        AdminMainMenu();
+                        Security.AdminLogin();
                         break;
                     case MainChoice.Quit:
                         running = false;
@@ -101,7 +102,7 @@ namespace Grupp1Webshop
                 switch (customerchoice)
                 {
                     case CustomerChoice.Login:
-                        //CustomerPortal(user);
+                        //CustomerPortal();
                         Security.CustomerLogin();
                         break;
                     case CustomerChoice.CreateNewCustomer:
@@ -197,6 +198,7 @@ namespace Grupp1Webshop
         }
         internal static void CustomerPortal(User user)
         {
+            List<Product> basket = new List<Product>();
             bool running = true;
             while (running)
             {
@@ -206,31 +208,35 @@ namespace Grupp1Webshop
                 switch (customerportalchoice)
                 {
                     case CustomerPortalChoice.Products:
-                        ProductPortal();
+                        basket = ProductPortal(user, basket);
                         break;
-                    case CustomerPortalChoice.EditYourProfile:
-                        User.EditUser(user, false);
+                    case CustomerPortalChoice.ShoppingCart:
+                        ShowbasketMenu(basket, user);
                         break;
                     case CustomerPortalChoice.OrderHistory:
                         // orderHistory()
                         break;
+                    case CustomerPortalChoice.EditYourProfile:
+                        User.EditUser(user, user.Admin);
+                        break;
                     case CustomerPortalChoice.Logout:
                         running = false;
                         //logout metod, confirm y/n f�r att logga ut och s�nd tillbaka till mainmenu
-                        return;
+                        break;
                 }
             }
         }
         internal static int CustomerPortalText()
         {
             Console.Clear();
+            string products = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Products.ToString());
             string shoppingCart = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.ShoppingCart.ToString());
             string orderHistory = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.OrderHistory.ToString());
             string editCredentials = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.EditYourProfile.ToString());
             string logout = Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Logout.ToString());
 
             List<string> CustomerPortalText = new List<string>();
-            CustomerPortalText.Add($"{CustomerPortalChoice.Products}");
+            CustomerPortalText.Add($"{products}");
             CustomerPortalText.Add($"{shoppingCart}");
             CustomerPortalText.Add($"{orderHistory}");
             CustomerPortalText.Add($"{editCredentials}");
@@ -238,9 +244,8 @@ namespace Grupp1Webshop
             int choice = Menu.EditMenu(CustomerPortalText);
             return choice;
         }
-        internal static void ProductPortal()
+        internal static List<Product> ProductPortal(User user, List<Product> basket)
         {
-            List<Product> basket = new List<Product>();
             bool running = true;
             while (running)
             {
@@ -253,17 +258,17 @@ namespace Grupp1Webshop
                         basket = Helpers.ShowAllProducts(basket);
                         break;
                     case ProductPortalChoice.ByCategory:
-                        //ProductCategory();
                         basket = Helpers.ShowCategoryProducts(basket);
                         break;
                     case ProductPortalChoice.ShoppingCart:
-                        basket = Helpers.Showbasket(basket);
+                        basket = ShowbasketMenu(basket, user);
                         break;
                     case ProductPortalChoice.GoToPrevious:
                         running = false;
-                        return;
+                        break;
                 }
             }
+            return basket;
         }
         internal static int ProductPortalText()
         {
@@ -281,48 +286,48 @@ namespace Grupp1Webshop
             int choice = Menu.EditMenu(ProductPortalText);
             return choice;
         }
-        internal static void ProductCategory()
-        {
-            bool running = true;
-            while (running)
-            {
+        //internal static void ProductCategory()
+        //{
+        //    bool running = true;
+        //    while (running)
+        //    {
 
-                ProductCategoryChoice productcategorychoice = (ProductCategoryChoice)ProductCategoryText();
+        //        ProductCategoryChoice productcategorychoice = (ProductCategoryChoice)ProductCategoryText();
 
-                switch (productcategorychoice)
-                {
-                    case ProductCategoryChoice.Tops:
-                        // visa alla toppar()
-                        break;
-                    case ProductCategoryChoice.Bottoms:
-                        // visa alla bottoms()
-                        break;
-                    case ProductCategoryChoice.Shoes:
-                        // visa alla skor()
-                        break;
-                    case ProductCategoryChoice.Search:
-                        // fritexts�kning()
-                        break;
-                    case ProductCategoryChoice.GoToPrevious:
-                        running = false;
-                        return;
-                }
-            }
-        }
-        internal static int ProductCategoryText()
-        {
-            Console.Clear();
-            string previous = Helpers.ConvertEnumSpacesToString(ProductCategoryChoice.GoToPrevious.ToString());
+        //        switch (productcategorychoice)
+        //        {
+        //            case ProductCategoryChoice.Tops:
+        //                // visa alla toppar()
+        //                break;
+        //            case ProductCategoryChoice.Bottoms:
+        //                // visa alla bottoms()
+        //                break;
+        //            case ProductCategoryChoice.Shoes:
+        //                // visa alla skor()
+        //                break;
+        //            case ProductCategoryChoice.Search:
+        //                // fritexts�kning()
+        //                break;
+        //            case ProductCategoryChoice.GoToPrevious:
+        //                running = false;
+        //                return;
+        //        }
+        //    }
+        //}
+        //internal static int ProductCategoryText()
+        //{
+        //    Console.Clear();
+        //    string previous = Helpers.ConvertEnumSpacesToString(ProductCategoryChoice.GoToPrevious.ToString());
 
-            List<string> ProductCategoryText = new List<string>();
-            ProductCategoryText.Add($"{ProductCategoryChoice.Tops}");
-            ProductCategoryText.Add($"{ProductCategoryChoice.Bottoms}");
-            ProductCategoryText.Add($"{ProductCategoryChoice.Shoes}");
-            ProductCategoryText.Add($"{ProductCategoryChoice.Search}");
-            ProductCategoryText.Add($"{previous}");
-            int choice = Menu.EditMenu(ProductCategoryText);
-            return choice;
-        }
+        //    List<string> ProductCategoryText = new List<string>();
+        //    ProductCategoryText.Add($"{ProductCategoryChoice.Tops}");
+        //    ProductCategoryText.Add($"{ProductCategoryChoice.Bottoms}");
+        //    ProductCategoryText.Add($"{ProductCategoryChoice.Shoes}");
+        //    ProductCategoryText.Add($"{ProductCategoryChoice.Search}");
+        //    ProductCategoryText.Add($"{previous}");
+        //    int choice = Menu.EditMenu(ProductCategoryText);
+        //    return choice;
+        //}
         internal static int EditMenu(List<string> firstCollumn)
         {
             int firstColumnPositionX = 3;
@@ -367,7 +372,7 @@ namespace Grupp1Webshop
 
             return index;
         }
-        internal static int ProductMenu(List<Product> products, int index)
+        internal static int ProductMenu(List<Product> products, string info , int index)
         {
             List<string> list = new List<string>();
             int positionX = 3;
@@ -391,7 +396,7 @@ namespace Grupp1Webshop
 
                 string theOneProduct = products[index].Name.PadRight(40) + "Price: " + products[index].UnitPrice.ToString().PadRight(7) + "Color: " + products[index].Color.PadRight(18) + "Size: " + products[index].Size.PadRight(4) + "In Stock: " + products[index].Quantity.ToString().PadRight(4);
                 Console.Clear();
-                GUI.PrintProductMenu(positionX, middle, index, list, theOneProduct, writeFrom, writeTo, decLength);
+                GUI.PrintProductMenu(positionX, middle, index, list, theOneProduct, info , writeFrom, writeTo, decLength);
 
                 GUI.MessageBox("description", 3, index + 21, descriptionList);
 
@@ -409,7 +414,7 @@ namespace Grupp1Webshop
                     writeFrom--;
                     writeTo--;
                 }
-                else if (keyPressed.Key == ConsoleKey.B) return -1;
+                else if (keyPressed.Key == ConsoleKey.B || keyPressed.Key == ConsoleKey.Escape) return -1;
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
@@ -434,6 +439,62 @@ namespace Grupp1Webshop
             var suppliersList = Helpers.GetSuppliersFromDb();
             Console.Clear();
             return suppliersList[Menu.EditMenu(Helpers.ConvertClassListToStringList(suppliersList))].Name;
+        }
+
+        internal static List<Product> ShowbasketMenu(List<Product> basket, User user)
+        {
+            Order order = new Order();
+            List<string> basketMenuList = new List<string>();
+            basketMenuList.Add("Product List in basket");
+            basketMenuList.Add("Pay Order");
+            basketMenuList.Add("Back");
+
+            int index = 0;
+            bool productMenu = false;
+            Console.Clear();
+            do
+            {
+                List<string> basketInfo = new List<string>();
+                while (productMenu)
+                {
+                    if (basket.Count == 0)
+                        break;
+                    index = Menu.ProductMenu(basket, "Enter = Remove product\t B = Back", index);
+                    if (index == -1)
+                        break;
+                    basket.RemoveAt(index);
+                    Console.Clear();
+                }
+
+
+                basketInfo.Add("Products in basket:".PadRight(30) + basket.Count.ToString());
+                if (basket.Count != 0)
+                {
+                    double productCost = 0d;
+                    for (int i = 0; i < basket.Count; i++)
+                    {
+                        productCost += basket[i].UnitPrice;
+                        order.ShippingCost += 10d;
+                    }
+                    order.TotalCost = productCost + order.ShippingCost;
+                    order.PaymenthMethod = "Visa";
+                    basketInfo.Add("Price of products in basket:".PadRight(30) + productCost + " kr");
+                    basketInfo.Add("Shipping:".PadRight(30) + "Postnord");
+                    basketInfo.Add("Shipping Cost:".PadRight(30) + order.ShippingCost + " kr");
+                    basketInfo.Add("Paymenth method:".PadRight(30) + order.PaymenthMethod);
+                    basketInfo.Add("Total Cost:".PadRight(30) + order.TotalCost + " kr");
+                }
+
+                for (int i = 0; i < basketInfo.Count; i++)
+                {
+                    GUI.WriteStringAtLocation(basketInfo[i], 50, 2 + i);
+                }
+
+                index = Menu.EditMenu(basketMenuList);
+                if (index == 0) productMenu = true;
+                else if (index == 1 && basket.Count != 0) Order.PayOrder(user, basket, order);
+            } while (index != basketMenuList.Count - 1);
+            return basket;
         }
     }
 }

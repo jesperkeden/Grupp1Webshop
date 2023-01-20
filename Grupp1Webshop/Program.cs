@@ -10,13 +10,13 @@ namespace Grupp1Webshop
     {
         internal static void Main()
         {
-
             //Data.GetAllCities();
             //Data.GetAllCategories();
             //Data.GetAllProducts();
             //Data.GetAllUsers();
 
-            //Menu.MainMenu();
+            Menu.MainMenu();
+            //Menu.ProductPortal();
             //User.CreateUser(true);
             //Supplier.CreateSupplier();
             //Product.CreateProduct();

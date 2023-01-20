@@ -95,11 +95,13 @@ namespace Grupp1Webshop
             return productList;
         }
 
-        //public static User QGetSelectedUser(string firstName, string lastName, string password)
-        //{
-        //    using var db = new Data.Context();
-        //    var user = db.Users.Where(d => d.FirstName == firstName, FirstName == lastName, FirstName == password).ToList();
-        //    return user;
-        //}
+        public static User QGetSelectedUserFromPassword(string firstName, string lastName, string password)
+        {
+            using var db = new Data.Context();
+            var user = db.Users.FirstOrDefault(u => u.FirstName == firstName && u.LastName == lastName && u.Password == password);
+            return user;
+        }
+
+     
     }
 }

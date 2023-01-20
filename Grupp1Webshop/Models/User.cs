@@ -80,8 +80,8 @@ namespace Grupp1Webshop.Models
         {
             //Get List of prop names and prop values
             PropertyInfo[] properties = model.GetType().GetProperties();
-            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties, isAdmin));
-            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties, isAdmin));
+            List<string> firstColumn = Helpers.AddMenuChoicesForProp(Helpers.GetPropertyNames(properties));
+            List<string> secondCollumn = Helpers.AddMenuChoicesForValues(Helpers.GetPropertyValues(model, properties));
 
             //Position of list in GUI
             int firstColumnPositionX = 3;
@@ -99,7 +99,7 @@ namespace Grupp1Webshop.Models
                 else if (index == secondCollumn.Count) break;
 
                 GUI.OverWriteWithSpaces(secondCollumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX);
+                secondCollumn[index] = GetValueInput(properties[index], secondColumnPositionX, isAdmin);
             }
         }
 
@@ -148,7 +148,6 @@ namespace Grupp1Webshop.Models
                     {
                         db.SaveChanges();
                         saveOutput = "Save success";
-
                     }
                     catch (Exception ex)
                     {
@@ -160,7 +159,7 @@ namespace Grupp1Webshop.Models
             Console.ReadLine();
         }
 
-        internal static string GetValueInput(PropertyInfo edit, int positionX)
+        internal static string GetValueInput(PropertyInfo edit, int positionX, bool isAdmin)
         {
             string value = "";
             switch (edit.Name)
@@ -169,6 +168,7 @@ namespace Grupp1Webshop.Models
                     value = Input.GetStringWithMaxLengthForDescription("");
                     break;
                 case nameof(Admin):
+                    if (!isAdmin) return value = "False";
                     value = Input.GetBoolAsString(positionX);
                     break;
                 case nameof(StreetAdress):
