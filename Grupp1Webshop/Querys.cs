@@ -95,6 +95,13 @@ namespace Grupp1Webshop
             return productList;
         }
 
+        public static List<Product> QGetSelectedProductsForWelcomScreen()
+        {
+            using var db = new Data.Context();
+            var productList = db.Products.Where(d => d.SelectedForWelcomeScreen == true).ToList();
+            return productList;
+        }
+
         public static User QGetSelectedUserFromPassword(string firstName, string lastName, string password)
         {
             using var db = new Data.Context();
@@ -135,6 +142,36 @@ namespace Grupp1Webshop
             using var db = new Data.Context();
             var user = db.Users.FirstOrDefault(c => c.Id == userId);
             return user;
+        }
+
+        public List<Product> QSearchedProducts(string searchString)
+        {
+            using (var db = new Context())
+            {
+                var products = from p in db.Products
+                               where p.Name.Contains(searchString) || p.Description.Contains(searchString)
+                               select p;
+                return products.ToList();
+            }
+        }
+
+        internal static SearchResult SearchProduct(string searchString)
+        {
+            using (var db = new Context())
+            {
+                var products = from p in db.Products
+                               where p.Name.Contains(searchString)
+                               || p.Description.Contains(searchString)
+                               select p;
+                var result = new SearchResult();
+                result.Products = products.ToList();
+
+                if (result.Products.Count == 0)
+                {
+                    result.Message = "You'r search returned no results";
+                }
+                return result;
+            }
         }
     }
 }

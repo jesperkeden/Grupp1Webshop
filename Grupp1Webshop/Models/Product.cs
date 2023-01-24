@@ -15,10 +15,10 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
-        public Product()
-        {
-            Orders = new HashSet<Order>();
-        }
+        //public Product()
+        //{
+        //    Orders = new HashSet<Order>();
+        //}
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -29,11 +29,13 @@ namespace Grupp1Webshop.Models
         public string Description { get; set; }
         public double UnitPrice { get; set; }
         public int UnitSold { get; set; }
+        public bool SelectedForWelcomeScreen { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
         public Supplier? Supplier { get; set; }
         public int SupplierId { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        //public virtual ICollection<Order> Orders { get; set; }
+        public List<OrderProduct> Orders { get; set; }
 
 
         internal static void CreateProduct()
@@ -95,7 +97,7 @@ namespace Grupp1Webshop.Models
 
                 if (index == 0) SaveProduct(secondColumn, model);
                 else if (index == secondColumn.Count) break;
-                if (index == 9) indexCorrection++;
+                if (index == 10) indexCorrection++;
 
                 GUI.OverWriteWithSpaces(secondColumn[index].Length, secondColumnPositionX, (positionY + index));
                 secondColumn[index] = GetValueInput(properties[indexCorrection], secondColumnPositionX, secondColumn[index]);
@@ -128,8 +130,9 @@ namespace Grupp1Webshop.Models
                     product.Description = secondColumn[5];
                     product.UnitPrice = Convert.ToDouble(secondColumn[6]);
                     product.UnitSold = Convert.ToInt32(secondColumn[7]);
-                    string categoryFromColumn = secondColumn[8];
-                    string supplierFromColumn = secondColumn[9];
+                    product.SelectedForWelcomeScreen = Convert.ToBoolean(secondColumn[8]);
+                    string categoryFromColumn = secondColumn[9];
+                    string supplierFromColumn = secondColumn[10];
 
 
                     var dbCategories = db.Categories;
@@ -170,6 +173,9 @@ namespace Grupp1Webshop.Models
             string value = "";
             switch (edit.Name)
             {
+                case nameof(SelectedForWelcomeScreen):
+                    value = Input.GetBoolAsString(positionX);
+                    break;
                 case nameof(Name):
                     value = Input.GetStringFirstLeterInEachWordUpperInput(positionX);
                     break;

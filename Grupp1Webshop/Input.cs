@@ -136,5 +136,14 @@ namespace Grupp1Webshop
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(GetStringWithMaxLength(positionX).ToLower());
         }
+
+        //internal static string GetStringFromReadLine(int startPositionX)
+        //{
+        //    string hej = "";
+        //    while (hej.Length != 0)
+        //    {
+        //        hej = GetStringWithMaxLength(startPositionX);
+        //    }
+        //}
     }
 }

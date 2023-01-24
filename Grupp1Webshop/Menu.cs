@@ -15,6 +15,7 @@ namespace Grupp1Webshop
         enum MainChoice { 
             Login, 
             CreateUser,
+            RandomQuerys,
             Quit 
         }
         enum UserChoice
@@ -69,6 +70,9 @@ namespace Grupp1Webshop
                     case MainChoice.CreateUser:
                         User.CreateUser(false);
                         break;
+                    case MainChoice.RandomQuerys:
+                        Helpers.RandomQuerys();
+                        break;
                     case MainChoice.Quit:
                         running = false;
                         break;
@@ -78,10 +82,12 @@ namespace Grupp1Webshop
         internal static int MainMenuText()
         {
             Console.Clear();
+            Helpers.ShowSelectedProducts();
 
             List<string> mainMenuText = new List<string>();
             mainMenuText.Add($"{MainChoice.Login}");
             mainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(MainChoice.CreateUser.ToString())}");
+            mainMenuText.Add($"{Helpers.ConvertEnumSpacesToString(MainChoice.RandomQuerys.ToString())}");
             mainMenuText.Add($"{MainChoice.Quit}");
 
             return Menu.EditMenu(mainMenuText);
@@ -363,6 +369,7 @@ namespace Grupp1Webshop
                     writeTo--;
                 }
                 else if (keyPressed.Key == ConsoleKey.B || keyPressed.Key == ConsoleKey.Escape) return -1;
+                else if (keyPressed.Key == ConsoleKey.S) return -2;
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
@@ -438,7 +445,7 @@ namespace Grupp1Webshop
                 {
                     GUI.WriteStringAtLocation(basketInfo[i], 50, 2 + i);
                 }
-
+                Console.Clear();
                 index = Menu.EditMenu(basketMenuList);
                 Console.Clear();
                 if (index == 0) productMenu = true;

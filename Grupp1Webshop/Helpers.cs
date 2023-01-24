@@ -149,7 +149,7 @@ namespace Grupp1Webshop
             List<string> orderNameList = new List<string>();
             foreach(Order order in orders)
             {
-                orderNameList.Add(order.Id + "\tCost: " + order.TotalCost + "\tNumber of products: " + order.Products.Count.ToString());
+                orderNameList.Add(order.Id + "\tCost: " + order.TotalCost + "\tNumber of products: ");
             }
             return orderNameList;
         }
@@ -255,14 +255,28 @@ namespace Grupp1Webshop
             }
         }
 
-        internal static List<Product> buyProducts(List<Product> products, List<Product> basket)
+        internal static List<Product> BuyProducts(List<Product> products, List<Product> basket)
         {
+            List<Product> productsTemp = new List<Product>(products);
+
             int choice = 0;
             while (true)
             {
-                choice = Menu.ProductMenu(products, "Press enter to add product to basket\t B = Back", choice);
+                choice = Menu.ProductMenu(productsTemp, "Press enter to add product to basket\t B = Back\t S = Search", choice);
                 if (choice == -1) break;
-                basket.Add(products[choice]);
+                else if (choice == -2)
+                {
+                    productsTemp = Helpers.Search();
+                    choice = 0;
+                    if (productsTemp.Count == 0)
+                        BuyProducts(products, basket);
+                }
+                else if (products[choice].Quantity < 1) ;
+                else
+                {
+                    basket.Add(products[choice]);
+                    products[choice].Quantity--;
+                }
             }
             return basket;
         }
@@ -270,13 +284,13 @@ namespace Grupp1Webshop
         internal static List<Product> ShowAllProducts(List<Product> basket)
         {
             List<Product> products = Helpers.GetProductsFromDb();
-            return buyProducts(products, basket);
+            return BuyProducts(products, basket);
         }
 
         internal static List<Product> ShowCategoryProducts(List<Product> basket)
         {
             List<Product> products = Helpers.GetCategoryProductsFromDb();
-            return buyProducts(products, basket);
+            return BuyProducts(products, basket);
         }
 
         private static List<Product> GetCategoryProductsFromDb()
@@ -298,6 +312,48 @@ namespace Grupp1Webshop
             basketInfo.Add("Paymenth method:".PadRight(30) + order.PaymenthMethod);
             basketInfo.Add("Total Cost:".PadRight(30) + order.TotalCost + " kr");
             return basketInfo;
+        }
+
+        internal static void ShowSelectedProducts()
+        {
+            List<Product> productList = Querys.QGetSelectedProductsForWelcomScreen();
+            List<String> productListStrings = new List<String>();
+            foreach (Product product in productList)
+            {
+                productListStrings.Add(product.Name + " - " + product.UnitPrice + " kr");
+            }
+            GUI.MessageBox("Featured Products!", 50, 2, productListStrings);
+        }
+
+        //internal static void GetSearchedProduct()
+        //{
+
+        //    //Input.Ge
+        //    //Querys.QSearchedProducts();
+        //}
+
+
+        public static List<Product> Search()
+        {
+            Console.Clear();
+            GUI.WriteString("Enter search string:");
+            SearchResult searchResult = Querys.SearchProduct(Input.GetStringWithMaxLength(22));
+            if (!string.IsNullOrEmpty(searchResult.Message))
+            {
+                GUI.WriteString(searchResult.Message);
+                Console.ReadKey();
+            }
+            return searchResult.Products;
+        }
+
+        internal static void RandomQuerys()
+        {
+            Console.Clear();
+            Querys.QBestselling();
+            Console.WriteLine();
+            Querys.QAges();
+            Querys.QTopFiveExpensiveProduct();
+            Console.ReadLine();
         }
     }
 }
