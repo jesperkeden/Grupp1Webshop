@@ -13,10 +13,6 @@ namespace Grupp1Webshop.Models
 {
     internal class Order
     {
-        //public Order()
-        //{
-        //    Products = new HashSet<Product>();
-        //}
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string PaymenthMethod { get; set; }
@@ -25,12 +21,9 @@ namespace Grupp1Webshop.Models
         public double TotalCost { get; set; }
         public bool HasPayed { get; set; } = false;
         public User User { get; set; }
-        //public int UserId { get; set; }
-        //public virtual ICollection<Product> Products { get; set; }
         public List<OrderProduct> Products { get; set; }
 
 
-        //public List<Order> OrderHistory { get; set; }
 
 
         //internal static Order PayOrder(User user, List<Product> products, Order order)

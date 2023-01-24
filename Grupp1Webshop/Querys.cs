@@ -57,29 +57,6 @@ namespace Grupp1Webshop
             }
         }
 
-        public static void QShowOneCategory(int input) //Vill ha CategoryID / ID från category som input
-        {
-            using var db = new Data.Context();
-
-            var result = from
-                         c in db.Categories
-                         join
-                         p in db.Products
-                         on c.Id equals p.CategoryId
-                         select new
-                         {
-                             Name = p.Name,
-                             Category = c.Name,
-                             CategoryId = c.Id,
-                         };
-            var categories = result.Where(g => g.CategoryId == input).ToList();
-            foreach (var item in categories)
-            {
-                Console.WriteLine($"{item.Name}");
-            }
-
-        }
-
         public static List<Category> QShowAllCategories() //Visa ALLA kategorier
         {
             using var db = new Data.Context();
@@ -142,17 +119,6 @@ namespace Grupp1Webshop
             using var db = new Data.Context();
             var user = db.Users.FirstOrDefault(c => c.Id == userId);
             return user;
-        }
-
-        public List<Product> QSearchedProducts(string searchString)
-        {
-            using (var db = new Context())
-            {
-                var products = from p in db.Products
-                               where p.Name.Contains(searchString) || p.Description.Contains(searchString)
-                               select p;
-                return products.ToList();
-            }
         }
 
         internal static SearchResult SearchProduct(string searchString)

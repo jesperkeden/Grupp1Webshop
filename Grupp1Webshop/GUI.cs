@@ -14,12 +14,6 @@ namespace Grupp1Webshop
 {
     internal class GUI
     {
-        public static void PrintMenuText(List<string> text)
-        {
-            foreach (string line in text)
-                Console.WriteLine(line);
-        }
-
         internal static void MessageBox(string header, int positionX, int PositionY, List<string> message)
         {
             int sizeX = Helpers.GetLengthOfStringInList(message) + 3;
@@ -60,11 +54,6 @@ namespace Grupp1Webshop
             Console.CursorLeft = positionX;
         }
 
-        internal static void PrintCreateMenu()
-        {
-
-        }
-
         internal static void PrintMenu(string header, int positionX, int PositionY, int index, List<string> text)
         {
             for (int i = 0; i < text.Count; i++)
@@ -102,18 +91,6 @@ namespace Grupp1Webshop
             }
             
             Console.SetCursorPosition(0, index);
-        }
-
-        internal static void PrintMenuWithNumbers(string header, int positionX, int PositionY, int index, List<string> text)
-        {
-            for (int i = 0; i < text.Count; i++)
-            {
-                Console.SetCursorPosition(positionX, PositionY + i);
-                if (i == index)
-                    Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(i + 1 + " " + text[i]);
-                Console.ResetColor();
-            }
         }
 
         internal static void WriteString(string v)

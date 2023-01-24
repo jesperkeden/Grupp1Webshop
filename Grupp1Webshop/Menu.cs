@@ -445,7 +445,6 @@ namespace Grupp1Webshop
                 {
                     GUI.WriteStringAtLocation(basketInfo[i], 50, 2 + i);
                 }
-                Console.Clear();
                 index = Menu.EditMenu(basketMenuList);
                 Console.Clear();
                 if (index == 0) productMenu = true;

@@ -15,11 +15,6 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
-        //public Product()
-        //{
-        //    Orders = new HashSet<Order>();
-        //}
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -34,7 +29,6 @@ namespace Grupp1Webshop.Models
         public int CategoryId { get; set; }
         public Supplier? Supplier { get; set; }
         public int SupplierId { get; set; }
-        //public virtual ICollection<Order> Orders { get; set; }
         public List<OrderProduct> Orders { get; set; }
 
 

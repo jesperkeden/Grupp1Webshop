@@ -164,18 +164,6 @@ namespace Grupp1Webshop
             return categories;
         }
 
-        internal static List<string> ConvertProductsListToStringList(List<Product> products)
-        {
-            var productNames = products.Select(x => x.Name);
-            return new List<string>(productNames);
-        }
-
-        internal static List<string> ConvertProductListToStringList(List<Product> products)
-        {
-            var productsNames = products.Select(x => x.Name);
-            return new List<string>(productsNames);
-        }
-
         internal static List<string> ConvertClassListToStringList(List<User> users)
         {
             List<string> usersNames = new List<string>();
