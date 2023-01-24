@@ -32,6 +32,9 @@ namespace Grupp1Webshop
             //AddDbData.AddProductFromNewProduct();
 
 
+
+
+            //AddDbData.Addorders();
         }
     }
 }

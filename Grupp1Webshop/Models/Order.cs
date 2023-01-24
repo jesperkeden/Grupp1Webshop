@@ -135,11 +135,11 @@ namespace Grupp1Webshop.Models
                     GUI.WriteStringAtLocation(basketInfo[i], 50, 2 + i);
                 }
                 int counting = 0;
-                //foreach ( Product product in order.Products)
-                //{
-                //    counting++;
-                //    GUI.WriteStringAtLocation(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4), 1, counting);
-                //}
+                foreach (Product product in order.Products)
+                {
+                    counting++;
+                    GUI.WriteStringAtLocation(product.Name.PadRight(40) + "Price: " + product.UnitPrice.ToString().PadRight(7) + "Color: " + product.Color.PadRight(18) + "Size: " + product.Size.PadRight(4), 1, counting);
+                }
 
                 Console.ReadLine();
             }
@@ -156,7 +156,8 @@ namespace Grupp1Webshop.Models
                 Console.ReadKey();
                 return;
             }
-            int index = Menu.EditMenu(Helpers.ConvertClassListToStringList(orders));
+            List<OrderProduct> products = new List<OrderProduct>();
+            int index = Menu.EditMenu(Helpers.ConvertClassListToStringList(orders, 5));
             Receipt(orders[index], Helpers.GetBasketInfoList(orders[index]));
         }
     }

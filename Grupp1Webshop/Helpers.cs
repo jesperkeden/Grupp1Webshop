@@ -126,6 +126,12 @@ namespace Grupp1Webshop
             return users;
         }
 
+        internal static List<string> ConvertClassListToStringList(List<Product> Products)
+        {
+            var ProductsNames = Products.Select(x => x.Name);
+            return new List<string>(ProductsNames);
+        }
+
         internal static List<string> ConvertClassListToStringList(List<Supplier> suppliers)
         {
             var suppliersNames = suppliers.Select(x => x.Name);
@@ -136,16 +142,6 @@ namespace Grupp1Webshop
         {
             var categoriesNames = categories.Select(x => x.Name);
             return new List<string>(categoriesNames);
-        }
-
-        internal static List<string> ConvertClassListToStringList(List<Order> orders)
-        {
-            List<string> orderNameList = new List<string>();
-            foreach(Order order in orders)
-            {
-                orderNameList.Add(order.Id + "\tCost: " + order.TotalCost + "\tNumber of products: ");
-            }
-            return orderNameList;
         }
 
         internal static List<Category> GetCategoriesFromDb()
@@ -306,6 +302,14 @@ namespace Grupp1Webshop
             }
             GUI.MessageBox("Featured Products!", 50, 2, productListStrings);
         }
+
+        //internal static void GetSearchedProduct()
+        //{
+
+        //    //Input.Ge
+        //    //Querys.QSearchedProducts();
+        //}
+
 
         public static List<Product> Search()
         {
