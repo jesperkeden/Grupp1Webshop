@@ -126,12 +126,6 @@ namespace Grupp1Webshop
             return users;
         }
 
-        internal static List<string> ConvertClassListToStringList(List<Product> Products)
-        {
-            var ProductsNames = Products.Select(x => x.Name);
-            return new List<string>(ProductsNames);
-        }
-
         internal static List<string> ConvertClassListToStringList(List<Supplier> suppliers)
         {
             var suppliersNames = suppliers.Select(x => x.Name);
@@ -312,14 +306,6 @@ namespace Grupp1Webshop
             }
             GUI.MessageBox("Featured Products!", 50, 2, productListStrings);
         }
-
-        //internal static void GetSearchedProduct()
-        //{
-
-        //    //Input.Ge
-        //    //Querys.QSearchedProducts();
-        //}
-
 
         public static List<Product> Search()
         {

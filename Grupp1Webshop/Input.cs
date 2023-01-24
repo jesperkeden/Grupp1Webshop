@@ -40,7 +40,6 @@ namespace Grupp1Webshop
             while(getBool != "True" && getBool != "False")
             {
                 getBool = GetStringFirstUpperInput(positionX);
-                //GUI.OverWriteWithSpaces(getBool.Length, positionX);
             }
             return getBool;
         }
@@ -72,11 +71,7 @@ namespace Grupp1Webshop
                 if (key.Key == ConsoleKey.Enter) break;
                 else if (key.Key == ConsoleKey.Escape) return "Empty";
                 else if (key.Key == ConsoleKey.Backspace && savedInput.Length != 0) savedInput = savedInput.Remove(savedInput.Length - 1);
-                else if (savedInput.Length >= (maxLength - startPositionX))
-                {
-                    //GUI.OverWriteWithSpaces(savedInput.Length + 1, startPositionX);
-                    //savedInput = "";
-                }
+                else if (savedInput.Length >= (maxLength - startPositionX));
                 else if (Char.IsLetterOrDigit(key.KeyChar) || Char.IsPunctuation(key.KeyChar) || Char.IsSeparator(key.KeyChar))
                     savedInput += key.KeyChar.ToString();
             }
