@@ -31,11 +31,11 @@ namespace Grupp1Webshop
             //-----------------------------------
             //Metoder i korrekt ordning för att fylla på DB
             //-----------------------------------
-            //AddDbData.AddCategories();
-            //AddDbData.AddCities();
-            //AddDbData.AddSupplier();
-            //AddDbData.AddUsers();
-            //AddDbData.AddProductFromNewProduct();
+            AddDbData.AddCategories();
+            AddDbData.AddCities();
+            AddDbData.AddSupplier();
+            AddDbData.AddUsers();
+            AddDbData.AddProductFromNewProduct();
 
 
         }

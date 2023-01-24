@@ -108,5 +108,33 @@ namespace Grupp1Webshop
             var orderList = db.Orders.Where(d => d.User == user).ToList();
             return orderList;
         }
+
+        public static string QGetSelectedCityString(int cityId)
+        {
+            using var db = new Data.Context();
+            var city = db.Cities.FirstOrDefault(c => c.Id == cityId);
+            return city.Name;
+        }
+
+        internal static string QGetSelectedSupplierString(int supplierId)
+        {
+            using var db = new Data.Context();
+            var supplier = db.Suppliers.FirstOrDefault(c => c.Id == supplierId);
+            return supplier.Name;
+        }
+
+        internal static string QGetSelectedCategoryString(int categoryId)
+        {
+            using var db = new Data.Context();
+            var category = db.Categories.FirstOrDefault(c => c.Id == categoryId);
+            return category.Name;
+        }
+
+        public static User QGetSelectedUser(int userId)
+        {
+            using var db = new Data.Context();
+            var user = db.Users.FirstOrDefault(c => c.Id == userId);
+            return user;
+        }
     }
 }

@@ -20,8 +20,9 @@ namespace Grupp1Webshop
         enum UserChoice
         {
             ProductMenu,
+            EditYourProfile,
             AdminMenu,
-            GoToPrevious
+            LogOut
         }
         enum AdminChoice
         {
@@ -41,8 +42,7 @@ namespace Grupp1Webshop
             Products,
             ShoppingCart,
             OrderHistory,
-            EditYourProfile,
-            Logout,
+            GoToPrevious,
         }
         enum ProductPortalChoice
         {
@@ -99,11 +99,14 @@ namespace Grupp1Webshop
                     case UserChoice.ProductMenu:
                         CustomerPortal(user);
                         break;
+                    case UserChoice.EditYourProfile:
+                        User.EditUser(Querys.QGetSelectedUser(user.Id), Security.CheckAdminPrivileges(user));
+                        break;
                     case UserChoice.AdminMenu:
                         if (Security.CheckAdminPrivileges(user))
                             Menu.AdminMainMenu();
                         break;
-                    case UserChoice.GoToPrevious:
+                    case UserChoice.LogOut:
                         running = false;
                         break;
                 }
@@ -116,8 +119,9 @@ namespace Grupp1Webshop
             List<string> customerMainMenuText = new List<string>
             {
                 $"{Helpers.ConvertEnumSpacesToString(UserChoice.ProductMenu.ToString())}",
+                $"{Helpers.ConvertEnumSpacesToString(UserChoice.EditYourProfile.ToString())}",
                 $"{Helpers.ConvertEnumSpacesToString(UserChoice.AdminMenu.ToString())}",
-                $"{Helpers.ConvertEnumSpacesToString(UserChoice.GoToPrevious.ToString())}"
+                $"{Helpers.ConvertEnumSpacesToString(UserChoice.LogOut.ToString())}"
             };
             return Menu.EditMenu(customerMainMenuText);
         }
@@ -203,12 +207,8 @@ namespace Grupp1Webshop
                     case CustomerPortalChoice.OrderHistory:
                         Order.OrderHistory(user);
                         break;
-                    case CustomerPortalChoice.EditYourProfile:
-                        User.EditUser(user, Security.CheckAdminPrivileges(user));
-                        break;
-                    case CustomerPortalChoice.Logout:
+                    case CustomerPortalChoice.GoToPrevious:
                         running = false;
-                        //logout metod, confirm y/n f�r att logga ut och s�nd tillbaka till mainmenu
                         break;
                 }
             }
@@ -222,8 +222,7 @@ namespace Grupp1Webshop
                 $"{CustomerPortalChoice.Products}",
                 $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.ShoppingCart.ToString())}",
                 $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.OrderHistory.ToString())}",
-                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.EditYourProfile.ToString())}",
-                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.Logout.ToString())}"
+                $"{Helpers.ConvertEnumSpacesToString(CustomerPortalChoice.GoToPrevious.ToString())}"
             };
             return Menu.EditMenu(CustomerPortalText);
         }
@@ -298,6 +297,7 @@ namespace Grupp1Webshop
             Console.Clear();
             return index;
         }
+
         internal static int EditMenu(List<string> firstCollumn, List<string> secondCollumn, int firstColumnPositionX, int secondColumnPositionX, int positionY, int index)
         {
             Console.Clear();
@@ -319,6 +319,7 @@ namespace Grupp1Webshop
 
             return index;
         }
+
         internal static int ProductMenu(List<Product> products, string info , int index)
         {
             List<string> list = new List<string>();

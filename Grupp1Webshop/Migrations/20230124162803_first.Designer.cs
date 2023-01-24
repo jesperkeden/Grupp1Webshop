@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grupp1Webshop.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230120110843_namnpåmigration")]
-    partial class namnpåmigration
+    [Migration("20230124162803_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

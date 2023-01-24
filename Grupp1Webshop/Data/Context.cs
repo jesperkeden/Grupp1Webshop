@@ -23,7 +23,8 @@ namespace Grupp1Webshop.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server = tcp:myserverjesper.database.windows.net, 1433; Initial Catalog = grupp1webshop; Persist Security Info = False; User ID = jesperadmin; Password = !jespersystem22; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+            //optionsBuilder.UseSqlServer(@"Server = tcp:myserverjesper.database.windows.net, 1433; Initial Catalog = grupp1webshop; Persist Security Info = False; User ID = jesperadmin; Password = !jespersystem22; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+            optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Grupp1Webshop;Trusted_Connection=True;");
         }
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

@@ -23,7 +23,7 @@ namespace Grupp1Webshop
                     LastName = "Forsling",
                     Password = "Banan",
                     Email = "Robinsemail@Gmail.com",
-                    Age = 0,
+                    Age = 20,
                     PhoneNumber = "0737785364",
                     StreetAdress = "S:T Annegatan 17",
                     ZipCode = 61133,
@@ -36,7 +36,7 @@ namespace Grupp1Webshop
                     LastName = "K",
                     Password = "Pass",
                     Email = "JespersMail",
-                    Age = 0,
+                    Age = 20,
                     PhoneNumber = "0737755347",
                     StreetAdress = "NågotIOxelösund",
                     ZipCode = 61122,
@@ -49,7 +49,7 @@ namespace Grupp1Webshop
                     LastName = "Du",
                     Password = "Pass",
                     Email = "EminasMail@Mail.com",
-                    Age = 0,
+                    Age = 20,
                     PhoneNumber = "0722678546",
                     StreetAdress = "EminaBorNågonstans i stan",
                     ZipCode = 61131,
@@ -210,6 +210,7 @@ namespace Grupp1Webshop
             Console.WriteLine("Suppliers added");
 
         }
+
         internal static void AddCities()
         {
             using var db = new Context();

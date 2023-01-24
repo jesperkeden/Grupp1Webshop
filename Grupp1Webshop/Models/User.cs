@@ -45,7 +45,7 @@ namespace Grupp1Webshop.Models
             EditUser(new User(), isAdmin);
         }
 
-        internal static int GetProductChoice(List<User> model)
+        internal static int GetUserChoice(List<User> model)
         {
             if (model.Count < 1)
             {
@@ -59,7 +59,7 @@ namespace Grupp1Webshop.Models
         internal static void UpdateUser(bool isAdmin)
         {
             List<User> users = Helpers.GetUsersFromDb();
-            int index = GetProductChoice(users);
+            int index = GetUserChoice(users);
             if (index != -1)
             {
                 EditUser(users[index], isAdmin);
@@ -69,7 +69,7 @@ namespace Grupp1Webshop.Models
         internal static void RemoveUser()
         {
             List<User> users = Helpers.GetUsersFromDb();
-            int index = GetProductChoice(users);
+            int index = GetUserChoice(users);
             if (index != -1)
             {
                 Helpers.DeleteModel(users[index]);

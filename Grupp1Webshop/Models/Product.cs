@@ -15,10 +15,10 @@ namespace Grupp1Webshop.Models
 {
     internal class Product
     {
-        //public Product() 
-        //{
-        //    Orders = new HashSet<Order>();
-        //}
+        public Product()
+        {
+            Orders = new HashSet<Order>();
+        }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -32,7 +32,8 @@ namespace Grupp1Webshop.Models
         public Category Category { get; set; }
         public int CategoryId { get; set; }
         public Supplier? Supplier { get; set; }
-        public Order? Order { get; set; }
+        public int SupplierId { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
 
         internal static void CreateProduct()
@@ -48,7 +49,7 @@ namespace Grupp1Webshop.Models
                 Console.ReadKey();
                 return -1;
             }
-            return Menu.EditMenu(Helpers.ConvertClassListToStringList(model));
+            return Menu.ProductMenu(model, "Pick a product to edit", 0);
         }
 
         internal static void UpdateProduct()
@@ -84,24 +85,29 @@ namespace Grupp1Webshop.Models
             int positionY = 2;
 
             int index = 0;
+            int indexCorrection = 0;
 
             //Edit prop values
             while (true)
             {
                 index = Menu.EditMenu(firstColumn, secondColumn, firstColumnPositionX, secondColumnPositionX, positionY, index);
+                indexCorrection = index;
 
                 if (index == 0) SaveProduct(secondColumn, model);
                 else if (index == secondColumn.Count) break;
+                if (index == 9) indexCorrection++;
 
                 GUI.OverWriteWithSpaces(secondColumn[index].Length, secondColumnPositionX, (positionY + index));
-                secondColumn[index] = GetValueInput(properties[index], secondColumnPositionX, secondColumn[index]);
+                secondColumn[index] = GetValueInput(properties[indexCorrection], secondColumnPositionX, secondColumn[index]);
             }
         }
 
         private static void SaveProduct(List<string> secondColumn, Product product)
         {
+            List<string> tempProductList = new List<string>(secondColumn);
+            tempProductList.RemoveAt(7);
             string saveOutput = "";
-            if (Helpers.ColumnValueEmpty(secondColumn))
+            if (Helpers.ColumnValueEmpty(tempProductList))
                 saveOutput = "Could not save values, some values are empty";
             else
             {
@@ -116,13 +122,15 @@ namespace Grupp1Webshop.Models
                     else product = dbProduct;
 
                     product.Name = secondColumn[1];
-                    string categoryFromColumn = secondColumn[2];
-                    product.Color = secondColumn[3];
-                    product.Size = secondColumn[4];
-                    product.Quantity = Convert.ToInt32(secondColumn[5]);
+                    product.Color = secondColumn[2];
+                    product.Size = secondColumn[3];
+                    product.Quantity = Convert.ToInt32(secondColumn[4]);
+                    product.Description = secondColumn[5];
                     product.UnitPrice = Convert.ToDouble(secondColumn[6]);
-                    string supplierFromColumn = secondColumn[8];
-                    product.Description = secondColumn[9];
+                    product.UnitSold = Convert.ToInt32(secondColumn[7]);
+                    string categoryFromColumn = secondColumn[8];
+                    string supplierFromColumn = secondColumn[9];
+
 
                     var dbCategories = db.Categories;
                     Category dbCategory = dbCategories.ToList().SingleOrDefault(a => a.Name == categoryFromColumn);
@@ -171,7 +179,8 @@ namespace Grupp1Webshop.Models
                     value = Input.GetStringFirstUpperInput(positionX);
                     break;
                 case nameof(Quantity):
-                    value = Input.GetIntAsStringInput(0, 100, positionX);
+                case nameof(UnitSold):
+                    value = Input.GetIntAsStringInput(0, 9999, positionX);
                     break;
                 case nameof(UnitPrice):
                     value = Input.GetDoubleAsStringInput(positionX);

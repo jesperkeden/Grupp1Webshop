@@ -64,15 +64,26 @@ namespace Grupp1Webshop
 
             foreach (PropertyInfo property in properties)
             {
-                if (!property.Name.EndsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products"))
+                if (!property.Name.StartsWith("Id") && !property.Name.StartsWith("Order") && !property.Name.EndsWith("Products"))
                 {
                     object value = model.GetType().GetProperty(property.Name).GetValue(model, null);
+                    if (property.Name.EndsWith("CityId"))
+                    {
+                        value = Querys.QGetSelectedCityString(Convert.ToInt32(value));
+                        propertyValues.RemoveAt(propertyValues.Count - 1);
+                    }
+                    else if (property.Name.EndsWith("SupplierId"))
+                    {
+                        value = Querys.QGetSelectedSupplierString(Convert.ToInt32(value));
+                        propertyValues.RemoveAt(propertyValues.Count - 1);
+                    }
+                    else if (property.Name.EndsWith("CategoryId"))
+                    {
+                        value = Querys.QGetSelectedCategoryString(Convert.ToInt32(value));
+                        propertyValues.RemoveAt(propertyValues.Count - 1);
+                    }
                     if (value != null)
                         propertyValues.Add(value.ToString());
-                    //else if (model.GetType().GetProperty(property.Name))
-                    //{
-
-                    //}
                     else
                         propertyValues.Add("Empty");
                 }

@@ -37,7 +37,7 @@ namespace Grupp1Webshop
             {
                 output += ex.Message;
             }
-            if (user == null) 
+            if (user == null || user.Id == 0) 
             {
                 Console.WriteLine(output);
                 Console.ReadLine();
