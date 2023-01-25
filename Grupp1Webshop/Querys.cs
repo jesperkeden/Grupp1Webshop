@@ -15,46 +15,51 @@ namespace Grupp1Webshop
         internal static void QBestselling() // bästsäljande produkter
         {
             using var db = new Data.Context();
-            var products = Helpers.GetProductsFromDb();
-            var result = products
-                .Take(3)
-                .OrderBy(p => p.UnitSold)
-                .ToList();
-            Console.WriteLine("Top 3 Bestselling Products");
+
+            var query = db.Products.OrderByDescending(p => p.UnitSold).Take(3);
+            var result = query.ToList();
+                        
+
+            Console.WriteLine("---------Top 3 Bestselling Products-----------");
             foreach (var product in result)
             {
                 Console.WriteLine($"{product.Name} has been sold {product.UnitSold} times.");
             }
 
         }
+
         internal static void QAges()
         {
             using var db = new Data.Context();
             var users = Helpers.GetUsersFromDb();
 
-            int min = users.Min(p => p.Age);
-            int max = users.Max(p => p.Age);
-            Console.WriteLine("Young vs. Old");
-            Console.WriteLine();
-            Console.WriteLine("Our youngest customer is {0} years old.", min);
-            Console.WriteLine();
-            Console.WriteLine("Our oldest customer is {0} years old.", max);
+            var query = db.Users.Select(u => u.Age);
+            var avgAge = query.Average();
+            var minAge = query.Min();
+            var maxAge = query.Max();
+
+            Console.WriteLine("\n\n------------Young vs. Old------------");
+            Console.WriteLine("Our youngest customer is {0} years old.", minAge);
+            Console.WriteLine("Our oldest customer is {0} years old.", maxAge);
+            Console.WriteLine("Our average customer age is {0}.", avgAge.ToString("0.00"));
 
         }
 
         internal static void QTopFiveExpensiveProduct()
         {
             using var db = new Data.Context();
-            var products = Helpers.GetProductsFromDb();
-            var result = products
-                .Take(5)
-                .OrderBy(p => p.UnitPrice)
-                .ToList();
-            Console.WriteLine("Top 5 Most Expensive Products");
-            Console.WriteLine();
+
+            var query = from p in db.Products
+                        group p by p.CategoryId
+                        into c
+                        select c.OrderByDescending(p => p.UnitPrice).FirstOrDefault();
+
+            var result = query.ToList();
+
+            Console.WriteLine("\n\n------Most Expensive Products Per Category.---------");
             foreach (var product in result)
             {
-                Console.WriteLine($"{product.Name} costs {product.UnitPrice} SEK.");
+                Console.WriteLine($"Category ID: {product.CategoryId}\t{product.Name} costs {product.UnitPrice} SEK.");
             }
         }
 
@@ -98,6 +103,7 @@ namespace Grupp1Webshop
         {
             using var db = new Data.Context();
             var city = db.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (city == null) return null;
             return city.Name;
         }
 
@@ -105,6 +111,7 @@ namespace Grupp1Webshop
         {
             using var db = new Data.Context();
             var supplier = db.Suppliers.FirstOrDefault(c => c.Id == supplierId);
+            if (supplier == null) return null;
             return supplier.Name;
         }
 
@@ -112,6 +119,7 @@ namespace Grupp1Webshop
         {
             using var db = new Data.Context();
             var category = db.Categories.FirstOrDefault(c => c.Id == categoryId);
+            if (category == null) return null;
             return category.Name;
         }
 

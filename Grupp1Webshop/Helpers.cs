@@ -331,7 +331,6 @@ namespace Grupp1Webshop
         {
             Console.Clear();
             Querys.QBestselling();
-            Console.WriteLine();
             Querys.QAges();
             Querys.QTopFiveExpensiveProduct();
             Console.ReadLine();

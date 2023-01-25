@@ -31,14 +31,14 @@ namespace Grupp1Webshop
                 {
                     Admin = true,
                     FirstName = "Jesper",
-                    LastName = "K",
-                    Password = "Pass",
+                    LastName = "Keden",
+                    Password = "pw",
                     Email = "JespersMail",
-                    Age = 27,
+                    Age = 33,
                     PhoneNumber = "0737755347",
                     StreetAdress = "NågotIOxelösund",
                     ZipCode = 61122,
-                    CityId = 2
+                    CityId = 4
                 },
                 new User()
                 {
@@ -52,6 +52,19 @@ namespace Grupp1Webshop
                     StreetAdress = "EminaBorNågonstans i stan",
                     ZipCode = 61131,
                     CityId = 3
+                },
+                new User()
+                {
+                    Admin = true,
+                    FirstName = "Micke",
+                    LastName = "Engström",
+                    Password = "micke",
+                    Email = "MickesMail@Mail.com",
+                    Age = 50,
+                    PhoneNumber = "0722748546",
+                    StreetAdress = "Lilla Allmänna Gränd 9",
+                    ZipCode = 11521,
+                    CityId = 2
                 });
 
             db.SaveChanges();
@@ -217,7 +230,7 @@ namespace Grupp1Webshop
                 new City() { Name = "Nyköping" },
                 new City() { Name = "Stockholm" },
                 new City() { Name = "Göteborg" },
-                new City() { Name = "Malmö" }
+                new City() { Name = "Oxelösund" }
 
              );
 

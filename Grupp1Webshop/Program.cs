@@ -32,7 +32,7 @@ namespace Grupp1Webshop
             //AddDbData.AddProductFromNewProduct();
 
 
-
+            // existerar inte
             //AddDbData.Addorders();
         }
     }

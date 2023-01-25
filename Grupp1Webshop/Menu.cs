@@ -420,6 +420,9 @@ namespace Grupp1Webshop
                     }
 
                     basket.RemoveAt(index);
+                    index--;
+                    if (index < 0)
+                        index++;
                     Console.Clear();
                 }
 
