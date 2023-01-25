@@ -144,6 +144,16 @@ namespace Grupp1Webshop
             return new List<string>(categoriesNames);
         }
 
+        internal static List<string> ConvertClassListToStringList(List<Order> orders)
+        {
+            List<string> orderNameList = new List<string>();
+            for (int i = 0; i < orders.Count; i++)
+            {
+                orderNameList.Add(orders[i].Id + "\tCost: " + orders[i].TotalCost + "\tNumber of products: " + Querys.GetProductsFromOrder(i+1).Count);
+            }
+            return orderNameList;
+        }
+
         internal static List<Category> GetCategoriesFromDb()
         {
             List<Category> categories = new List<Category>();
@@ -240,7 +250,7 @@ namespace Grupp1Webshop
             int choice = 0;
             while (true)
             {
-                choice = Menu.ProductMenu(productsTemp, "Press enter to add product to basket\t B = Back\t S = Search", choice);
+                choice = Menu.ProductMenu(productsTemp, "Press enter to add product to basket\t B = Back\t S = Search", choice, true);
                 if (choice == -1) break;
                 else if (choice == -2)
                 {
@@ -249,11 +259,11 @@ namespace Grupp1Webshop
                     if (productsTemp.Count == 0)
                         BuyProducts(products, basket);
                 }
-                else if (products[choice].Quantity < 1) ;
+                else if (productsTemp[choice].Quantity <= 0) ;
                 else
                 {
-                    basket.Add(products[choice]);
-                    products[choice].Quantity--;
+                    basket.Add(productsTemp[choice]);
+                    productsTemp[choice].Quantity--;
                 }
             }
             return basket;
@@ -283,7 +293,7 @@ namespace Grupp1Webshop
         internal static List<string> GetBasketInfoList(Order order)
         {
             List<string> basketInfo = new List<string>();
-            basketInfo.Add("Products in basket:".PadRight(30) + order.Products.Count.ToString());
+            basketInfo.Add("Products in basket:".PadRight(30) + Querys.GetProductsFromOrder(order.Id).Count);
             basketInfo.Add("Price of products in basket:".PadRight(30) + (order.TotalCost - order.ShippingCost) + " kr");
             basketInfo.Add("Shipping:".PadRight(30) + order.Shipping);
             basketInfo.Add("Shipping Cost:".PadRight(30) + order.ShippingCost + " kr");
@@ -295,6 +305,7 @@ namespace Grupp1Webshop
         internal static void ShowSelectedProducts()
         {
             List<Product> productList = Querys.QGetSelectedProductsForWelcomScreen();
+            if (productList.Count == 0) return;
             List<String> productListStrings = new List<String>();
             foreach (Product product in productList)
             {
@@ -303,19 +314,11 @@ namespace Grupp1Webshop
             GUI.MessageBox("Featured Products!", 50, 2, productListStrings);
         }
 
-        //internal static void GetSearchedProduct()
-        //{
-
-        //    //Input.Ge
-        //    //Querys.QSearchedProducts();
-        //}
-
-
         public static List<Product> Search()
         {
             Console.Clear();
             GUI.WriteString("Enter search string:");
-            SearchResult searchResult = Querys.SearchProduct(Input.GetStringWithMaxLength(22));
+            SearchResult searchResult = Querys.SearchProduct(Input.GetStringWithMaxLength(0));
             if (!string.IsNullOrEmpty(searchResult.Message))
             {
                 GUI.WriteString(searchResult.Message);

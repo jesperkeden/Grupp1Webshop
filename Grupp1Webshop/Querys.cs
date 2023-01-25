@@ -1,6 +1,7 @@
 ﻿using Grupp1Webshop.Data;
 using Grupp1Webshop.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,6 +138,30 @@ namespace Grupp1Webshop
                     result.Message = "You'r search returned no results";
                 }
                 return result;
+            }
+        }
+
+        internal static List<T> GetProductCountFromOrder<T>()
+        {
+            using (var db = new Context())
+            {
+                var query = from op in db.OrderProducts
+                            group op by op.OrderId into g
+                            select new { OrderId = g.Key, ProductCount = g.Count() };
+                var result = query;
+                return result.Cast<T>().ToList();
+            }
+        }
+
+        public static List<Product> GetProductsFromOrder(int orderId)
+        {
+            using (var db = new Context())
+            {
+                var query = from op in db.OrderProducts
+                            where op.OrderId == orderId
+                            join p in db.Products on op.ProductId equals p.Id
+                            select p;
+                return query.ToList();
             }
         }
     }

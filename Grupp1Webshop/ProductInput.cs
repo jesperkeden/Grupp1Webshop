@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grupp1Webshop
 {
-    internal class ProductImput
+    internal class ProductInput
     {
 
         public static List<Models.Product> Products { get; set; }
@@ -297,7 +297,8 @@ namespace Grupp1Webshop
                         UnitPrice= 199.00,
                         CategoryId = 0,
                         Description = "A calf-length dress in soft leotard. The dress is V-necked and has wrap in the front with wide tie ties in one side and narrow, hidden ties in the other side. Slightly downsized shoulder and long balloon sleeve with narrow elastic at the cuff. Unlined.",
-                        Quantity=rnd.Next(5, 50)
+                        Quantity=rnd.Next(5, 50),
+                        SelectedForWelcomeScreen = true
                     },
                     new Product()
                     {
@@ -1717,7 +1718,8 @@ namespace Grupp1Webshop
                         UnitPrice= 299.00,
                         CategoryId = 1,
                         Description = "Chunky-soled boots in imitation leather with an ankle-height shaft, lacing at the front and a loop at the back. Imitation leather insoles. Heel 3 cm.",
-                        Quantity=rnd.Next(5, 50)
+                        Quantity=rnd.Next(5, 50),
+                        SelectedForWelcomeScreen = true
                     },
                     new Product()
                     {
@@ -2197,7 +2199,8 @@ namespace Grupp1Webshop
                         UnitPrice = 399.00,
                         CategoryId = 3,
                         Description = "A short, figure-close skirt in textured bouclé yarn with hints of cotton. The skirt has French accents, slanted side pockets, hidden zipper in one side and slits at the bottom at the front. Lined.",
-                        Quantity =rnd.Next(5, 50)
+                        Quantity =rnd.Next(5, 50),
+                        SelectedForWelcomeScreen = true
                     },
                     new Product()
                     {

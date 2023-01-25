@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grupp1Webshop.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230124201639_first")]
-    partial class first
+    [Migration("20230125005321_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,29 @@ namespace Grupp1Webshop.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("Grupp1Webshop.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProducts");
+                });
+
             modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -117,6 +140,9 @@ namespace Grupp1Webshop.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<bool>("SelectedForWelcomeScreen")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Size")
                         .IsRequired()
@@ -232,21 +258,6 @@ namespace Grupp1Webshop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct");
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
                 {
                     b.HasOne("Grupp1Webshop.Models.User", "User")
@@ -256,6 +267,25 @@ namespace Grupp1Webshop.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.OrderProduct", b =>
+                {
+                    b.HasOne("Grupp1Webshop.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Grupp1Webshop.Models.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
@@ -299,21 +329,6 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("Grupp1Webshop.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Grupp1Webshop.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Grupp1Webshop.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -324,6 +339,16 @@ namespace Grupp1Webshop.Migrations
                     b.Navigation("Supplier");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.Order", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Grupp1Webshop.Models.Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Grupp1Webshop.Models.Supplier", b =>

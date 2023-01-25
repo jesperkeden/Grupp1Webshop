@@ -45,7 +45,7 @@ namespace Grupp1Webshop.Models
                 Console.ReadKey();
                 return -1;
             }
-            return Menu.ProductMenu(model, "Pick a product to edit", 0);
+            return Menu.ProductMenu(model, "Pick a product to edit", 0, false);
         }
 
         internal static void UpdateProduct()

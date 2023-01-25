@@ -326,11 +326,10 @@ namespace Grupp1Webshop
             return index;
         }
 
-        internal static int ProductMenu(List<Product> products, string info , int index)
+        internal static int ProductMenu(List<Product> products, string info , int index, bool canSearch)
         {
             List<string> list = new List<string>();
             int positionX = 3;
-            //int index = 0;
             int middle = 20;
             int writeFrom = index;
             int writeTo = index + 20;
@@ -369,7 +368,7 @@ namespace Grupp1Webshop
                     writeTo--;
                 }
                 else if (keyPressed.Key == ConsoleKey.B || keyPressed.Key == ConsoleKey.Escape) return -1;
-                else if (keyPressed.Key == ConsoleKey.S) return -2;
+                else if (keyPressed.Key == ConsoleKey.S && canSearch) return -2;
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.CursorVisible = true;
 
@@ -413,9 +412,13 @@ namespace Grupp1Webshop
                 {
                     if (basket.Count == 0)
                         break;
-                    index = Menu.ProductMenu(basket, "Enter = Remove product\t B = Back", index);
-                    if (index == -1)
+                    index = Menu.ProductMenu(basket, "Enter = Remove product\t B = Back", index, false);
+                    if (index == -1) 
+                    { 
+                        Console.Clear();
                         break;
+                    }
+
                     basket.RemoveAt(index);
                     Console.Clear();
                 }
@@ -449,6 +452,11 @@ namespace Grupp1Webshop
                 Console.Clear();
                 if (index == 0) productMenu = true;
                 else if (index == 1 && basket.Count != 0) Order.Receipt(Order.PayOrder(user, basket, order), basketInfo);
+                if (order.HasPayed)
+                {
+                    basket.Clear();
+                    break;
+                }
             } while (index != basketMenuList.Count - 1);
             return basket;
         }

@@ -4,7 +4,7 @@
 
 namespace Grupp1Webshop.Migrations
 {
-    public partial class first : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,6 +100,7 @@ namespace Grupp1Webshop.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UnitPrice = table.Column<double>(type: "float", nullable: false),
                     UnitSold = table.Column<int>(type: "int", nullable: false),
+                    SelectedForWelcomeScreen = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -145,33 +146,40 @@ namespace Grupp1Webshop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderProduct",
+                name: "OrderProducts",
                 columns: table => new
                 {
-                    OrdersId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProduct", x => new { x.OrdersId, x.ProductsId });
+                    table.PrimaryKey("PK_OrderProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderProduct_Orders_OrdersId",
-                        column: x => x.OrdersId,
+                        name: "FK_OrderProducts_Orders_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_OrderProduct_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_OrderProducts_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProduct_ProductsId",
-                table: "OrderProduct",
-                column: "ProductsId");
+                name: "IX_OrderProducts_OrderId",
+                table: "OrderProducts",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_ProductId",
+                table: "OrderProducts",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
@@ -202,7 +210,7 @@ namespace Grupp1Webshop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderProduct");
+                name: "OrderProducts");
 
             migrationBuilder.DropTable(
                 name: "Orders");
