@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Grupp1Webshop.Data;
 namespace Grupp1Webshop
 {
-//    internal class NewProductImput
+//    internal class NewProductInput
 //    {
 //        public static List<Product> Products { get; set; }
 //        public List<Product> GetAllProducts()

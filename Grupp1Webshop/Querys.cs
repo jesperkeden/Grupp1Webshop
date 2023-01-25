@@ -12,7 +12,7 @@ namespace Grupp1Webshop
 {
     internal class Querys
     {
-        public static void QBestselling() // bästsäljande produkter
+        internal static void QBestselling() // bästsäljande produkter
         {
             using var db = new Data.Context();
             var products = Helpers.GetProductsFromDb();
@@ -27,7 +27,7 @@ namespace Grupp1Webshop
             }
 
         }
-        public static void QAges()
+        internal static void QAges()
         {
             using var db = new Data.Context();
             var users = Helpers.GetUsersFromDb();
@@ -42,7 +42,7 @@ namespace Grupp1Webshop
 
         }
 
-        public static void QTopFiveExpensiveProduct()
+        internal static void QTopFiveExpensiveProduct()
         {
             using var db = new Data.Context();
             var products = Helpers.GetProductsFromDb();
@@ -58,7 +58,7 @@ namespace Grupp1Webshop
             }
         }
 
-        public static List<Category> QShowAllCategories() //Visa ALLA kategorier
+        internal static List<Category> QShowAllCategories() //Visa ALLA kategorier
         {
             using var db = new Data.Context();
             var categories = Helpers.GetCategoriesFromDb();
@@ -66,35 +66,35 @@ namespace Grupp1Webshop
             return categories;
         }
 
-        public static List<Product> QGetSelectedProducts(int categoryId)
+        internal static List<Product> QGetSelectedProducts(int categoryId)
         {
             using var db = new Data.Context();
             var productList = db.Products.Where(d => d.CategoryId == categoryId).ToList();
             return productList;
         }
 
-        public static List<Product> QGetSelectedProductsForWelcomScreen()
+        internal static List<Product> QGetSelectedProductsForWelcomScreen()
         {
             using var db = new Data.Context();
             var productList = db.Products.Where(d => d.SelectedForWelcomeScreen == true).ToList();
             return productList;
         }
 
-        public static User QGetSelectedUserFromPassword(string firstName, string lastName, string password)
+        internal static User QGetSelectedUserFromPassword(string firstName, string lastName, string password)
         {
             using var db = new Data.Context();
             var user = db.Users.FirstOrDefault(u => u.FirstName == firstName && u.LastName == lastName && u.Password == password);
             return user;
         }
 
-        public static List<Order> QGetSelectedOrder(User user)
+        internal static List<Order> QGetSelectedOrder(User user)
         {
             using var db = new Data.Context();
             var orderList = db.Orders.Where(d => d.User == user).ToList();
             return orderList;
         }
 
-        public static string QGetSelectedCityString(int cityId)
+        internal static string QGetSelectedCityString(int cityId)
         {
             using var db = new Data.Context();
             var city = db.Cities.FirstOrDefault(c => c.Id == cityId);
@@ -115,7 +115,7 @@ namespace Grupp1Webshop
             return category.Name;
         }
 
-        public static User QGetSelectedUser(int userId)
+        internal static User QGetSelectedUser(int userId)
         {
             using var db = new Data.Context();
             var user = db.Users.FirstOrDefault(c => c.Id == userId);
@@ -153,7 +153,7 @@ namespace Grupp1Webshop
             }
         }
 
-        public static List<Product> GetProductsFromOrder(int orderId)
+        internal static List<Product> GetProductsFromOrder(int orderId)
         {
             using (var db = new Context())
             {

@@ -10,13 +10,13 @@ namespace Grupp1Webshop
 {
     internal class Input
     {
-        public static string GetStringFirstUpperInput(int positionX)
+        internal static string GetStringFirstUpperInput(int positionX)
         {
             string phrase = GetStringLowerInput(positionX);
             return char.ToUpper(phrase.First()) + phrase.Substring(1);
         }
 
-        public static int GetDigitInput(int lowerValue, int higherValue, int positionX)
+        internal static int GetDigitInput(int lowerValue, int higherValue, int positionX)
         {
             int digit = 0;
             string prompt = "Input a number between " + lowerValue + " and " + higherValue + ": ";
@@ -83,7 +83,7 @@ namespace Grupp1Webshop
         {
             return GetDoubleInput(0d, positionX).ToString();
         }
-        public static double GetDoubleInput(double lowerValue, int positionX)
+        internal static double GetDoubleInput(double lowerValue, int positionX)
         {
             double value = 0;
             while (!double.TryParse(GetStringWithMaxLength(positionX), out value) || value < lowerValue) ;
